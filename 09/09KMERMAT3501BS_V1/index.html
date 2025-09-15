@@ -179,11 +179,6 @@
             margin-top: auto;
             border-top: 1px solid var(--border-color);
         }
-        
-        .print-footer {
-            display: none;
-        }
-
 
         @media print {
             body { 
@@ -194,11 +189,9 @@
                 min-height: 297mm;
                 height: 100%;
                 margin: 0; 
-                padding: 18mm 25mm 15mm 25mm;
+                padding: 18mm 25mm 30mm 25mm; /* Increased bottom padding for footer space */
                 box-shadow: none; 
                 page-break-after: always;
-                display: flex;
-                flex-direction: column;
             }
             .page:last-child {
                 page-break-after: avoid;
@@ -216,58 +209,19 @@
             }
 
             .page-footer {
-                display: none;
-            }
-
-            .print-footer {
-                display: block;
-                text-align: left;
-                font-size: 7.5pt;
-                color: var(--secondary-text);
-                padding-top: 10px;
-                margin-top: auto;
+                position: fixed;
+                bottom: 15mm;
+                left: 25mm;
+                right: 25mm;
+                width: auto; /* Let the browser calculate width based on left/right */
+                margin-top: 0;
+                padding-top: 5px;
                 border-top: 1px solid var(--border-color);
+                font-size: 7.5pt;
             }
         }
 
     </style>
-     <script>
-        (function() {
-            var beforePrint = function() {
-                var pages = document.querySelectorAll('.page');
-                pages.forEach(function(page) {
-                    var footer = page.querySelector('.page-footer');
-                    if (footer) {
-                        var printFooter = document.createElement('footer');
-                        printFooter.className = 'print-footer';
-                        printFooter.innerHTML = footer.innerHTML;
-                        page.appendChild(printFooter);
-                    }
-                });
-            };
-
-            var afterPrint = function() {
-                var printFooters = document.querySelectorAll('.print-footer');
-                printFooters.forEach(function(footer) {
-                    footer.remove();
-                });
-            };
-
-            if (window.matchMedia) {
-                var mediaQueryList = window.matchMedia('print');
-                mediaQueryList.addListener(function(mql) {
-                    if (mql.matches) {
-                        beforePrint();
-                    } else {
-                        afterPrint();
-                    }
-                });
-            }
-
-            window.onbeforeprint = beforePrint;
-            window.onafterprint = afterPrint;
-        }());
-    </script>
 </head>
 <body>
 
@@ -293,7 +247,7 @@
             <div class="layout-2-kolom">
 
                 <!-- Soal Tipe 1: Pilihan Ganda Biasa -->
-                <div class="soal-latihan"><b>1.</b> Diketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
+                <div class="soal-latihan"><b>1.</b> kDiketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{1, 2, 3, 4\}$</li>
                         <li data-option="B">$\{a, b, c\}$</li>
