@@ -17,7 +17,7 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -49,9 +49,10 @@
 
         .page {
             background: white;
-            width: 210mm;
-            min-height: 297mm;
-            padding: 18mm 25mm 15mm 25mm;
+            width: 21cm;
+            min-height: 29.7cm;
+            /* Menggunakan margin dari permintaan: T:1.8, B:1.5, L/R:2.5 */
+            padding: 1.8cm 2.5cm 1.5cm 2.5cm;
             margin: 1cm auto;
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
             position: relative;
@@ -63,20 +64,21 @@
             counter-increment: page;
             content: counter(page);
             position: absolute;
-            bottom: 10mm;
-            right: 20mm;
+            bottom: 1cm;
+            right: 2.5cm;
             font-size: 8.5pt;
             color: #888;
         }
 
         .page-header {
-            margin: -18mm -25mm 20px -25mm;
-            width: 210mm;
+            /* Disesuaikan agar pas dengan padding baru */
+            margin: -1.8cm -2.5cm 20px -2.5cm;
+            width: 21cm;
         }
 
         .header-top-box {
             background-color: var(--header-top-bg);
-            padding: 10px 25mm;
+            padding: 10px 2.5cm;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -97,7 +99,7 @@
         }
 
         .header-bottom-box {
-            padding: 8px 25mm;
+            padding: 8px 2.5cm;
             text-align: center;
         }
         
@@ -136,6 +138,7 @@
             display: inline-block;
         }
 
+        /* Mengembalikan layout 2 kolom */
         .layout-2-kolom { 
             columns: 2; 
             column-gap: 15mm; 
@@ -154,17 +157,6 @@
         ol.pilihan-ganda { list-style-type: none; padding-left: 20px; margin-top: 10px;}
         ol.pilihan-ganda li { margin-bottom: 8px; }
         ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: bold; margin-right: 5px; }
-
-        .instruksi-soal { 
-            font-style: italic; 
-            font-size: 8.5pt; 
-            color: var(--secondary-text); 
-            margin-bottom: 10px; 
-            background-color: #f9f9f9;
-            border: 1px dashed #ccc;
-            padding: 8px;
-            border-radius: 4px;
-        }
         
         table.soal-kategori { width:100%; border-collapse: collapse; text-align: left; margin-top: 10px; }
         table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; }
@@ -186,11 +178,11 @@
             }
             .page { 
                 width: 100%; 
-                min-height: 297mm;
+                min-height: 29.7cm;
                 height: 100%;
                 margin: 0; 
-                /* Menambahkan padding bawah (lebih lebar) untuk memberi ruang bagi footer */
-                padding: 18mm 25mm 30mm 25mm; 
+                /* Padding disesuaikan dengan margin + ruang ekstra untuk footer */
+                padding: 1.8cm 2.5cm 3cm 2.5cm; 
                 box-shadow: none; 
                 page-break-after: always;
             }
@@ -200,7 +192,7 @@
             
             .page-header {
                 display: block; 
-                margin: -18mm -25mm 20px -25mm;
+                margin: -1.8cm -2.5cm 20px -2.5cm;
                 position: relative;
             }
             
@@ -209,23 +201,21 @@
                 print-color-adjust: exact;
             }
 
-            /* --- PERBAIKAN DI SINI --- */
-            /* Membuat footer muncul di setiap halaman cetak tanpa menimpa konten */
             .page-footer {
                 position: fixed;
-                bottom: 12mm; /* Naikkan posisi dari bawah halaman */
-                left: 25mm;  /* Samakan dengan padding kiri .page */
-                right: 25mm; /* Samakan dengan padding kanan .page */
+                bottom: 1.5cm; /* Sesuai permintaan margin bawah */
+                left: 2.5cm;  /* Sesuai permintaan margin kiri */
+                right: 2.5cm; /* Sesuai permintaan margin kanan */
                 width: auto;
-                
-                /* Hapus/override style yang tidak relevan untuk position:fixed */
                 margin-top: 0; 
-                
-                /* Style visual footer */
                 padding-top: 5px;
                 font-size: 7.5pt;
                 border-top: 1px solid var(--border-color);
-                background: white; /* Penting agar konten di belakangnya tidak terlihat */
+                background: white;
+            }
+            
+             .page::after {
+                bottom: 1cm; /* Posisikan nomor halaman di bawah footer */
             }
         }
 
@@ -234,6 +224,8 @@
 <body>
 
 <div class="page-container">
+
+    <!-- HALAMAN 1 -->
     <section class="page">
         <header class="page-header">
             <div class="header-top-box">
@@ -253,9 +245,8 @@
         <div class="content-wrapper">
             <h2 class="kuis-title">Kuis</h2>
             <div class="layout-2-kolom">
-
                 <!-- Soal Tipe 1: Pilihan Ganda Biasa -->
-                <div class="soal-latihan"><b>1.</b> kDiketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
+                <div class="soal-latihan"><b>1.</b> Diketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{1, 2, 3, 4\}$</li>
                         <li data-option="B">$\{a, b, c\}$</li>
@@ -317,8 +308,34 @@
                         <li data-option="D">11 km</li>
                     </ol>
                 </div>
+            </div>
+        </div>
 
-                <div class="soal-latihan"><b>8.</b> Sebuah persegi panjang memiliki keliling 30 cm. Jika panjangnya adalah $p$ cm, maka fungsi yang menyatakan luasnya, $L(p)$, adalah $L(p) = p(15-p)$. Mengingat konteks fisiknya, domain yang paling mungkin untuk fungsi ini adalah...
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+    </section>
+
+    <!-- HALAMAN 2 -->
+    <section class="page">
+        <header class="page-header">
+            <div class="header-top-box">
+                <div>
+                    <div class="header-title-main">Bank Aktivitas</div>
+                    <div class="header-title-sub">Matematika</div>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+            </div>
+            <div class="header-bottom-box">
+                <div class="header-bottom-text">
+                    IX SMP | Kurikulum Merdeka | [TKA] Bentuk Aljabar dan Fungsi | Relasi dan Fungsi | Pertemuan 14
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+             <div class="layout-2-kolom">
+                 <div class="soal-latihan"><b>8.</b> Sebuah persegi panjang memiliki keliling 30 cm. Jika panjangnya adalah $p$ cm, maka fungsi yang menyatakan luasnya, $L(p)$, adalah $L(p) = p(15-p)$. Mengingat konteks fisiknya, domain yang paling mungkin untuk fungsi ini adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$p$ adalah bilangan real</li>
                         <li data-option="B">$p > 15$</li>
@@ -326,7 +343,7 @@
                         <li data-option="D">$p < 0$</li>
                     </ol>
                 </div>
-
+                
                 <!-- Soal Tipe 2: Pilihan Ganda Kompleks (Multiple Answers) -->
                 <div class="soal-latihan"><b>9.</b> Diketahui fungsi $g(x) = x^2 - 4$ dengan domain $D_g = \{x | -3 \le x \le 3, x \in \text{bilangan bulat}\}$. Manakah pernyataan berikut yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
                     <ol class="pilihan-ganda">
@@ -406,7 +423,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
 
@@ -414,6 +430,7 @@
             <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
         </footer>
     </section>
+
 </div>
 
 </body>
