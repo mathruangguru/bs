@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Soal - Relasi dan Fungsi</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+            --header-top-bg: #E0F7FA;
+            --header-bottom-bg: #f0f0f0;
+            --header-title-color: #00838F;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.5pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            counter-reset: page;
+        }
+
+        .page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 18mm 25mm 15mm 25mm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 10mm;
+            right: 20mm;
+            font-size: 8.5pt;
+            color: #888;
+        }
+
+        .page-header {
+            margin: -18mm -25mm 20px -25mm;
+        }
+
+        .header-top-box {
+            background-color: var(--header-top-bg);
+            padding: 10px 25mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+        
+        .header-title-main {
+            font-size: 18pt;
+            font-weight: 700;
+            color: var(--header-title-color);
+            line-height: 1.2;
+        }
+
+        .header-title-sub {
+            font-size: 12pt;
+            font-weight: 400;
+            color: var(--primary-text);
+        }
+
+        .header-bottom-box {
+            padding: 8px 25mm;
+            text-align: center;
+        }
+        
+        .header-bottom-text {
+             background-color: var(--header-bottom-bg);
+             padding: 8px 15px;
+             font-weight: 700;
+             font-size: 8.5pt;
+             color: var(--secondary-text);
+             display: inline-block;
+             border-radius: 4px;
+             white-space: nowrap;
+        }
+
+        .header-logo {
+            max-height: 60px;
+        }
+
+        @media print {
+            body { background: none; }
+            .page { 
+                width: 100%; 
+                min-height: 100%; 
+                margin: 0; 
+                box-shadow: none; 
+                page-break-after: always; 
+            }
+            .page-header { display: none; }
+            .page-footer { position: fixed; bottom: 0; }
+        }
+
+        .content-wrapper { 
+            position: relative; 
+            z-index: 1; 
+            width: 100%; 
+            flex-grow: 1;
+        }
+        
+        h2.kuis-title { 
+            font-size: 11pt; 
+            color: var(--secondary-text);
+            background-color: #f0f0f0;
+            padding: 2px 10px;
+            border-radius: 4px;
+            margin-top: 0; 
+            margin-bottom: 20px;
+            text-align: left;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .layout-2-kolom { 
+            columns: 2; 
+            column-gap: 15mm; 
+        }
+
+        .soal-latihan { 
+            margin-bottom: 20px; 
+            break-inside: avoid; 
+            overflow-wrap: break-word; 
+            word-wrap: break-word; 
+            padding-left: 20px;
+            text-indent: -20px;
+        }
+        
+        ol { padding-left: 0; }
+        ol.pilihan-ganda { list-style-type: none; padding-left: 20px; margin-top: 10px;}
+        ol.pilihan-ganda li { margin-bottom: 8px; }
+        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: bold; margin-right: 5px; }
+
+        .instruksi-soal { 
+            font-style: italic; 
+            font-size: 8.5pt; 
+            color: var(--secondary-text); 
+            margin-bottom: 10px; 
+            background-color: #f9f9f9;
+            border: 1px dashed #ccc;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        
+        table.soal-kategori { width:100%; border-collapse: collapse; text-align: left; margin-top: 10px; }
+        table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; }
+        table.soal-kategori th:not(:first-child) { text-align: center; width: 60px;}
+        table.soal-kategori td:not(:first-child) { text-align: center; }
+
+        .page-footer {
+            text-align: left;
+            font-size: 8pt;
+            color: var(--secondary-text);
+            padding-top: 15px;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+        }
+
+    </style>
+</head>
+<body>
+
+<section class="page">
+    <header class="page-header">
+        <div class="header-top-box">
+            <div>
+                <div class="header-title-main">Bank Aktivitas</div>
+                <div class="header-title-sub">Matematika</div>
+            </div>
+            <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                IX SMP | Kurikulum Merdeka | [TKA] Bentuk Aljabar dan Fungsi | Relasi dan Fungsi | Pertemuan 14
+            </div>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <h2 class="kuis-title">Kuis</h2>
+        <div class="layout-2-kolom">
+
+            <!-- Soal Tipe 1: Pilihan Ganda Biasa -->
+            <div class="soal-latihan"><b>1.</b> Diketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">$\{1, 2, 3, 4\}$</li>
+                    <li data-option="B">$\{a, b, c\}$</li>
+                    <li data-option="C">$\{1, 2, 3, 4, a, b, c\}$</li>
+                    <li data-option="D">$\{ (1,a), (2,b), (3,a), (4,c) \}$</li>
+                </ol>
+            </div>
+            
+            <div class="soal-latihan"><b>2.</b> Di antara himpunan pasangan berurutan berikut, manakah yang merupakan fungsi?
+                <ol class="pilihan-ganda">
+                    <li data-option="A">$\{(a, 1), (b, 2), (c, 3), (a, 4)\}$</li>
+                    <li data-option="B">$\{(1, p), (2, q), (1, r), (2, s)\}$</li>
+                    <li data-option="C">$\{(x, 5), (y, 5), (z, 5), (w, 5)\}$</li>
+                    <li data-option="D">$\{(9, 3), (9, -3), (4, 2), (4, -2)\}$</li>
+                </ol>
+            </div>
+
+            <div class="soal-latihan"><b>3.</b> Sebuah fungsi didefinisikan dengan rumus $f(x) = 3x - 5$. Jika domain fungsi tersebut adalah $D = \{ -2, -1, 0, 1, 2 \}$, maka daerah hasilnya (range) adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">$\{ -11, -8, -5, -2, 1 \}$</li>
+                    <li data-option="B">$\{ 11, 8, 5, 2, -1 \}$</li>
+                    <li data-option="C">$\{ -1, 2, 5, 8, 11 \}$</li>
+                    <li data-option="D">$\{ -5, -2, 1, 4, 7 \}$</li>
+                </ol>
+            </div>
+            
+            <div class="soal-latihan"><b>4.</b> Biaya parkir motor di sebuah mal ditentukan oleh fungsi $B(t) = 2.000 + 1.000(t-1)$, dengan $B(t)$ adalah total biaya dalam Rupiah dan $t$ adalah lama parkir dalam jam (untuk $t \ge 1$). Jika Andi parkir selama 5 jam, biaya yang harus ia bayar adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">Rp5.000,-</li>
+                    <li data-option="B">Rp6.000,-</li>
+                    <li data-option="C">Rp7.000,-</li>
+                    <li data-option="D">Rp8.000,-</li>
+                </ol>
+            </div>
+
+             <div class="soal-latihan"><b>5.</b> Diketahui fungsi $f: A \rightarrow B$. Himpunan $A$ disebut sebagai...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">Domain (daerah asal)</li>
+                    <li data-option="B">Kodomain (daerah kawan)</li>
+                    <li data-option="C">Range (daerah hasil)</li>
+                    <li data-option="D">Relasi</li>
+                </ol>
+            </div>
+            
+             <div class="soal-latihan"><b>6.</b> Suhu udara di puncak gunung pada pukul 05.00 adalah $-4^\circ C$. Suhu meningkat $2^\circ C$ setiap jamnya. Jika $S(t)$ adalah fungsi yang menyatakan suhu ($^\circ C$) pada jam ke-$t$ setelah pukul 05.00, maka suhu pada pukul 11.00 adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">$6^\circ C$</li>
+                    <li data-option="B">$8^\circ C$</li>
+                    <li data-option="C">$10^\circ C$</li>
+                    <li data-option="D">$12^\circ C$</li>
+                </ol>
+            </div>
+
+            <div class="soal-latihan"><b>7.</b> Sebuah perusahaan taksi online menetapkan tarif dengan fungsi $T(d) = 8.000 + 2.500d$, di mana $T(d)$ adalah total tarif dan $d$ adalah jarak dalam kilometer. Jika seorang penumpang membayar Rp33.000, maka jarak yang ia tempuh adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">8 km</li>
+                    <li data-option="B">9 km</li>
+                    <li data-option="C">10 km</li>
+                    <li data-option="D">11 km</li>
+                </ol>
+            </div>
+
+            <div class="soal-latihan"><b>8.</b> Sebuah persegi panjang memiliki keliling 30 cm. Jika panjangnya adalah $p$ cm, maka fungsi yang menyatakan luasnya, $L(p)$, adalah $L(p) = p(15-p)$. Mengingat konteks fisiknya, domain yang paling mungkin untuk fungsi ini adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">$p$ adalah bilangan real</li>
+                    <li data-option="B">$p > 15$</li>
+                    <li data-option="C">$0 < p < 15$</li>
+                    <li data-option="D">$p < 0$</li>
+                </ol>
+            </div>
+
+            <!-- Soal Tipe 2: Pilihan Ganda Kompleks (Multiple Answers) -->
+            <div class="soal-latihan"><b>9.</b> Diketahui fungsi $g(x) = x^2 - 4$ dengan domain $D_g = \{x | -3 \le x \le 3, x \in \text{bilangan bulat}\}$. Manakah pernyataan berikut yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                <ol class="pilihan-ganda">
+                    <li data-option="A">Domain fungsi adalah $\{-3, -2, -1, 0, 1, 2, 3\}$.</li>
+                    <li data-option="B">Nilai minimum fungsi adalah -4.</li>
+                    <li data-option="C">Range fungsi adalah $\{-3, 0, 5\}$.</li>
+                    <li data-option="D">$g(-2) = g(2)$.</li>
+                </ol>
+            </div>
+
+            <div class="soal-latihan"><b>10.</b> Perhatikan relasi "makanan khas dari" dari himpunan P = {Soto, Bakso, Rawon} ke Q = {Surabaya, Lamongan, Malang} yang disajikan sebagai berikut: Soto $\rightarrow$ Lamongan, Bakso $\rightarrow$ Malang, Rawon $\rightarrow$ Surabaya, dan Rawon $\rightarrow$ Malang. Pernyataan mana saja yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                <ol class="pilihan-ganda">
+                    <li data-option="A">Relasi tersebut adalah sebuah fungsi.</li>
+                    <li data-option="B">Relasi tersebut bukan merupakan fungsi.</li>
+                    <li data-option="C">Domain relasi adalah {Soto, Bakso, Rawon}.</li>
+                    <li data-option="D">Semua anggota kodomain memiliki pasangan.</li>
+                </ol>
+            </div>
+
+            <div class="soal-latihan"><b>11.</b> Suatu fungsi dapat disajikan dalam bentuk... <b>(bisa pilih lebih dari satu jawaban)</b>
+                <ol class="pilihan-ganda">
+                    <li data-option="A">Diagram panah</li>
+                    <li data-option="B">Tabel</li>
+                    <li data-option="C">Himpunan pasangan berurutan</li>
+                    <li data-option="D">Grafik Kartesius</li>
+                </ol>
+            </div>
+            
+            <div class="soal-latihan"><b>12.</b> Sebuah toko online memberikan diskon sebesar 20% untuk semua produk. Jika $h$ adalah harga asli produk, maka fungsi harga setelah diskon adalah $D(h) = 0,8h$. Manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                <ol class="pilihan-ganda">
+                    <li data-option="A">Domain fungsi adalah semua bilangan real lebih besar dari nol.</li>
+                    <li data-option="B">Jika harga asli Rp100.000, harga setelah diskon Rp80.000.</li>
+                    <li data-option="C">Range fungsi sama dengan domainnya.</li>
+                    <li data-option="D">Jika seseorang membayar Rp40.000, maka harga aslinya Rp50.000.</li>
+                </ol>
+            </div>
+            
+            <!-- Soal Tipe 3: Pilihan Ganda Kompleks (Kategori) -->
+            <div class="soal-latihan">
+                <b>13.</b>
+                Perhatikan relasi-relasi yang disajikan dalam himpunan pasangan berurutan berikut. Tentukan apakah setiap relasi merupakan fungsi atau bukan.
+                <table class="soal-kategori">
+                    <thead><tr><th>Relasi</th><th>Fungsi</th><th>Bukan Fungsi</th></tr></thead>
+                    <tbody>
+                        <tr><td>$\{(1,a), (2,b), (3,c)\}$</td><td></td><td></td></tr>
+                        <tr><td>$\{(1,a), (1,b), (2,c)\}$</td><td></td><td></td></tr>
+                        <tr><td>$\{(a,1), (b,1), (c,1)\}$</td><td></td><td></td></tr>
+                        <tr><td>$\{(a,b), (c,d), (e,f)\}$ (dengan a,c,e berbeda)</td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="soal-latihan">
+                <b>14.</b>
+                Sebuah fungsi $f$ didefinisikan sebagai $f(x) = 10 - x^2$ dengan domain bilangan asli kurang dari 4. Tentukan kebenaran dari setiap pernyataan berikut.
+                <table class="soal-kategori">
+                    <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                    <tbody>
+                        <tr><td>Domain fungsi adalah $\{1, 2, 3\}$.</td><td></td><td></td></tr>
+                        <tr><td>Range fungsi adalah $\{9, 6, 2\}$.</td><td></td><td></td></tr>
+                        <tr><td>Nilai $f(3)$ adalah 1.</td><td></td><td></td></tr>
+                        <tr><td>Fungsi ini memiliki nilai maksimum 9.</td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="soal-latihan">
+                <b>15.</b>
+                Klub kebugaran "Sehat Selalu" menawarkan dua paket keanggotaan. Paket A: Biaya bulanan Rp150.000. Paket B: Biaya pendaftaran Rp100.000 dan biaya bulanan Rp125.000. Fungsi biaya total untuk $x$ bulan adalah $A(x)=150.000x$ dan $B(x)=100.000+125.000x$. Tentukan kebenaran pernyataan berikut.
+                <table class="soal-kategori">
+                    <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                    <tbody>
+                        <tr><td>Untuk 2 bulan, Paket A lebih murah.</td><td></td><td></td></tr>
+                        <tr><td>Biaya kedua paket sama pada bulan ke-4.</td><td></td><td></td></tr>
+                        <tr><td>Untuk 1 tahun (12 bulan), Paket B lebih mahal.</td><td></td><td></td></tr>
+                        <tr><td>Domain yang relevan untuk $x$ adalah bilangan bulat positif.</td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+    </footer>
+</section>
+
+</body>
+</html>
+
