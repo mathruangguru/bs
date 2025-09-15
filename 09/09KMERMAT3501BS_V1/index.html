@@ -189,7 +189,8 @@
                 min-height: 297mm;
                 height: 100%;
                 margin: 0; 
-                padding: 18mm 25mm 30mm 25mm; /* Increased bottom padding for footer space */
+                /* Menambahkan padding bawah untuk memberi ruang bagi footer */
+                padding: 18mm 25mm 25mm 25mm; 
                 box-shadow: none; 
                 page-break-after: always;
             }
@@ -208,16 +209,23 @@
                 print-color-adjust: exact;
             }
 
+            /* --- PERBAIKAN DI SINI --- */
+            /* Membuat footer muncul di setiap halaman cetak tanpa menimpa konten */
             .page-footer {
                 position: fixed;
-                bottom: 15mm;
-                left: 25mm;
-                right: 25mm;
-                width: auto; /* Let the browser calculate width based on left/right */
-                margin-top: 0;
+                bottom: 10mm; /* Atur posisi dari bawah halaman */
+                left: 25mm;  /* Samakan dengan padding kiri .page */
+                right: 25mm; /* Samakan dengan padding kanan .page */
+                width: auto;
+                
+                /* Hapus/override style yang tidak relevan untuk position:fixed */
+                margin-top: 0; 
+                
+                /* Style visual footer */
                 padding-top: 5px;
-                border-top: 1px solid var(--border-color);
                 font-size: 7.5pt;
+                border-top: 1px solid var(--border-color);
+                background: white; /* Penting agar konten di belakangnya tidak terlihat */
             }
         }
 
@@ -247,7 +255,7 @@
             <div class="layout-2-kolom">
 
                 <!-- Soal Tipe 1: Pilihan Ganda Biasa -->
-                <div class="soal-latihan"><b>1.</b> kDiketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
+                <div class="soal-latihan"><b>1.</b> Diketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{1, 2, 3, 4\}$</li>
                         <li data-option="B">$\{a, b, c\}$</li>
