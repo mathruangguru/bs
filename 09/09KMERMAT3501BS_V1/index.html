@@ -180,9 +180,10 @@
             border-top: 1px solid var(--border-color);
         }
         
-        .print-only {
+        .print-footer {
             display: none;
         }
+
 
         @media print {
             body { 
@@ -191,7 +192,7 @@
             .page { 
                 width: 100%; 
                 min-height: 297mm;
-                height: 100%; /* Change to 100% to fill the page */
+                height: 100%;
                 margin: 0; 
                 padding: 18mm 25mm 15mm 25mm;
                 box-shadow: none; 
@@ -215,21 +216,58 @@
             }
 
             .page-footer {
-                display: none; /* Hide the original footer in print view */
+                display: none;
             }
 
-            .print-only {
-                display: block; /* Show the print-only footer */
+            .print-footer {
+                display: block;
                 text-align: left;
                 font-size: 7.5pt;
                 color: var(--secondary-text);
                 padding-top: 10px;
-                margin-top: auto; /* Push to the bottom */
+                margin-top: auto;
                 border-top: 1px solid var(--border-color);
             }
         }
 
     </style>
+     <script>
+        (function() {
+            var beforePrint = function() {
+                var pages = document.querySelectorAll('.page');
+                pages.forEach(function(page) {
+                    var footer = page.querySelector('.page-footer');
+                    if (footer) {
+                        var printFooter = document.createElement('footer');
+                        printFooter.className = 'print-footer';
+                        printFooter.innerHTML = footer.innerHTML;
+                        page.appendChild(printFooter);
+                    }
+                });
+            };
+
+            var afterPrint = function() {
+                var printFooters = document.querySelectorAll('.print-footer');
+                printFooters.forEach(function(footer) {
+                    footer.remove();
+                });
+            };
+
+            if (window.matchMedia) {
+                var mediaQueryList = window.matchMedia('print');
+                mediaQueryList.addListener(function(mql) {
+                    if (mql.matches) {
+                        beforePrint();
+                    } else {
+                        afterPrint();
+                    }
+                });
+            }
+
+            window.onbeforeprint = beforePrint;
+            window.onafterprint = afterPrint;
+        }());
+    </script>
 </head>
 <body>
 
@@ -255,7 +293,7 @@
             <div class="layout-2-kolom">
 
                 <!-- Soal Tipe 1: Pilihan Ganda Biasa -->
-                <div class="soal-latihan"><b>1.</b> jDiketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
+                <div class="soal-latihan"><b>1.</b> Diketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{1, 2, 3, 4\}$</li>
                         <li data-option="B">$\{a, b, c\}$</li>
@@ -411,9 +449,6 @@
         </div>
 
         <footer class="page-footer">
-            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
-        </footer>
-        <footer class="print-only">
             <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
         </footer>
     </section>
