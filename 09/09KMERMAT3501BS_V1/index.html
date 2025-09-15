@@ -177,6 +177,7 @@
             color: var(--secondary-text);
             padding-top: 15px;
             margin-top: auto;
+            border-top: 1px solid var(--border-color);
         }
 
         @media print {
@@ -188,7 +189,7 @@
                 min-height: 297mm;
                 height: auto;
                 margin: 0; 
-                padding: 18mm 25mm 15mm 25mm;
+                padding: 18mm 25mm 30mm 25mm; /* Increased bottom padding for footer space */
                 box-shadow: none; 
                 page-break-after: always;
             }
@@ -197,18 +198,23 @@
             }
             
             .page-header {
-                display: block; /* Show header for printing */
-                margin: -18mm -25mm 20px -25mm; /* Maintain layout */
+                display: block; 
+                margin: -18mm -25mm 20px -25mm;
                 position: relative;
             }
             
             .header-top-box, .header-bottom-text, .kuis-title {
-                -webkit-print-color-adjust: exact; /* Force background color printing */
+                -webkit-print-color-adjust: exact; 
                 print-color-adjust: exact;
             }
 
             .page-footer {
-                border-top: 1px solid var(--border-color);
+                position: fixed; /* Fix footer to each printed page */
+                bottom: 15mm;
+                left: 25mm;
+                right: 25mm;
+                width: auto;
+                margin-top: 0;
             }
         }
 
@@ -238,7 +244,7 @@
             <div class="layout-2-kolom">
 
                 <!-- Soal Tipe 1: Pilihan Ganda Biasa -->
-                <div class="soal-latihan"><b>1.</b> kDiketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
+                <div class="soal-latihan"><b>1.</b> Diketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{1, 2, 3, 4\}$</li>
                         <li data-option="B">$\{a, b, c\}$</li>
