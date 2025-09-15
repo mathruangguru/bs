@@ -179,6 +179,10 @@
             margin-top: auto;
             border-top: 1px solid var(--border-color);
         }
+        
+        .print-only {
+            display: none;
+        }
 
         @media print {
             body { 
@@ -187,11 +191,13 @@
             .page { 
                 width: 100%; 
                 min-height: 297mm;
-                height: auto;
+                height: 100%; /* Change to 100% to fill the page */
                 margin: 0; 
-                padding: 18mm 25mm 30mm 25mm; /* Reserve space at the bottom */
+                padding: 18mm 25mm 15mm 25mm;
                 box-shadow: none; 
                 page-break-after: always;
+                display: flex;
+                flex-direction: column;
             }
             .page:last-child {
                 page-break-after: avoid;
@@ -209,15 +215,17 @@
             }
 
             .page-footer {
-                position: fixed;
-                bottom: 15mm; /* Positioned within the margin area */
-                left: 25mm;
-                right: 25mm;
-                width: auto;
-                margin-top: 0;
-                padding-top: 5px;
+                display: none; /* Hide the original footer in print view */
+            }
+
+            .print-only {
+                display: block; /* Show the print-only footer */
+                text-align: left;
+                font-size: 7.5pt;
+                color: var(--secondary-text);
+                padding-top: 10px;
+                margin-top: auto; /* Push to the bottom */
                 border-top: 1px solid var(--border-color);
-                font-size: 7.5pt; /* Smaller font for footer */
             }
         }
 
@@ -247,7 +255,7 @@
             <div class="layout-2-kolom">
 
                 <!-- Soal Tipe 1: Pilihan Ganda Biasa -->
-                <div class="soal-latihan"><b>1.</b> Diketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
+                <div class="soal-latihan"><b>1.</b> jDiketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{1, 2, 3, 4\}$</li>
                         <li data-option="B">$\{a, b, c\}$</li>
@@ -403,6 +411,9 @@
         </div>
 
         <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+        <footer class="print-only">
             <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
         </footer>
     </section>
