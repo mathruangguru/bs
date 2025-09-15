@@ -189,7 +189,7 @@
                 min-height: 297mm;
                 height: auto;
                 margin: 0; 
-                padding: 18mm 25mm 40mm 25mm; /* Increased bottom padding for footer space */
+                padding: 18mm 25mm 30mm 25mm; /* Reserve space at the bottom */
                 box-shadow: none; 
                 page-break-after: always;
             }
@@ -209,12 +209,15 @@
             }
 
             .page-footer {
-                position: fixed; /* Fix footer to each printed page */
-                bottom: 20mm; /* Position within the new padding area */
+                position: fixed;
+                bottom: 15mm; /* Positioned within the margin area */
                 left: 25mm;
                 right: 25mm;
                 width: auto;
                 margin-top: 0;
+                padding-top: 5px;
+                border-top: 1px solid var(--border-color);
+                font-size: 7.5pt; /* Smaller font for footer */
             }
         }
 
@@ -244,7 +247,7 @@
             <div class="layout-2-kolom">
 
                 <!-- Soal Tipe 1: Pilihan Ganda Biasa -->
-                <div class="soal-latihan"><b>1.</b> kDiketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
+                <div class="soal-latihan"><b>1.</b> Diketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{1, 2, 3, 4\}$</li>
                         <li data-option="B">$\{a, b, c\}$</li>
