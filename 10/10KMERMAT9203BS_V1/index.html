@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Aktivitas - Barisan dan Deret</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+            --header-top-bg: #E0F7FA;
+            --header-bottom-bg: #f0f0f0;
+            --header-title-color: #00838F;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.5pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-container {
+            counter-reset: page;
+        }
+
+        .page {
+            background: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 1cm;
+            right: 2.5cm;
+            font-size: 8.5pt;
+            color: #888;
+        }
+
+        .page-header {
+            margin: -1.8cm -2.5cm 20px -2.5cm;
+            width: 21cm;
+        }
+
+        .header-top-box {
+            background-color: var(--header-top-bg);
+            padding: 10px 2.5cm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+        
+        .header-title-main {
+            font-size: 18pt;
+            font-weight: 700;
+            color: var(--header-title-color);
+            line-height: 1.2;
+        }
+
+        .header-title-sub {
+            font-size: 12pt;
+            font-weight: 400;
+            color: var(--primary-text);
+        }
+
+        .header-bottom-box {
+            padding: 8px 2.5cm;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .header-bottom-text {
+            background-color: var(--header-bottom-bg);
+            padding: 8px 15px;
+            font-weight: 700;
+            font-size: 8.5pt;
+            color: var(--secondary-text);
+            display: inline-block;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .header-logo {
+            max-height: 60px;
+        }
+        
+        .content-wrapper { 
+            position: relative; 
+            z-index: 1; 
+            width: 100%; 
+            flex-grow: 1;
+        }
+        
+        h2.kuis-title { 
+            font-size: 11pt; 
+            color: var(--secondary-text);
+            background-color: #f0f0f0;
+            padding: 2px 10px;
+            border-radius: 4px;
+            margin-top: 0; 
+            margin-bottom: 20px;
+            text-align: left;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .layout-2-kolom { 
+            columns: 2; 
+            column-gap: 15mm; 
+        }
+
+        .soal-latihan { 
+            margin-bottom: 20px; 
+            break-inside: avoid; 
+            overflow-wrap: break-word; 
+            word-wrap: break-word; 
+            /* Hanging indent for the question number */
+            padding-left: 20px;
+            text-indent: -20px;
+        }
+        
+        ol { padding-left: 0; margin-left: 0; }
+        ol.pilihan-ganda { 
+            list-style-type: none; 
+            margin-top: 10px;
+            /* Reset indent inherited from parent to align options correctly */
+            text-indent: 0;
+        }
+        ol.pilihan-ganda li { margin-bottom: 8px; }
+        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: bold; margin-right: 5px; }
+        
+        .page-footer {
+            text-align: left;
+            font-size: 8pt;
+            color: var(--secondary-text);
+            padding-top: 15px;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media print {
+            body { 
+                background: none; 
+            }
+            .page { 
+                width: 100%; 
+                min-height: 29.7cm;
+                height: 100%;
+                margin: 0; 
+                padding: 1.8cm 2.5cm 3cm 2.5cm; 
+                box-shadow: none; 
+                page-break-after: always;
+            }
+            .page:last-child {
+                page-break-after: avoid;
+            }
+            
+            .page-header {
+                display: block; 
+                margin: -1.8cm -2.5cm 20px -2.5cm;
+                position: relative;
+            }
+            
+            .header-top-box, .header-bottom-text, .kuis-title {
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+
+            .page-footer {
+                position: fixed;
+                bottom: 1.5cm;
+                left: 2.5cm; 
+                right: 2.5cm;
+                width: auto;
+                margin-top: 0; 
+                padding-top: 5px;
+                font-size: 7.5pt;
+                border-top: 1px solid var(--border-color);
+                background: white;
+            }
+            
+            .page::after {
+                bottom: 1cm;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+
+    <!-- HALAMAN 1 -->
+    <section class="page">
+        <header class="page-header">
+            <div class="header-top-box">
+                <div>
+                    <div class="header-title-main">Bank Aktivitas</div>
+                    <div class="header-title-sub">Matematika</div>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+            </div>
+            <div class="header-bottom-box">
+                <div class="header-bottom-text">
+                    X SMA | Kurikulum Merdeka | Drill Soal | Subtopik: Review Barisan dan Deret Aritmetika Geometri | Pertemuan 09
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <h2 class="kuis-title">Kuis</h2>
+            <div class="layout-2-kolom">
+                <!-- Soal Mudah -->
+                <div class="soal-latihan"><b>1.</b> Tiga suku berikutnya dari barisan bilangan 5, 9, 13, 17, ... adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">20, 23, 26</li>
+                        <li data-option="B">21, 25, 29</li>
+                        <li data-option="C">21, 26, 31</li>
+                        <li data-option="D">22, 27, 32</li>
+                        <li data-option="E">22, 26, 30</li>
+                    </ol>
+                </div>
+                
+                <div class="soal-latihan"><b>2.</b> Manakah di antara barisan berikut yang merupakan barisan geometri?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">3, 6, 9, 12, ...</li>
+                        <li data-option="B">80, 40, 20, 10, ...</li>
+                        <li data-option="C">1, 4, 9, 16, ...</li>
+                        <li data-option="D">2, 3, 5, 8, ...</li>
+                        <li data-option="E">1, 2, 4, 7, ...</li>
+                    </ol>
+                </div>
+
+                <div class="soal-latihan"><b>3.</b> Suku pertama dari suatu barisan aritmetika adalah 16 dan bedanya adalah -3. Suku ke-10 dari barisan tersebut adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">-14</li>
+                        <li data-option="B">-11</li>
+                        <li data-option="C">43</li>
+                        <li data-option="D">46</li>
+                        <li data-option="E">-43</li>
+                    </ol>
+                </div>
+                
+                <!-- Soal Sedang -->
+                <div class="soal-latihan"><b>4.</b> Rumus suku ke-n dari barisan aritmetika 2, 7, 12, 17, ... adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$U_n = 5n - 3$</li>
+                        <li data-option="B">$U_n = 5n + 3$</li>
+                        <li data-option="C">$U_n = 3n - 5$</li>
+                        <li data-option="D">$U_n = 2n + 5$</li>
+                        <li data-option="E">$U_n = 2n + 3$</li>
+                    </ol>
+                </div>
+                
+                <div class="soal-latihan"><b>5.</b> Seorang karyawan menerima gaji pertama sebesar Rp3.000.000,00. Setiap bulan gajinya naik sebesar Rp100.000,00. Jumlah gaji yang diterima karyawan tersebut selama satu tahun pertama adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Rp39.600.000,00</li>
+                        <li data-option="B">Rp42.600.000,00</li>
+                        <li data-option="C">Rp43.800.000,00</li>
+                        <li data-option="D">Rp45.000.000,00</li>
+                        <li data-option="E">Rp43.200.000,00</li>
+                    </ol>
+                </div>
+                
+                <div class="soal-latihan"><b>6.</b> Suku ke-3 dan suku ke-7 dari suatu barisan aritmetika berturut-turut adalah 10 dan 22. Jumlah 20 suku pertama deret tersebut adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">540</li>
+                        <li data-option="B">620</li>
+                        <li data-option="C">650</li>
+                        <li data-option="D">700</li>
+                        <li data-option="E">680</li>
+                    </ol>
+                </div>
+
+                <div class="soal-latihan"><b>7.</b> Diketahui suatu barisan geometri dengan suku ke-2 adalah 12 dan suku ke-5 adalah 324. Rasio dari barisan tersebut adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">2</li>
+                        <li data-option="B">3</li>
+                        <li data-option="C">4</li>
+                        <li data-option="D">6</li>
+                        <li data-option="E">5</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+    </section>
+
+    <!-- HALAMAN 2 -->
+    <section class="page">
+        <header class="page-header">
+            <div class="header-top-box">
+                <div>
+                    <div class="header-title-main">Bank Aktivitas</div>
+                    <div class="header-title-sub">Matematika</div>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+            </div>
+            <div class="header-bottom-box">
+                <div class="header-bottom-text">
+                    X SMA | Kurikulum Merdeka | Drill Soal | Subtopik: Review Barisan dan Deret Aritmetika Geometri | Pertemuan 09
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="layout-2-kolom">
+                <!-- Soal Sulit -->
+                <div class="soal-latihan"><b>8.</b> Tiga bilangan membentuk barisan aritmetika. Jika suku ketiga ditambah 2 dan suku kedua dikurangi 2, diperoleh barisan geometri. Jika suku ketiga barisan aritmetika ditambah 2, maka hasilnya menjadi 4 kali suku pertama. Suku pertama deret aritmetika tersebut adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">2</li>
+                        <li data-option="B">4</li>
+                        <li data-option="C">6</li>
+                        <li data-option="D">8</li>
+                        <li data-option="E">10</li>
+                    </ol>
+                </div>
+                
+                <div class="soal-latihan"><b>9.</b> Seutas tali dipotong menjadi 6 bagian sehingga panjang potongan-potongan tersebut membentuk barisan geometri. Jika panjang potongan terpendek 4 cm dan potongan terpanjang 972 cm, maka panjang tali semula adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">1456 cm</li>
+                        <li data-option="B">1458 cm</li>
+                        <li data-option="C">1460 cm</li>
+                        <li data-option="D">1462 cm</li>
+                        <li data-option="E">1464 cm</li>
+                    </ol>
+                </div>
+
+                <div class="soal-latihan"><b>10.</b> Jumlah tak hingga dari deret geometri $54 + 18 + 6 + 2 + \dots$ adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">72</li>
+                        <li data-option="B">81</li>
+                        <li data-option="C">90</li>
+                        <li data-option="D">108</li>
+                        <li data-option="E">162</li>
+                    </ol>
+                </div>
+                
+                <div class="soal-latihan"><b>11.</b> Sebuah bola dijatuhkan dari ketinggian 15 meter. Setiap kali memantul, bola mencapai ketinggian $\frac{2}{3}$ dari ketinggian sebelumnya. Panjang lintasan bola sampai berhenti adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">45 meter</li>
+                        <li data-option="B">60 meter</li>
+                        <li data-option="C">75 meter</li>
+                        <li data-option="D">90 meter</li>
+                        <li data-option="E">105 meter</li>
+                    </ol>
+                </div>
+
+                <div class="soal-latihan"><b>12.</b> Di antara bilangan 4 dan 28 disisipkan 5 bilangan sehingga bilangan-bilangan tersebut bersama bilangan semula membentuk barisan aritmetika. Jumlah deret aritmetika yang terbentuk adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">96</li>
+                        <li data-option="B">104</li>
+                        <li data-option="C">112</li>
+                        <li data-option="D">128</li>
+                        <li data-option="E">120</li>
+                    </ol>
+                </div>
+                
+                <div class="soal-latihan"><b>13.</b> Sebuah amoeba membelah diri menjadi dua setiap 20 menit. Jika pada awalnya terdapat 15 amoeba, maka jumlah amoeba setelah 2 jam adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">480</li>
+                        <li data-option="B">960</li>
+                        <li data-option="C">1920</li>
+                        <li data-option="D">3840</li>
+                        <li data-option="E">1440</li>
+                    </ol>
+                </div>
+                
+                <div class="soal-latihan"><b>14.</b> Jumlah n suku pertama suatu deret aritmetika dinyatakan dengan $S_n = n^2 + 3n$. Suku ke-5 deret tersebut adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">11</li>
+                        <li data-option="B">12</li>
+                        <li data-option="C">13</li>
+                        <li data-option="D">14</li>
+                        <li data-option="E">15</li>
+                    </ol>
+                </div>
+                
+                <div class="soal-latihan"><b>15.</b> Deret geometri tak hingga mempunyai jumlah 20 dan suku pertama 10. Rasio deret tersebut adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">$\frac{1}{4}$</li>
+                        <li data-option="B">$\frac{1}{3}$</li>
+                        <li data-option="C">$\frac{1}{2}$</li>
+                        <li data-option="D">$\frac{2}{3}$</li>
+                        <li data-option="E">$\frac{3}{4}$</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+    </section>
+
+</div>
+
+</body>
+</html>
+
