@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Soal - TKA Matematika</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --border-color: #dddddd;
+            --header-top-bg: #E0F7FA;
+            --header-bottom-bg: #f0f0f0;
+            --header-title-color: #00838F;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.5pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-container {
+            counter-reset: page;
+        }
+
+        .page {
+            background: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+            margin: 1cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page::after {
+            counter-increment: page;
+            content: counter(page);
+            position: absolute;
+            bottom: 1cm;
+            right: 2.5cm;
+            font-size: 8.5pt;
+            color: #888;
+        }
+
+        .page-header {
+            margin: -1.8cm -2.5cm 20px -2.5cm;
+            width: 21cm;
+        }
+
+        .header-top-box {
+            background-color: var(--header-top-bg);
+            padding: 10px 2.5cm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+        
+        .header-title-main {
+            font-size: 18pt;
+            font-weight: 700;
+            color: var(--header-title-color);
+            line-height: 1.2;
+        }
+
+        .header-title-sub {
+            font-size: 12pt;
+            font-weight: 400;
+            color: var(--primary-text);
+        }
+
+        .header-bottom-box {
+            padding: 8px 2.5cm;
+            text-align: center;
+        }
+        
+        .header-bottom-text {
+            background-color: var(--header-bottom-bg);
+            padding: 8px 15px;
+            font-weight: 700;
+            font-size: 8.5pt;
+            color: var(--secondary-text);
+            display: inline-block;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .header-logo {
+            max-height: 60px;
+        }
+        
+        .content-wrapper { 
+            position: relative; 
+            z-index: 1; 
+            width: 100%; 
+            flex-grow: 1;
+        }
+        
+        h2.kuis-title { 
+            font-size: 11pt; 
+            color: var(--secondary-text);
+            background-color: #f0f0f0;
+            padding: 2px 10px;
+            border-radius: 4px;
+            margin-top: 0; 
+            margin-bottom: 20px;
+            text-align: left;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .layout-2-kolom { 
+            columns: 2; 
+            column-gap: 15mm; 
+        }
+
+        .soal-latihan {
+            display: flex;
+            align-items: flex-start;
+            gap: 5px; /* Jarak antara nomor dan teks soal */
+            margin-bottom: 20px;
+            break-inside: avoid;
+            text-align: justify;
+        }
+
+        .soal-nomor {
+            font-weight: bold;
+            flex-shrink: 0;
+            min-width: 18px; /* Ruang untuk nomor hingga 2 digit */
+        }
+
+        .soal-konten {
+            flex-grow: 1; /* Konten soal mengisi sisa ruang */
+        }
+        
+        ol { padding-left: 0; }
+        ol.pilihan-ganda { 
+            list-style-type: none; 
+            padding-left: 0; 
+            margin-top: 10px;
+            text-align: left; /* Pilihan ganda selalu rata kiri */
+        }
+        ol.pilihan-ganda li { margin-bottom: 8px; }
+        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: bold; margin-right: 5px; }
+        
+        table.soal-kategori { width:100%; border-collapse: collapse; text-align: left; margin-top: 10px; }
+        table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; }
+        table.soal-kategori th:not(:first-child) { text-align: center; width: 60px;}
+        table.soal-kategori td:not(:first-child) { text-align: center; }
+
+        .page-footer {
+            text-align: left;
+            font-size: 8pt;
+            color: var(--secondary-text);
+            padding-top: 15px;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media print {
+            body { 
+                background: none; 
+            }
+            .page { 
+                width: 100%; 
+                min-height: 29.7cm;
+                height: 100%;
+                margin: 0; 
+                padding: 1.8cm 2.5cm 3cm 2.5cm; 
+                box-shadow: none; 
+                page-break-after: always;
+            }
+            .page:last-child {
+                page-break-after: avoid;
+            }
+            
+            .page-header {
+                display: block; 
+                margin: -1.8cm -2.5cm 20px -2.5cm;
+                position: relative;
+            }
+            
+            .header-top-box, .header-bottom-text, .kuis-title {
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+
+            .page-footer {
+                position: fixed;
+                bottom: 1.5cm;
+                left: 2.5cm;
+                right: 2.5cm;
+                width: auto;
+                margin-top: 0; 
+                padding-top: 5px;
+                font-size: 7.5pt;
+                border-top: 1px solid var(--border-color);
+                background: white;
+            }
+            
+             .page::after {
+                  bottom: 1cm;
+             }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+
+    <!-- HALAMAN 1 -->
+    <section class="page">
+        <header class="page-header">
+            <div class="header-top-box">
+                <div>
+                    <div class="header-title-main">Bank Aktivitas</div>
+                    <div class="header-title-sub">Matematika</div>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+            </div>
+            <div class="header-bottom-box">
+                <div class="header-bottom-text">
+                    XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Drill Soal TKA Matematika - Paket 2 | Pertemuan 6
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <h2 class="kuis-title">Kuis</h2>
+            <div class="layout-2-kolom">
+                
+                <div class="soal-latihan">
+                    <div class="soal-nomor">1.</div>
+                    <div class="soal-konten">
+                        Diketahui fungsi $f(x) = 2x + 1$ dan $g(x) = x^2 - 3x + 5$. Nilai dari $(g \circ f)(x)$ adalah...
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">$4x^2 - 2x + 3$</li>
+                            <li data-option="B">$2x^2 - 6x + 11$</li>
+                            <li data-option="C">$4x^2 + 2x + 3$</li>
+                            <li data-option="D">$4x^2 - 6x + 3$</li>
+                            <li data-option="E">$4x^2 - 2x + 7$</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="soal-latihan">
+                    <div class="soal-nomor">2.</div>
+                    <div class="soal-konten">
+                        Salah satu persamaan garis singgung lingkaran $x^2 + y^2 = 25$ yang sejajar dengan garis $3x - 4y + 8 = 0$ adalah...
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">$3x - 4y = 25$</li>
+                            <li data-option="B">$3x + 4y = 25$</li>
+                            <li data-option="C">$4x - 3y = 25$</li>
+                            <li data-option="D">$4x + 3y = 25$</li>
+                            <li data-option="E">$3x - 4y = 5$</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="soal-latihan">
+                    <div class="soal-nomor">3.</div>
+                    <div class="soal-konten">
+                        Nilai rata-rata ulangan dari 39 siswa adalah 70. Jika nilai Budi digabungkan, rata-rata menjadi 71. Nilai Budi adalah...
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">90</li>
+                            <li data-option="B">100</li>
+                            <li data-option="C">105</li>
+                            <li data-option="D">110</li>
+                            <li data-option="E">115</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="soal-latihan">
+                    <div class="soal-nomor">4.</div>
+                    <div class="soal-konten">
+                        Sebuah pabrik kertas memproduksi kertas dari kayu melalui dua tahap. Tahap I dengan mesin $f(x) = x - 1$ dan tahap II dengan mesin $g(x) = x^2 + 2x$. Jika bahan kayu tersedia 5 ton, kertas yang dihasilkan adalah...
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">20 ton</li>
+                            <li data-option="B">24 ton</li>
+                            <li data-option="C">30 ton</li>
+                            <li data-option="D">35 ton</li>
+                            <li data-option="E">40 ton</li>
+                        </ol>
+                    </div>
+                </div>
+
+                 <div class="soal-latihan">
+                    <div class="soal-nomor">5.</div>
+                    <div class="soal-konten">
+                        Berapakah jari-jari lingkaran yang berpusat di (2, 3)?
+                        <div style="text-align: left; margin-top: 5px;">
+                            (1) Lingkaran tersebut menyinggung sumbu X.<br>
+                            (2) Lingkaran tersebut melalui titik (2, 6).
+                        </div>
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">Pernyataan (1) SAJA cukup, tetapi (2) SAJA tidak cukup.</li>
+                            <li data-option="B">Pernyataan (2) SAJA cukup, tetapi (1) SAJA tidak cukup.</li>
+                            <li data-option="C">DUA pernyataan BERSAMA-SAMA cukup, tetapi SATU SAJA tidak cukup.</li>
+                            <li data-option="D">Pernyataan (1) SAJA cukup dan (2) SAJA cukup.</li>
+                            <li data-option="E">Pernyataan (1) dan (2) tidak cukup.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+    </section>
+
+    <!-- HALAMAN 2 -->
+    <section class="page">
+        <header class="page-header">
+            <div class="header-top-box">
+                <div>
+                    <div class="header-title-main">Bank Aktivitas</div>
+                    <div class="header-title-sub">Matematika</div>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+            </div>
+            <div class="header-bottom-box">
+                <div class="header-bottom-text">
+                    XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Drill Soal TKA Matematika - Paket 2 | Pertemuan 6
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+             <div class="layout-2-kolom">
+                
+                <div class="soal-latihan">
+                    <div class="soal-nomor">6.</div>
+                    <div class="soal-konten">
+                        Data terurut: $x, 6, 7, 8, 8, y$. Rata-rata data adalah 7 dan jangkauannya 5. Manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">Median data adalah 7.5.</li>
+                            <li data-option="B">Nilai $x+y=13$.</li>
+                            <li data-option="C">Modus data adalah 8.</li>
+                            <li data-option="D">Nilai $y=9$.</li>
+                            <li data-option="E">Variansi data lebih dari 3.</li>
+                        </ol>
+                    </div>
+                </div>
+
+               <div class="soal-latihan">
+                    <div class="soal-nomor">7.</div>
+                    <div class="soal-konten">
+                        Jika $f(x) = \frac{2x+3}{4x-5}$, dengan $x \neq \frac{5}{4}$, maka $f^{-1}(x)$ adalah...
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">$\frac{5x+3}{4x-2}, x \neq \frac{1}{2}$</li>
+                            <li data-option="B">$\frac{5x-3}{4x+2}, x \neq -\frac{1}{2}$</li>
+                            <li data-option="C">$\frac{-5x+3}{4x+2}, x \neq -\frac{1}{2}$</li>
+                            <li data-option="D">$\frac{5x+3}{2x-4}, x \neq 2$</li>
+                            <li data-option="E">$\frac{4x-5}{2x+3}, x \neq -\frac{3}{2}$</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="soal-latihan">
+                    <div class="soal-nomor">8.</div>
+                    <div class="soal-konten">
+                        Diberikan lingkaran $(x-1)^2 + (y+2)^2 = 16$. Tentukan kebenaran pernyataan berikut.
+                        <table class="soal-kategori">
+                            <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                            <tbody>
+                                <tr><td>Titik A(1, 2) berada pada lingkaran.</td><td></td><td></td></tr>
+                                <tr><td>Titik B(4, 1) berada di luar lingkaran.</td><td></td><td></td></tr>
+                                <tr><td>Titik C(2, -1) berada di dalam lingkaran.</td><td></td><td></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="soal-latihan">
+                    <div class="soal-nomor">9.</div>
+                    <div class="soal-konten">
+                        Simpangan baku dari data 4, 6, 8, 2, 5 adalah...
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">$\sqrt{2}$</li>
+                            <li data-option="B">2</li>
+                            <li data-option="C">$\sqrt{5}$</li>
+                            <li data-option="D">4</li>
+                            <li data-option="E">5</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="soal-latihan">
+                    <div class="soal-nomor">10.</div>
+                    <div class="soal-konten">
+                        Diketahui $f(x)=x+1$ dan $g(x) = \frac{x}{2x-1}, x \neq \frac{1}{2}$. Jika $(f \circ g)^{-1}(a) = 1$, maka nilai $a$ adalah...
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">-1</li>
+                            <li data-option="B">1</li>
+                            <li data-option="C">2</li>
+                            <li data-option="D">3</li>
+                            <li data-option="E">4</li>
+                        </ol>
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+    </section>
+
+    <!-- HALAMAN 3 -->
+    <section class="page">
+        <header class="page-header">
+            <div class="header-top-box">
+                <div>
+                    <div class="header-title-main">Bank Aktivitas</div>
+                    <div class="header-title-sub">Matematika</div>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+            </div>
+            <div class="header-bottom-box">
+                <div class="header-bottom-text">
+                    XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Drill Soal TKA Matematika - Paket 2 | Pertemuan 6
+                </div>
+            </div>
+        </header>
+        
+        <div class="content-wrapper">
+             <div class="layout-2-kolom">
+                
+                <div class="soal-latihan">
+                    <div class="soal-nomor">11.</div>
+                    <div class="soal-konten">
+                        Radar di $(2, 3)$ jangkauannya 50 km. Pesawat melintas di garis $3x - 4y = 12$. Mana pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">Persamaan jangkauan radar: $(x-2)^2 + (y-3)^2 = 2500$.</li>
+                            <li data-option="B">Jarak terdekat radar ke lintasan pesawat adalah 3.6 km.</li>
+                            <li data-option="C">Pesawat akan terdeteksi oleh radar.</li>
+                            <li data-option="D">Jarak terdekat dari pusat radar ke lintasan pesawat adalah 18 km.</li>
+                            <li data-option="E">Pesawat tidak akan terdeteksi oleh radar.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="soal-latihan">
+                    <div class="soal-nomor">12.</div>
+                    <div class="soal-konten">
+                        Perhatikan tabel nilai ujian:
+                        <table style="width:100%; text-align:center; margin-top:5px; margin-bottom:5px; text-align: left;">
+                            <tr>
+                                <td style="border:1px solid #ccc; padding:4px;"><b>Nilai</b></td>
+                                <td style="border:1px solid #ccc; padding:4px;">5</td>
+                                <td style="border:1px solid #ccc; padding:4px;">6</td>
+                                <td style="border:1px solid #ccc; padding:4px;">7</td>
+                                <td style="border:1px solid #ccc; padding:4px;">8</td>
+                                <td style="border:1px solid #ccc; padding:4px;">9</td>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid #ccc; padding:4px;"><b>Frekuensi</b></td>
+                                <td style="border:1px solid #ccc; padding:4px;">3</td>
+                                <td style="border:1px solid #ccc; padding:4px;">8</td>
+                                <td style="border:1px solid #ccc; padding:4px;">10</td>
+                                <td style="border:1px solid #ccc; padding:4px;">7</td>
+                                <td style="border:1px solid #ccc; padding:4px;">2</td>
+                            </tr>
+                        </table>
+                        Tentukan kebenaran pernyataan analisis data berikut.
+                        <table class="soal-kategori">
+                            <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
+                            <tbody>
+                                <tr><td>Rata-rata nilai ujian adalah 6.9.</td><td></td><td></td></tr>
+                                <tr><td>Median dari data tersebut adalah 7.</td><td></td><td></td></tr>
+                                <tr><td>Modus dari data tersebut adalah 7.</td><td></td><td></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="soal-latihan">
+                    <div class="soal-nomor">13.</div>
+                    <div class="soal-konten">
+                        Diketahui $(f \circ g)(x) = 4x^2 - 12x + 9$ dan $f(x) = x^2$. Maka fungsi $g(x)$ adalah...
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">$2x+3$</li>
+                            <li data-option="B">$2x-3$</li>
+                            <li data-option="C">$4x-6$</li>
+                            <li data-option="D">$-2x+3$</li>
+                            <li data-option="E">$x-3/2$</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="soal-latihan">
+                    <div class="soal-nomor">14.</div>
+                    <div class="soal-konten">
+                        Persamaan lingkaran yang berpusat di (1, 4) dan menyinggung garis $3x - 4y - 2 = 0$ adalah...
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">$x^2 + y^2 - 2x - 8y - 8 = 0$</li>
+                            <li data-option="B">$x^2 + y^2 - 2x - 8y + 8 = 0$</li>
+                            <li data-option="C">$x^2 + y^2 + 2x - 8y - 8 = 0$</li>
+                            <li data-option="D">$x^2 + y^2 + 2x + 8y + 8 = 0$</li>
+                            <li data-option="E">$x^2 + y^2 - 2x - 8y + 26 = 0$</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="soal-latihan">
+                    <div class="soal-nomor">15.</div>
+                    <div class="soal-konten">
+                        Ada lima bilangan bulat positif. Berapakah mediannya?
+                        <div style="text-align: left; margin-top: 5px;">
+                            (1) Bilangan terbesar 10 dan jangkauannya 7.<br>
+                            (2) Rata-rata kelima bilangan adalah 6.
+                        </div>
+                        <ol class="pilihan-ganda">
+                            <li data-option="A">Pernyataan (1) SAJA cukup, tetapi (2) SAJA tidak cukup.</li>
+                            <li data-option="B">Pernyataan (2) SAJA cukup, tetapi (1) SAJA tidak cukup.</li>
+                            <li data-option="C">DUA pernyataan BERSAMA-SAMA cukup, tetapi SATU SAJA tidak cukup.</li>
+                            <li data-option="D">Pernyataan (1) SAJA cukup dan (2) SAJA cukup.</li>
+                            <li data-option="E">Pernyataan (1) dan (2) tidak cukup.</li>
+                        </ol>
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+    </section>
+
+</div>
+
+</body>
+</html>
+
