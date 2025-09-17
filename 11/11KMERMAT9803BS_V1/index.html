@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drill Soal TKA Matematika (Lanjut) - Paket 1</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --header-bg: #EAF4F6;
+            --sub-header-bg: #f0f0f0;
+            --header-title-color: #00979d;
+            --table-header-bg: #F2F2F2;
+            --dark-grey: #6F6F6F;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.5pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 2cm 0;
+        }
+        
+        .page {
+            background: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+            margin: 0 auto 2cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page:last-child {
+            margin-bottom: 0;
+        }
+
+        .page-header {
+            margin: -1.8cm -2.5cm 10px -2.5cm;
+            width: 21cm;
+        }
+        
+        .header-top-box {
+            background-color: var(--header-bg);
+            padding: 10px 2.5cm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 12pt;
+            color: var(--header-title-color);
+        }
+        
+        .header-title .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 8.5pt;
+            color: var(--dark-grey);
+            margin-top: 4px;
+        }
+
+        .header-logo img {
+            height: 55px;
+        }
+
+        .header-bottom-box {
+            padding: 8px 2.5cm;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-bottom-text {
+            background-color: var(--sub-header-bg);
+            padding: 8px 15px;
+            font-weight: 700;
+            font-size: 8pt;
+            color: var(--secondary-text);
+            display: inline-block;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+        
+        .kuis-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12pt;
+            color: black;
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .content-wrapper { 
+            width: 100%; 
+            flex-grow: 1;
+        }
+        
+        .layout-2-kolom {
+            columns: 2;
+            column-gap: 25px;
+        }
+        
+        .soal-latihan { 
+            margin-bottom: 20px; 
+            break-inside: avoid; 
+            overflow-wrap: break-word; 
+            word-wrap: break-word;
+            text-align: justify;
+        }
+        
+        .soal-latihan b {
+            font-weight: 700;
+        }
+        
+        ol { padding-left: 0; }
+        ol.pilihan-ganda { list-style-type: none; padding-left: 20px; margin-top: 8px;}
+        ol.pilihan-ganda li { margin-bottom: 8px; font-weight: normal;}
+        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: normal; margin-right: 5px; }
+        
+        .pilihan-ganda-mcma div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: normal;
+        }
+        .pilihan-ganda-mcma input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        table.soal-kategori { width:100%; border-collapse: collapse; text-align: left; margin-top: 10px; font-size: 8.5pt; }
+        table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; font-weight: normal;}
+        table.soal-kategori th {
+            background-color: var(--table-header-bg);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        table.soal-kategori th:not(:first-child) { text-align: center; width: 70px;}
+        table.soal-kategori td:not(:first-child) { text-align: center; }
+
+        .page-footer {
+            text-align: center;
+            padding-top: 10px;
+            margin-top: auto;
+            flex-shrink: 0;
+        }
+        .footer-content {
+            font-size: 7pt;
+            color: var(--dark-grey);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .copyright-main {
+            font-weight: bold;
+        }
+        .copyright-secondary {
+            font-style: italic;
+            font-weight: normal;
+        }
+        .footer-line {
+            border: 0;
+            border-top: 1px solid var(--dark-grey);
+            width: 100%;
+            margin: 0 auto 5px auto;
+        }
+
+        @media print {
+            body { 
+                background: none; 
+                padding: 0;
+                margin: 0;
+            }
+            .page { 
+                width: 100%; 
+                height: 100%; 
+                margin: 0; 
+                box-shadow: none; 
+                page-break-after: always; 
+            }
+             .page-header, .kuis-title, table.soal-kategori th {
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <header class="page-header">
+        <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika Lanjut</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill Soal TKA Matematika (Lanjut) - Paket 1 | Pertemuan 05
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="kuis-title">Kuis</div>
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>1.</b> Suatu zat radioaktif memiliki waktu paruh 20 hari. Ini berarti massa zat tersebut akan menjadi setengah dari massa semula setiap 20 hari. Jika pada awalnya terdapat 128 gram zat tersebut, massa zat yang tersisa setelah 100 hari adalah...<ol class="pilihan-ganda"><li data-option="A">2 gram</li><li data-option="B">4 gram</li><li data-option="C">8 gram</li><li data-option="D">16 gram</li><li data-option="E">32 gram</li></ol></div>
+            <div class="soal-latihan"><b>2.</b> Seorang karyawan menabung dengan pola aritmetika. Pada bulan pertama, ia menabung Rp500.000, bulan kedua Rp550.000, bulan ketiga Rp600.000, dan seterusnya. Total tabungan karyawan tersebut setelah 2 tahun adalah...<ol class="pilihan-ganda"><li data-option="A">Rp25.800.000</li><li data-option="B">Rp26.500.000</li><li data-option="C">Rp27.400.000</li><li data-option="D">Rp28.200.000</li><li data-option="E">Rp29.100.000</li></ol></div>
+            <div class="soal-latihan"><b>3.</b> Sebuah drone terbang vertikal ke atas dari titik P. Seorang pengamat di titik Q, yang berjarak 100 meter dari P, melihat drone dengan sudut elevasi 30°. Beberapa saat kemudian, pengamat melihat drone dengan sudut elevasi 60°. Kenaikan ketinggian drone dari pengamatan pertama ke kedua adalah...<ol class="pilihan-ganda"><li data-option="A">$100(\sqrt{3}-1)$ meter</li><li data-option="B">$\frac{200}{\sqrt{3}}$ meter</li><li data-option="C">$\frac{100}{\sqrt{3}}$ meter</li><li data-option="D">$100\sqrt{3}$ meter</li><li data-option="E">$200(\sqrt{3}-1)$ meter</li></ol></div>
+            <div class="soal-latihan"><b>4.</b> Lintas sebuah bola yang dilempar secara vertikal ke atas mengikuti grafik fungsi kuadrat $h(t) = -5t^2 + 20t + 2$, dengan $h$ adalah ketinggian dalam meter dan $t$ adalah waktu dalam detik. Ketinggian maksimum yang dicapai bola tersebut adalah...<ol class="pilihan-ganda"><li data-option="A">20 meter</li><li data-option="B">22 meter</li><li data-option="C">25 meter</li><li data-option="D">27 meter</li><li data-option="E">30 meter</li></ol></div>
+            <div class="soal-latihan"><b>5.</b> Tiga bilangan membentuk barisan geometri. Jumlah ketiga bilangan tersebut adalah 26 dan hasil kalinya adalah 216. Suku terbesar dari barisan tersebut adalah...<ol class="pilihan-ganda"><li data-option="A">12</li><li data-option="B">16</li><li data-option="C">18</li><li data-option="D">20</li><li data-option="E">24</li></ol></div>
+            <div class="soal-latihan"><b>6.</b> Diberikan persamaan logaritma $^2\log(x-2) + \ ^2\log(x-3) = 1$. Nilai $x$ yang memenuhi adalah...<ol class="pilihan-ganda"><li data-option="A">1</li><li data-option="B">2</li><li data-option="C">3</li><li data-option="D">4</li><li data-option="E">5</li></ol></div>
+            <div class="soal-latihan"><b>7.</b> Sebuah toko menjual 3 jenis paket hadiah. Paket A berisi 2 buku dan 1 pensil seharga Rp25.000. Paket B berisi 1 buku dan 2 pensil seharga Rp20.000. Paket C berisi 2 buku dan 2 pensil. Harga paket C adalah...<ol class="pilihan-ganda"><li data-option="A">Rp30.000</li><li data-option="B">Rp35.000</li><li data-option="C">Rp40.000</li><li data-option="D">Rp45.000</li><li data-option="E">Rp50.000</li></ol></div>
+            <div class="soal-latihan"><b>8.</b> Data nilai ujian statistika 10 mahasiswa adalah sebagai berikut: 8, 7, 6, 9, 5, 8, 7, 10, 8, 4. Manakah pernyataan berikut yang benar? <span style="font-size:9pt; color:#555;"><b>(bisa pilih lebih dari satu jawaban)</b></span>
+                <div class="pilihan-ganda-mcma">
+                    <div><input type="checkbox" disabled> Rata-rata nilai ujian adalah 7.2.</div>
+                    <div><input type="checkbox" disabled> Modus dari data tersebut adalah 8.</div>
+                    <div><input type="checkbox" disabled> Median dari data tersebut adalah 7.5.</div>
+                    <div><input type="checkbox" disabled> Jangkauan data adalah 6.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright &copy; 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span> 
+            <span class="copyright-secondary">Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</span>
+        </div>
+    </footer>
+</div>
+
+<div class="page">
+    <header class="page-header">
+         <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika Lanjut</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill Soal TKA Matematika (Lanjut) - Paket 1 | Pertemuan 05
+            </div>
+        </div>
+    </header>
+     <div class="content-wrapper">
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>9.</b> Sebuah fungsi kuadrat $f(x) = ax^2 + bx + c$ memiliki titik puncak di $(2, -1)$ dan melalui titik $(4, 7)$. Pernyataan mana saja yang benar mengenai fungsi tersebut? <span style="font-size:9pt; color:#555;"><b>(bisa pilih lebih dari satu jawaban)</b></span>
+                <div class="pilihan-ganda-mcma">
+                    <div><input type="checkbox" disabled> Nilai $a=2$.</div>
+                    <div><input type="checkbox" disabled> Grafik membuka ke atas.</div>
+                    <div><input type="checkbox" disabled> Fungsi memotong sumbu y di titik $(0, 7)$.</div>
+                    <div><input type="checkbox" disabled> Diskriminan fungsi bernilai positif.</div>
+                </div>
+            </div>
+            <div class="soal-latihan"><b>10.</b> Dalam sebuah kotak terdapat 5 bola merah dan 3 bola putih. Akan diambil 2 bola secara acak satu per satu tanpa pengembalian. Manakah pernyataan peluang berikut yang benar? <span style="font-size:9pt; color:#555;"><b>(bisa pilih lebih dari satu jawaban)</b></span>
+                <div class="pilihan-ganda-mcma">
+                    <div><input type="checkbox" disabled> Peluang terambilnya kedua bola merah adalah $\frac{5}{14}$.</div>
+                    <div><input type="checkbox" disabled> Peluang terambilnya bola pertama merah dan bola kedua putih adalah $\frac{15}{56}$.</div>
+                    <div><input type="checkbox" disabled> Peluang terambilnya kedua bola berwarna sama adalah $\frac{13}{28}$.</div>
+                    <div><input type="checkbox" disabled> Peluang terambilnya minimal satu bola putih adalah $\frac{9}{14}$.</div>
+                </div>
+            </div>
+            <div class="soal-latihan"><b>11.</b> Diketahui sistem pertidaksamaan linear: $x+y \le 6$, $2x+y \le 8$, $x \ge 0$, $y \ge 0$. Titik-titik mana saja yang berada di dalam daerah penyelesaian? <span style="font-size:9pt; color:#555;"><b>(bisa pilih lebih dari satu jawaban)</b></span>
+                <div class="pilihan-ganda-mcma">
+                    <div><input type="checkbox" disabled> (1, 4)</div>
+                    <div><input type="checkbox" disabled> (3, 2)</div>
+                    <div><input type="checkbox" disabled> (2, 3)</div>
+                    <div><input type="checkbox" disabled> (4, 1)</div>
+                </div>
+            </div>
+            <div class="soal-latihan">
+                <b>12.</b> Sebuah bola dijatuhkan dari ketinggian 10 meter. Setiap kali memantul, bola mencapai ketinggian $\frac{3}{4}$ dari ketinggian sebelumnya. Tentukan kebenaran pernyataan berikut.
+                <table class="soal-kategori"><thead><tr><th>PERNYATAAN</th><th>BENAR</th><th>SALAH</th></tr></thead>
+                <tbody>
+                    <tr><td>Total panjang lintasan bola saat turun adalah 40 meter.</td><td></td><td></td></tr>
+                    <tr><td>Total panjang lintasan bola saat naik adalah 30 meter.</td><td></td><td></td></tr>
+                    <tr><td>Ketinggian bola setelah pantulan ketiga adalah $\frac{135}{32}$ meter.</td><td></td><td></td></tr>
+                    <tr><td>Total seluruh lintasan yang ditempuh bola hingga berhenti adalah 70 meter.</td><td></td><td></td></tr>
+                </tbody></table>
+            </div>
+             <div class="soal-latihan">
+                <b>13.</b> Diketahui nilai $\sin A = \frac{3}{5}$ dengan A adalah sudut lancip. Tentukan kebenaran dari nilai perbandingan trigonometri berikut.
+                <table class="soal-kategori"><thead><tr><th>PERNYATAAN</th><th>BENAR</th><th>SALAH</th></tr></thead>
+                <tbody>
+                    <tr><td>$\cos A = \frac{4}{5}$</td><td></td><td></td></tr>
+                    <tr><td>$\tan A = \frac{3}{4}$</td><td></td><td></td></tr>
+                    <tr><td>$\sec A = \frac{5}{4}$</td><td></td><td></td></tr>
+                    <tr><td>$\sin(90^\circ - A) = \frac{4}{5}$</td><td></td><td></td></tr>
+                </tbody></table>
+            </div>
+            <div class="soal-latihan">
+                <b>14.</b> Perhatikan sifat-sifat eksponen dan logaritma berikut. Tentukan kebenaran setiap pernyataan.
+                <table class="soal-kategori"><thead><tr><th>PERNYATAAN</th><th>BENAR</th><th>SALAH</th></tr></thead>
+                <tbody>
+                    <tr><td>$(a^m)^n = a^{m \cdot n}$</td><td></td><td></td></tr>
+                    <tr><td>$^a\log b + \ ^a\log c = \ ^a\log (b \times c)$</td><td></td><td></td></tr>
+                    <tr><td>$\frac{a^m}{a^n} = a^{m-n}$</td><td></td><td></td></tr>
+                    <tr><td>$^a\log b^n = n \cdot \ ^a\log b$</td><td></td><td></td></tr>
+                </tbody></table>
+            </div>
+             <div class="soal-latihan">
+                <b>15.</b> Sebuah perusahaan ingin meneliti pengaruh jam belajar tambahan per minggu ($x$) terhadap nilai ujian siswa ($y$). Data yang diperoleh dimodelkan dengan fungsi linear $y = 3x+70$. Tentukan kebenaran interpretasi model berikut.
+                <table class="soal-kategori"><thead><tr><th>PERNYATAAN</th><th>BENAR</th><th>SALAH</th></tr></thead>
+                <tbody>
+                    <tr><td>Tanpa belajar tambahan, nilai siswa diperkirakan 70.</td><td></td><td></td></tr>
+                    <tr><td>Setiap penambahan 1 jam belajar, nilai siswa diperkirakan naik 3 poin.</td><td></td><td></td></tr>
+                    <tr><td>Jika seorang siswa belajar tambahan 5 jam, nilainya diperkirakan menjadi 85.</td><td></td><td></td></tr>
+                    <tr><td>Model ini dapat digunakan untuk memprediksi nilai jika siswa tidak belajar sama sekali.</td><td></td><td></td></tr>
+                </tbody></table>
+            </div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright &copy; 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span> 
+            <span class="copyright-secondary">Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</span>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
+
