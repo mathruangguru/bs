@@ -28,6 +28,7 @@
             --header-title-color: #00979d;
             --table-header-bg: #F2F2F2;
             --dark-grey: #6F6F6F;
+            --grey-text: #8d8e8d;
         }
         
         *, *::before, *::after {
@@ -189,11 +190,18 @@
         table.soal-kategori td:not(:first-child) { text-align: center; }
 
         .page-footer {
-            position: absolute;
-            bottom: 1.5cm;
-            left: 2.5cm;
-            right: 2.5cm;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 6pt;
+            color: var(--grey-text);
+            margin-top: auto;
+            padding-top: 2px;
+            border-top: 2.5px solid var(--grey-text);
+            flex-shrink: 0;
+            width: 100%;
+            position: relative;
+            z-index: 10;
         }
         .footer-content {
             font-size: 7pt;
@@ -280,12 +288,8 @@
         </div>
     </div>
     <footer class="page-footer">
-        <hr class="footer-line">
-        <div class="footer-content">
-            <span class="copyright-main">Copyright &copy; 2024 - PT Ruang Raya Indonesia - All Rights Reserved.</span> 
-            <span class="copyright-secondary">Dilarang menyebarluaskan ini tanpa seizin PT Ruang Raya Indonesia.</span>
-        </div>
-    </footer>
+            <span><b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </footer>
 </div>
 
 <div class="page">
@@ -373,13 +377,9 @@
             </div>
         </div>
     </div>
-    <footer class="page-footer">
-        <hr class="footer-line">
-        <div class="footer-content">
-            <span class="copyright-main">Copyright &copy; 2024 - PT Ruang Raya Indonesia - All Rights Reserved.</span> 
-            <span class="copyright-secondary">Dilarang menyebarluaskan ini tanpa seizin PT Ruang Raya Indonesia.</span>
-        </div>
-    </footer>
+   <footer class="page-footer">
+            <span><b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i> Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </footer>
 </div>
 
 </body>
