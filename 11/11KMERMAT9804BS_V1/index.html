@@ -52,13 +52,14 @@
         .page {
             background: white;
             width: 21cm;
-            min-height: 29.7cm;
+            height: 29.7cm;
             padding: 1.8cm 2.5cm 1.5cm 2.5cm;
             margin: 1cm auto;
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
             position: relative;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
         
         .page-header {
@@ -90,7 +91,6 @@
 
         .header-bottom-box {
             padding: 8px 2.5cm;
-            /* Changed from text-align: center */
         }
         
         .header-bottom-text {
@@ -99,10 +99,10 @@
             font-weight: 700;
             font-size: 8.5pt;
             color: var(--secondary-text);
-            display: inline-block; /* Changed from inline-block */
+            display: block;
             border-radius: 4px;
             white-space: normal;
-            text-align: left; /* Changed from center */
+            text-align: left;
         }
 
         .header-logo {
@@ -114,6 +114,7 @@
             z-index: 1; 
             width: 100%; 
             flex-grow: 1;
+            overflow: hidden;
         }
         
         h2.kuis-title { 
@@ -166,10 +167,10 @@
         table.soal-kategori { width:100%; border-collapse: collapse; text-align: left; margin-top: 10px; font-size: 8pt;}
         table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; }
         table.soal-kategori th { background-color: #f2f2f2; }
-        table.soal-kategori th:not(:first-child) { text-align: center; width: 60px;}
+        table.soal-kategori th:not(:first-child) { text-align: center; width: 50px;}
         table.soal-kategori td:not(:first-child) { text-align: center; }
 
-       /* .pilihan-ganda-mcma div {
+        .pilihan-ganda-mcma div {
             display: flex;
             align-items: flex-start;
             margin-bottom: 8px;
@@ -181,7 +182,7 @@
             margin-right: 10px;
             flex-shrink: 0;
             margin-top: 4px;
-        }*/
+        }
 
         .page-footer {
             text-align: left;
@@ -328,6 +329,33 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+    </section>
+
+    <!-- HALAMAN 2 -->
+    <section class="page">
+        <header class="page-header">
+            <div class="header-top-box">
+                <div>
+                    <div class="header-title-main">Bank Aktivitas</div>
+                    <div class="header-title-sub"><strong>Matematika Lanjut (TKA)</strong></div>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+            </div>
+            <div class="header-bottom-box">
+                <div class="header-bottom-text">
+                    XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill Soal TKA Matematika (Lanjut) - Paket 2 | Pertemuan 6
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+             <div class="layout-2-kolom">
                 <div class="soal-latihan">
                     <div class="soal-nomor">6.</div>
                     <div class="soal-konten">
@@ -356,33 +384,6 @@
                         </ol>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <footer class="page-footer">
-            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
-        </footer>
-    </section>
-
-    <!-- HALAMAN 2 -->
-    <section class="page">
-        <header class="page-header">
-            <div class="header-top-box">
-                <div>
-                    <div class="header-title-main">Bank Aktivitas</div>
-                    <div class="header-title-sub"><strong>Matematika Lanjut (TKA)</strong></div>
-                </div>
-                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
-            </div>
-            <div class="header-bottom-box">
-                <div class="header-bottom-text">
-                    XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill Soal TKA Matematika (Lanjut) - Paket 2 | Pertemuan 6
-                </div>
-            </div>
-        </header>
-
-        <div class="content-wrapper">
-             <div class="layout-2-kolom">
                 
                 <div class="soal-latihan">
                     <div class="soal-nomor">8.</div>
@@ -428,7 +429,33 @@
                         </ol>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <footer class="page-footer">
+            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+    </section>
+
+    <!-- HALAMAN 3 -->
+    <section class="page">
+        <header class="page-header">
+            <div class="header-top-box">
+                <div>
+                    <div class="header-title-main">Bank Aktivitas</div>
+                    <div class="header-title-sub"><strong>Matematika Lanjut (TKA)</strong></div>
+                </div>
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+            </div>
+            <div class="header-bottom-box">
+                <div class="header-bottom-text">
+                    XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill Soal TKA Matematika (Lanjut) - Paket 2 | Pertemuan 6
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+             <div class="layout-2-kolom">
                 <div class="soal-latihan">
                     <div class="soal-nomor">11.</div>
                     <div class="soal-konten">
