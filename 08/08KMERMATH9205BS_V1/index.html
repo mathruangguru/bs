@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Aktivitas - Teorema Pythagoras (HOTS)</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            packages: {'[+]': ['ams']}
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --header-bg: #E0F7FA;
+            --sub-header-bg: #f0f0f0;
+            --header-title-color: #00838F;
+            --table-header-bg: #F2F2F2;
+            --dark-grey: #6F6F6F;
+        }
+       
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.5pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 2cm 0;
+        }
+       
+        .page {
+            background: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 1.8cm 2.5cm 2.5cm 2.5cm; /* Padding bawah untuk footer */
+            margin: 0 auto 2cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page:last-child {
+            margin-bottom: 0;
+        }
+
+        .page-header {
+            margin: -1.8cm -2.5cm 10px -2.5cm;
+            width: 21cm;
+        }
+       
+        .header-top-box {
+            background-color: var(--header-bg);
+            padding: 10px 2.5cm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 12pt;
+            color: var(--header-title-color);
+        }
+       
+        .header-title .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 8.5pt;
+            color: var(--dark-grey);
+            margin-top: 4px;
+        }
+
+        .header-logo img {
+            height: 55px;
+        }
+
+        .header-bottom-box {
+            padding: 8px 2.5cm;
+            display: flex;
+            justify-content: flex-start; /* Mengubah dari center ke flex-start */
+            align-items: center;
+        }
+
+        .header-bottom-text {
+            background-color: var(--sub-header-bg);
+            padding: 8px 15px;
+            font-weight: 700;
+            font-size: 8.5pt;
+            color: var(--primary-text);
+            display: inline-block;
+            border-radius: 4px;
+            white-space: normal; /* Mengizinkan text wrap */
+            text-align: left;
+        }
+       
+        .kuis-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12pt;
+            color: black;
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            flex-grow: 1;
+        }
+       
+        .layout-2-kolom {
+            columns: 2;
+            column-gap: 25px;
+        }
+       
+        .soal-latihan {
+            margin-bottom: 20px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            text-align: justify;
+            padding-left: 20px;
+            text-indent: -20px;
+        }
+       
+        .soal-latihan b {
+            font-weight: 700;
+            margin-right: 4px;
+        }
+       
+        ol { padding-left: 0; }
+        ol.pilihan-ganda {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 8px;
+            text-indent: 0;
+        }
+        ol.pilihan-ganda li { margin-bottom: 8px; font-weight: normal;}
+        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: normal; margin-right: 5px; }
+       
+        .pilihan-ganda-mcma {
+            text-indent: 0;
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+        .pilihan-ganda-mcma div {
+            display: flex;
+            align-items: flex-start; /* Align start untuk text panjang */
+            margin-bottom: 8px;
+            font-weight: normal;
+        }
+        .pilihan-ganda-mcma input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            margin-top: 3px; /* Penyesuaian posisi vertikal */
+        }
+
+        table.soal-kategori {
+            width:100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin-top: 10px;
+            font-size: 8.5pt;
+            text-indent: 0;
+        }
+        table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; font-weight: normal;}
+        table.soal-kategori th {
+            background-color: var(--table-header-bg);
+            font-weight: bold;
+        }
+        table.soal-kategori th:not(:first-child) { text-align: center; width: 60px;}
+        table.soal-kategori td:not(:first-child) { text-align: center; }
+
+        .page-footer {
+            position: absolute;
+            bottom: 1.5cm;
+            left: 2.5cm;
+            right: 2.5cm;
+            text-align: left;
+        }
+        .footer-content {
+            font-size: 6pt;
+            color: var(--dark-grey);
+        }
+        .copyright-main {
+            font-weight: bold;
+        }
+        .copyright-secondary {
+            font-style: italic;
+            font-weight: normal;
+        }
+        .footer-line {
+            border: 0;
+            border-top: 2.5px solid var(--dark-grey);
+            width: 100%;
+            margin: 0 auto 5px auto;
+        }
+
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #00838F;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.2s ease-in-out;
+            z-index: 1000;
+        }
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body {
+                background: #FFFFFF;
+                padding: 0;
+                margin: 0;
+            }
+           
+            .page {
+                width: 21cm;
+                height: 29.7cm; 
+                margin: 0;
+                padding: 1.8cm 2.5cm 2.5cm 2.5cm;
+                box-shadow: none;
+                page-break-after: always;
+            }
+
+            .page:last-of-type {
+                page-break-after: avoid;
+            }
+           
+            .kuis-title {
+                margin-top: 0;
+            }
+
+            .page-header, .kuis-title, table.soal-kategori th, .header-top-box, .header-bottom-text {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="print-button" onclick="window.print()">
+    Cetak ke PDF
+</button>
+
+<!-- PAGE 1 -->
+<div class="page">
+    <header class="page-header">
+        <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VIII SMP | Kurikulum Merdeka | Drill Soal | Drill Soal: Review Pythagoras | Pertemuan 07
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="kuis-title">Kuis</div>
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>1.</b>Sebuah belah ketupat memiliki panjang diagonal 12 cm dan 16 cm. Di dalam belah ketupat tersebut dibuat sebuah lingkaran yang menyinggung keempat sisinya. Jari-jari lingkaran tersebut adalah...<ol class="pilihan-ganda"><li data-option="A">3,6 cm</li><li data-option="B">4,2 cm</li><li data-option="C">4,8 cm</li><li data-option="D">5,0 cm</li></ol></div>
+            <div class="soal-latihan"><b>2.</b>Titik $P(x, 3)$ berjarak 10 satuan dari titik $Q(-2, -5)$. Nilai $x$ yang mungkin adalah...<ol class="pilihan-ganda"><li data-option="A">8 atau -4</li><li data-option="B">-8 atau 4</li><li data-option="C">6 atau -10</li><li data-option="D">-6 atau 10</li></ol></div>
+            <div class="soal-latihan"><b>3.</b>Sebuah balok berukuran panjang 10 cm, lebar 10 cm, dan tinggi 5 cm. Seekor semut berada di salah satu sudut bawah balok. Semut tersebut akan berjalan ke sudut ruang yang paling jauh. Jarak terpendek yang harus ditempuh semut adalah...<ol class="pilihan-ganda"><li data-option="A">15 cm</li><li data-option="B">17 cm</li><li data-option="C">20 cm</li><li data-option="D">25 cm</li></ol></div>
+            <div class="soal-latihan"><b>4.</b>Diketahui tiga sisi segitiga adalah $(x-2)$ cm, $x$ cm, dan $(x+2)$ cm. Agar segitiga tersebut merupakan segitiga tumpul, maka batasan nilai $x$ adalah...<ol class="pilihan-ganda"><li data-option="A">$x > 2$</li><li data-option="B">$4 < x < 8$</li><li data-option="C">$2 < x < 4$</li><li data-option="D">$0 < x < 8$</li></ol></div>
+            <div class="soal-latihan"><b>5.</b>Sebuah segitiga siku-siku memiliki sudut 30°, 60°, dan 90°. Jika luas segitiga tersebut adalah $18\sqrt{3}$ cm$^2$, maka kelilingnya adalah...<ol class="pilihan-ganda"><li data-option="A">36 cm</li><li data-option="B">$18\sqrt{3}$ cm</li><li data-option="C">$12+18\sqrt{3}$ cm</li><li data-option="D">$18+6\sqrt{3}$ cm</li></ol></div>
+            <div class="soal-latihan"><b>6.</b>Manakah dari berikut ini yang BUKAN merupakan tripel Pythagoras?<ol class="pilihan-ganda"><li data-option="A">20, 21, 29</li><li data-option="B">12, 35, 37</li><li data-option="C">9, 12, 15</li><li data-option="D">10, 22, 26</li></ol></div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+            <span class="copyright-secondary"><i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </div>
+    </footer>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+    <header class="page-header">
+         <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VIII SMP | Kurikulum Merdeka | Drill Soal | Drill Soal: Review Pythagoras | Pertemuan 07
+            </div>
+        </div>
+    </header>
+     <div class="content-wrapper" style="padding-top: 20px;">
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>7.</b>Sebuah layar televisi berukuran 32 inci (diagonalnya). Jika perbandingan panjang dan lebarnya adalah 16:9, maka lebar televisi tersebut kira-kira...<ol class="pilihan-ganda"><li data-option="A">15,7 inci</li><li data-option="B">27,9 inci</li><li data-option="C">18,5 inci</li><li data-option="D">20,1 inci</li></ol></div>
+            <div class="soal-latihan"><b>8.</b>Pada segitiga siku-siku ABC, siku-siku di B, sudut A = 45°. Jika panjang AC = $10\sqrt{2}$ cm, maka luas segitiga ABC adalah...<ol class="pilihan-ganda"><li data-option="A">50 cm$^2$</li><li data-option="B">100 cm$^2$</li><li data-option="C">25 cm$^2$</li><li data-option="D">$25\sqrt{2}$ cm$^2$</li></ol></div>
+            <div class="soal-latihan"><b>9.</b>Sebuah tiang bendera setinggi 8 meter ditopang oleh tiga buah kawat yang sama panjang. Setiap kawat diikatkan pada puncak tiang dan ditancapkan ke tanah sejauh 6 meter dari pangkal tiang. Total panjang kawat yang dibutuhkan adalah...<ol class="pilihan-ganda"><li data-option="A">18 m</li><li data-option="B">24 m</li><li data-option="C">30 m</li><li data-option="D">36 m</li></ol></div>
+            <div class="soal-latihan"><b>10.</b>Sebuah segitiga PQR memiliki sisi p=10 cm, q=15 cm, dan r=17 cm. Jenis segitiga PQR adalah...<ol class="pilihan-ganda"><li data-option="A">Siku-siku</li><li data-option="B">Tumpul</li><li data-option="C">Lancip</li><li data-option="D">Sama kaki</li></ol></div>
+            <div class="soal-latihan"><b>11.</b>Dua buah lingkaran memiliki jari-jari 17 cm dan 6 cm. Jarak antara kedua pusatnya adalah 23 cm. Panjang garis singgung persekutuan luar kedua lingkaran tersebut adalah...<ol class="pilihan-ganda"><li data-option="A">$2\sqrt{78}$ cm</li><li data-option="B">$4\sqrt{11}$ cm</li><li data-option="C">20 cm</li><li data-option="D">$2\sqrt{102}$ cm</li></ol></div>
+            <div class="soal-latihan"><b>12.</b>Sebuah layang-layang terbang pada ketinggian vertikal 8 meter. Panjang benang yang terulur adalah 17 meter. Jika anak yang memegang layang-layang berjalan maju mendekati titik tepat di bawah layang-layang sejauh 9 meter, berapa meter benang yang harus ditarik agar ketinggian layang-layang tetap?<ol class="pilihan-ganda"><li data-option="A">7 meter</li><li data-option="B">8 meter</li><li data-option="C">9 meter</li><li data-option="D">10 meter</li></ol></div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+            <span class="copyright-secondary"><i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </div>
+    </footer>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+    <header class="page-header">
+        <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VIII SMP | Kurikulum Merdeka | Drill Soal | Drill Soal: Review Pythagoras | Pertemuan 07
+            </div>
+        </div>
+    </header>
+     <div class="content-wrapper" style="padding-top: 20px;">
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>13.</b>Dari sebuah titik di luar lingkaran, ditarik garis singgung yang panjangnya 24 cm. Jika jarak dari titik tersebut ke pusat lingkaran adalah 25 cm, maka keliling lingkaran tersebut adalah...<ol class="pilihan-ganda"><li data-option="A">$7\pi$ cm</li><li data-option="B">$14\pi$ cm</li><li data-option="C">$24\pi$ cm</li><li data-option="D">$49\pi$ cm</li></ol></div>
+            <div class="soal-latihan"><b>14.</b>Sebuah trapesium siku-siku memiliki panjang sisi sejajar 10 cm dan 20 cm. Jika panjang sisi miringnya 26 cm, maka luas trapesium tersebut adalah...<ol class="pilihan-ganda"><li data-option="A">360 cm$^2$</li><li data-option="B">480 cm$^2$</li><li data-option="C">520 cm$^2$</li><li data-option="D">624 cm$^2$</li></ol></div>
+            <div class="soal-latihan"><b>15.</b>Pernyataan berikut yang paling tepat mendeskripsikan kebalikan dari Teorema Pythagoras adalah...<ol class="pilihan-ganda"><li data-option="A">Jika sebuah segitiga memiliki sisi a, b, dan c, maka $a^2+b^2=c^2$.</li><li data-option="B">Pada segitiga siku-siku, kuadrat sisi miring sama dengan jumlah kuadrat sisi lainnya.</li><li data-option="C">Jika pada segitiga berlaku $a^2+b^2 \neq c^2$, maka segitiga itu bukan segitiga siku-siku.</li><li data-option="D">Jika kuadrat sisi terpanjang sebuah segitiga sama dengan jumlah kuadrat sisi-sisi lainnya, maka segitiga tersebut siku-siku.</li></ol></div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+            <span class="copyright-secondary"><i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
