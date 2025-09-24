@@ -1,551 +1,823 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Modul Soal - TKA Matematika (Lanjut) - Paket 2</title>
     <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                packages: {'[+]': ['ams']}
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
     </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary-text: #333333;
-            --secondary-text: #555555;
-            --border-color: #dddddd;
-            --header-top-bg: #E0F7FA;
-            --header-bottom-bg: #f0f0f0;
-            --header-title-color: #00838F;
-            --grey-text: #8d8e8d;
-        }
-        
-        *, *::before, *::after {
-            box-sizing: border-box;
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f7fa;
+        --header-bottom-bg: #f0f0f0;
+        --header-title-color: #00838f;
+        --grey-text: #8d8e8d;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 8.5pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page-container {
+        counter-reset: page;
+      }
+
+      .page {
+        background: white;
+        width: 21cm;
+        height: 29.7cm;
+        padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .page-header {
+        margin: -1.8cm -2.5cm 20px -2.5cm;
+        width: 21cm;
+      }
+
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2.5cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+
+      .header-bottom-box {
+        padding: 8px 2.5cm;
+      }
+
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg);
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block;
+        border-radius: 4px;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .header-logo {
+        max-height: 60px;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1;
+        overflow: hidden;
+      }
+
+      h2.kuis-title {
+        font-size: 11pt;
+        color: var(--secondary-text);
+        background-color: #f0f0f0;
+        padding: 2px 10px;
+        border-radius: 4px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: left;
+        font-weight: 700;
+        display: inline-block;
+      }
+
+      .layout-2-kolom {
+        columns: 2;
+        column-gap: 15mm;
+      }
+
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px; /* Jarak antara nomor dan teks soal */
+        margin-bottom: 20px;
+        break-inside: avoid;
+        text-align: justify;
+      }
+
+      .soal-nomor {
+        font-weight: bold;
+        flex-shrink: 0;
+        min-width: 18px; /* Ruang untuk nomor hingga 2 digit */
+      }
+
+      .soal-konten {
+        flex-grow: 1; /* Konten soal mengisi sisa ruang */
+      }
+
+      ol {
+        padding-left: 0;
+      }
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        text-align: left; /* Pilihan ganda selalu rata kiri */
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 8px;
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      table.soal-kategori {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        margin-top: 10px;
+        font-size: 8pt;
+      }
+      table.soal-kategori th,
+      table.soal-kategori td {
+        padding: 8px;
+        border: 1px solid #ccc;
+        vertical-align: middle;
+      }
+      table.soal-kategori th {
+        background-color: #f2f2f2;
+      }
+      table.soal-kategori th:not(:first-child) {
+        text-align: center;
+        width: 50px;
+      }
+      table.soal-kategori td:not(:first-child) {
+        text-align: center;
+      }
+
+      .pilihan-ganda-mcma div {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 8px;
+        padding-left: 5px;
+      }
+      .pilihan-ganda-mcma input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+        margin-right: 10px;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 8.5pt;
-            line-height: 1.6;
-            color: var(--primary-text);
-            background-color: #e0e0e0;
-            margin: 0;
-            padding: 0;
-        }
-
-        .page-container {
-            counter-reset: page;
+          background-color: white;
+          margin: 0;
         }
 
         .page {
-            background: white;
-            width: 21cm;
-            height: 29.7cm;
-            padding: 1.8cm 2.5cm 1.5cm 2.5cm;
-            margin: 1cm auto;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
         }
-        
+        .page:last-child {
+          page-break-after: avoid;
+        }
+
         .page-header {
-            margin: -1.8cm -2.5cm 20px -2.5cm;
-            width: 21cm;
+          display: block;
+          margin: -1.8cm -2.5cm 20px -2.5cm;
+          position: relative;
         }
 
-        .header-top-box {
-            background-color: var(--header-top-bg);
-            padding: 10px 2.5cm;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2px;
+        .header-top-box,
+        .header-bottom-text,
+        .kuis-title {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
         }
-        
-        .header-title-main {
-            font-size: 18pt;
-            font-weight: 700;
-            color: var(--header-title-color);
-            line-height: 1.2;
-        }
-
-        .header-title-sub {
-            font-size: 9pt;
-            font-weight: 400;
-            color: var(--primary-text);
-        }
-
-        .header-bottom-box {
-            padding: 8px 2.5cm;
-        }
-        
-        .header-bottom-text {
-            background-color: var(--header-bottom-bg);
-            padding: 8px 15px;
-            font-weight: 700;
-            font-size: 8.5pt;
-            color: var(--secondary-text);
-            display: block;
-            border-radius: 4px;
-            white-space: normal;
-            text-align: left;
-        }
-
-        .header-logo {
-            max-height: 60px;
-        }
-        
-        .content-wrapper { 
-            position: relative; 
-            z-index: 1; 
-            width: 100%; 
-            flex-grow: 1;
-            overflow: hidden;
-        }
-        
-        h2.kuis-title { 
-            font-size: 11pt; 
-            color: var(--secondary-text);
-            background-color: #f0f0f0;
-            padding: 2px 10px;
-            border-radius: 4px;
-            margin-top: 0; 
-            margin-bottom: 20px;
-            text-align: left;
-            font-weight: 700;
-            display: inline-block;
-        }
-
-        .layout-2-kolom { 
-            columns: 2; 
-            column-gap: 15mm; 
-        }
-
-        .soal-latihan {
-            display: flex;
-            align-items: flex-start;
-            gap: 5px; /* Jarak antara nomor dan teks soal */
-            margin-bottom: 20px;
-            break-inside: avoid;
-            text-align: justify;
-        }
-
-        .soal-nomor {
-            font-weight: bold;
-            flex-shrink: 0;
-            min-width: 18px; /* Ruang untuk nomor hingga 2 digit */
-        }
-
-        .soal-konten {
-            flex-grow: 1; /* Konten soal mengisi sisa ruang */
-        }
-        
-        ol { padding-left: 0; }
-        ol.pilihan-ganda { 
-            list-style-type: none; 
-            padding-left: 0; 
-            margin-top: 10px;
-            text-align: left; /* Pilihan ganda selalu rata kiri */
-        }
-        ol.pilihan-ganda li { margin-bottom: 8px; }
-        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: bold; margin-right: 5px; }
-        
-        table.soal-kategori { width:100%; border-collapse: collapse; text-align: left; margin-top: 10px; font-size: 8pt;}
-        table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; }
-        table.soal-kategori th { background-color: #f2f2f2; }
-        table.soal-kategori th:not(:first-child) { text-align: center; width: 50px;}
-        table.soal-kategori td:not(:first-child) { text-align: center; }
-
-        .pilihan-ganda-mcma div {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 8px;
-            padding-left: 5px;
-        }
-        .pilihan-ganda-mcma input[type="checkbox"] {
-            width: 14px;
-            height: 14px;
-            margin-right: 10px;
-            flex-shrink: 0;
-            margin-top: 4px;
-        }
-
-        .page-footer {
-            text-align: left;
-            font-size: 6pt;
-            color: var(--grey-text);
-            padding-top: 2px;
-            margin-top: auto;
-            border-top: 2.5px solid var(--grey-text);
-        }
-
-        @media print {
-            @page {
-                size: A4;
-                margin: 0;
-            }
-            
-            body {
-                background-color: white;
-                margin: 0;
-            }
-            
-            .page { 
-                width: 100%; 
-                min-height: 29.7cm;
-                height: 100%;
-                margin: 0; 
-                box-shadow: none; 
-                page-break-after: always;
-            }
-            .page:last-child {
-                page-break-after: avoid;
-            }
-            
-            .page-header {
-                display: block; 
-                margin: -1.8cm -2.5cm 20px -2.5cm;
-                position: relative;
-            }
-            
-            .header-top-box, .header-bottom-text, .kuis-title {
-                -webkit-print-color-adjust: exact; 
-                print-color-adjust: exact;
-            }
-        }
+      }
     </style>
-</head>
-<body>
-
-<div class="page-container">
-
-    <!-- HALAMAN 1 -->
-    <section class="page">
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- HALAMAN 1 -->
+      <section class="page">
         <header class="page-header">
-            <div class="header-top-box">
-                <div>
-                    <div class="header-title-main">Bank Aktivitas</div>
-                    <div class="header-title-sub"><strong>Matematika Lanjut</strong></div>
-                </div>
-                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika Lanjut</strong>
+              </div>
             </div>
-            <div class="header-bottom-box">
-                <div class="header-bottom-text">
-                    XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill Soal TKA Matematika (Lanjut) - Paket 2 | Pertemuan 6
-                </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill
+              Soal TKA Matematika (Lanjut) - Paket 2 | Pertemuan 6
             </div>
+          </div>
         </header>
 
         <div class="content-wrapper">
-            <h2 class="kuis-title">Kuis</h2>
-            <div class="layout-2-kolom">
-                
-                <div class="soal-latihan">
-                    <div class="soal-nomor">1.</div>
-                    <div class="soal-konten">
-                        Diketahui vektor $\vec{a} = 2\hat{i} - 3\hat{j} + 4\hat{k}$ dan $\vec{b} = \hat{i} + 2\hat{j} - \hat{k}$. Sudut antara vektor $\vec{a}$ dan $\vec{b}$ adalah $\theta$, maka nilai $\cos \theta$ adalah...
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">$-\frac{4}{29}$</li>
-                            <li data-option="B">$-\frac{8}{\sqrt{174}}$</li>
-                            <li data-option="C">$\frac{29}{\sqrt{6}}$</li>
-                            <li data-option="D">$\frac{\sqrt{6}}{29}$</li>
-                            <li data-option="E">$-\frac{4\sqrt{6}}{29}$</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="soal-latihan">
-                    <div class="soal-nomor">2.</div>
-                    <div class="soal-konten">
-                        Suku banyak $P(x) = 2x^4 + ax^3 - 3x^2 + 5x + b$ dibagi oleh $(x^2 - 1)$ bersisa $(6x + 5)$. Nilai $a \cdot b$ adalah...
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">-6</li>
-                            <li data-option="B">-3</li>
-                            <li data-option="C">1</li>
-                            <li data-option="D">6</li>
-                            <li data-option="E">8</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="soal-latihan">
-                    <div class="soal-nomor">3.</div>
-                    <div class="soal-konten">
-                        Jika $A = \begin{pmatrix} 2 & 5 \\ 1 & 3 \end{pmatrix}$ dan $B = \begin{pmatrix} 4 & -1 \\ -2 & 1 \end{pmatrix}$, dan $C = A^{-1} B$, maka matriks $C$ adalah...
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">$\begin{pmatrix} 14 & -8 \\ -6 & 3 \end{pmatrix}$</li>
-                            <li data-option="B">$\begin{pmatrix} 22 & -8 \\ -8 & 3 \end{pmatrix}$</li>
-                            <li data-option="C">$\begin{pmatrix} -2 & 1 \\ 4 & -1 \end{pmatrix}$</li>
-                            <li data-option="D">$\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$</li>
-                            <li data-option="E">$\begin{pmatrix} 18 & -4 \\ -7 & 2 \end{pmatrix}$</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="soal-latihan">
-                    <div class="soal-nomor">4.</div>
-                    <div class="soal-konten">
-                       Bayangan titik $P(2, -3)$ oleh rotasi $R(O, 90^\circ)$ dilanjutkan dengan refleksi terhadap garis $y = -x$ adalah...
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">$P''(-2, -3)$</li>
-                            <li data-option="B">$P''(2, 3)$</li>
-                            <li data-option="C">$P''(-3, -2)$</li>
-                            <li data-option="D">$P''(3, 2)$</li>
-                            <li data-option="E">$P''(-2, 3)$</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="soal-latihan">
-                    <div class="soal-nomor">5.</div>
-                    <div class="soal-konten">
-                        (Soal Tipe Kecukupan Data)<br>
-                        Diberikan vektor $\vec{u} = \begin{pmatrix} 2 \\ -1 \\ 2 \end{pmatrix}$ dan $\vec{v} = \begin{pmatrix} 4 \\ 10 \\ p \end{pmatrix}$. Berapakah panjang proyeksi $\vec{u}$ pada $\vec{v}$?
-                        <div style="text-align: left; margin-top: 5px;">
-                            (1) Vektor $\vec{u}$ dan $\vec{v}$ saling tegak lurus.<br>
-                            (2) Nilai $p=-1$.
-                        </div>
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.</li>
-                            <li data-option="B">Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.</li>
-                            <li data-option="C">DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.</li>
-                            <li data-option="D">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.</li>
-                            <li data-option="E">Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan.</li>
-                        </ol>
-                    </div>
-                </div>
-
+          <h2 class="kuis-title">Kuis</h2>
+          <div class="layout-2-kolom">
+            <div class="soal-latihan">
+              <div class="soal-nomor">1.</div>
+              <div class="soal-konten">
+                Diketahui vektor $\vec{a} = 2\hat{i} - 3\hat{j} + 4\hat{k}$ dan
+                $\vec{b} = \hat{i} + 2\hat{j} - \hat{k}$. Sudut antara vektor
+                $\vec{a}$ dan $\vec{b}$ adalah $\theta$, maka nilai $\cos
+                \theta$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$-\frac{4}{29}$</li>
+                  <li data-option="B">$-\frac{8}{\sqrt{174}}$</li>
+                  <li data-option="C">$\frac{29}{\sqrt{6}}$</li>
+                  <li data-option="D">$\frac{\sqrt{6}}{29}$</li>
+                  <li data-option="E">$-\frac{4\sqrt{6}}{29}$</li>
+                </ol>
+              </div>
             </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">2.</div>
+              <div class="soal-konten">
+                Suku banyak $P(x) = 2x^4 + ax^3 - 3x^2 + 5x + b$ dibagi oleh
+                $(x^2 - 1)$ bersisa $(6x + 5)$. Nilai $a \cdot b$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">-6</li>
+                  <li data-option="B">-3</li>
+                  <li data-option="C">1</li>
+                  <li data-option="D">6</li>
+                  <li data-option="E">8</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">3.</div>
+              <div class="soal-konten">
+                Jika $A = \begin{pmatrix} 2 & 5 \\ 1 & 3 \end{pmatrix}$ dan $B =
+                \begin{pmatrix} 4 & -1 \\ -2 & 1 \end{pmatrix}$, dan $C = A^{-1}
+                B$, maka matriks $C$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">
+                    $\begin{pmatrix} 14 & -8 \\ -6 & 3 \end{pmatrix}$
+                  </li>
+                  <li data-option="B">
+                    $\begin{pmatrix} 22 & -8 \\ -8 & 3 \end{pmatrix}$
+                  </li>
+                  <li data-option="C">
+                    $\begin{pmatrix} -2 & 1 \\ 4 & -1 \end{pmatrix}$
+                  </li>
+                  <li data-option="D">
+                    $\begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}$
+                  </li>
+                  <li data-option="E">
+                    $\begin{pmatrix} 18 & -4 \\ -7 & 2 \end{pmatrix}$
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">4.</div>
+              <div class="soal-konten">
+                Bayangan titik $P(2, -3)$ oleh rotasi $R(O, 90^\circ)$
+                dilanjutkan dengan refleksi terhadap garis $y = -x$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$P''(-2, -3)$</li>
+                  <li data-option="B">$P''(2, 3)$</li>
+                  <li data-option="C">$P''(-3, -2)$</li>
+                  <li data-option="D">$P''(3, 2)$</li>
+                  <li data-option="E">$P''(-2, 3)$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">5.</div>
+              <div class="soal-konten">
+                (Soal Tipe Kecukupan Data)<br />
+                Diberikan vektor $\vec{u} = \begin{pmatrix} 2 \\ -1 \\ 2
+                \end{pmatrix}$ dan $\vec{v} = \begin{pmatrix} 4 \\ 10 \\ p
+                \end{pmatrix}$. Berapakah panjang proyeksi $\vec{u}$ pada
+                $\vec{v}$?
+                <div style="text-align: left; margin-top: 5px">
+                  (1) Vektor $\vec{u}$ dan $\vec{v}$ saling tegak lurus.<br />
+                  (2) Nilai $p=-1$.
+                </div>
+                <ol class="pilihan-ganda">
+                  <li data-option="A">
+                    Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi
+                    pernyataan (2) SAJA tidak cukup.
+                  </li>
+                  <li data-option="B">
+                    Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi
+                    pernyataan (1) SAJA tidak cukup.
+                  </li>
+                  <li data-option="C">
+                    DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan,
+                    tetapi SATU pernyataan SAJA tidak cukup.
+                  </li>
+                  <li data-option="D">
+                    Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan
+                    pernyataan (2) SAJA cukup.
+                  </li>
+                  <li data-option="E">
+                    Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab
+                    pertanyaan.
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
         </div>
 
         <footer class="page-footer">
-            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
         </footer>
-    </section>
+      </section>
 
-    <!-- HALAMAN 2 -->
-    <section class="page">
+      <!-- HALAMAN 2 -->
+      <section class="page">
         <header class="page-header">
-            <div class="header-top-box">
-                <div>
-                    <div class="header-title-main">Bank Aktivitas</div>
-                    <div class="header-title-sub"><strong>Matematika Lanjut</strong></div>
-                </div>
-                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika Lanjut</strong>
+              </div>
             </div>
-            <div class="header-bottom-box">
-                <div class="header-bottom-text">
-                    XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill Soal TKA Matematika (Lanjut) - Paket 2 | Pertemuan 6
-                </div>
-            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
         </header>
+          <!-- </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill
+              Soal TKA Matematika (Lanjut) - Paket 2 | Pertemuan 6
+            </div>
+          </div>
+        </header> -->
 
         <div class="content-wrapper">
-             <div class="layout-2-kolom">
-                <div class="soal-latihan">
-                    <div class="soal-nomor">6.</div>
-                    <div class="soal-konten">
-                        (Soal Pilihan Ganda Kompleks)<br>
-                        Diketahui suku banyak $f(x) = x^3 - x^2 - 32x + p$ mempunyai sebuah faktor $(x-2)$. Manakah pernyataan di bawah ini yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
-                        <div class="pilihan-ganda-mcma">
-                            <div><input type="checkbox"><span>Nilai $p$ adalah 60.</span></div>
-                            <div><input type="checkbox"><span>Faktor linear lainnya adalah $(x+5)$.</span></div>
-                            <div><input type="checkbox"><span>Jumlah akar-akar dari $f(x)$ adalah 1.</span></div>
-                            <div><input type="checkbox"><span>Hasil kali akar-akar dari $f(x)$ adalah -60.</span></div>
-                            <div><input type="checkbox"><span>Salah satu akarnya adalah -6.</span></div>
-                        </div>
-                    </div>
+          <div class="layout-2-kolom">
+            <div class="soal-latihan">
+              <div class="soal-nomor">6.</div>
+              <div class="soal-konten">
+                (Soal Pilihan Ganda Kompleks)<br />
+                Diketahui suku banyak $f(x) = x^3 - x^2 - 32x + p$ mempunyai
+                sebuah faktor $(x-2)$. Manakah pernyataan di bawah ini yang
+                benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                <div class="pilihan-ganda-mcma">
+                  <div>
+                    <input type="checkbox" /><span>Nilai $p$ adalah 60.</span>
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Faktor linear lainnya adalah $(x+5)$.</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Jumlah akar-akar dari $f(x)$ adalah -1.</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Hasil kali akar-akar dari $f(x)$ adalah -60.</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Salah satu akarnya adalah -6.</span
+                    >
+                  </div>
                 </div>
-
-                <div class="soal-latihan">
-                    <div class="soal-nomor">7.</div>
-                    <div class="soal-konten">
-                        Nilai determinan dari matriks $M = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 4 \\ 3 & 1 & 2 \end{pmatrix}$ adalah...
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">-12</li>
-                            <li data-option="B">-5</li>
-                            <li data-option="C">5</li>
-                            <li data-option="D">11</li>
-                            <li data-option="E">15</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="soal-latihan">
-                    <div class="soal-nomor">8.</div>
-                    <div class="soal-konten">
-                        Bayangan garis $2x - y + 5 = 0$ yang dicerminkan terhadap garis $y=x$ adalah...
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">$x - 2y + 5 = 0$</li>
-                            <li data-option="B">$x + 2y - 5 = 0$</li>
-                            <li data-option="C">$2x + y - 5 = 0$</li>
-                            <li data-option="D">$x - 2y - 5 = 0$</li>
-                            <li data-option="E">$-x + 2y + 5 = 0$</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="soal-latihan">
-                    <div class="soal-nomor">9.</div>
-                    <div class="soal-konten">
-                        (Soal Tipe Kategori)<br>
-                        Diberikan vektor $\vec{p} = \hat{i}-2\hat{j}+3\hat{k}$ dan $\vec{q} = -2\hat{i}+4\hat{j}-6\hat{k}$. Tentukan kebenaran pernyataan berikut.
-                        <table class="soal-kategori">
-                            <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
-                            <tbody>
-                                <tr><td>Vektor $\vec{p}$ dan $\vec{q}$ saling sejajar (paralel).</td><td></td><td></td></tr>
-                                <tr><td>$\vec{p} \cdot \vec{q} = -28$.</td><td></td><td></td></tr>
-                                <tr><td>Panjang vektor $\vec{q}$ adalah dua kali panjang vektor $\vec{p}$.</td><td></td><td></td></tr>
-                                <tr><td>Vektor satuan dari $\vec{p}$ adalah $\frac{1}{\sqrt{14}}(\hat{i}-2\hat{j}+3\hat{k})$.</td><td></td><td></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="soal-latihan">
-                    <div class="soal-nomor">10.</div>
-                    <div class="soal-konten">
-                        Harga 3 buku tulis dan 2 pulpen adalah Rp17.000. Harga 1 buku tulis dan 4 pulpen adalah Rp19.000. Jika permasalahan ini diselesaikan dengan invers matriks, invers dari matriks koefisiennya adalah...
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">$\frac{1}{10}\begin{pmatrix} 4 & -2 \\ -1 & 3 \end{pmatrix}$</li>
-                            <li data-option="B">$\frac{1}{14}\begin{pmatrix} 4 & -2 \\ -1 & 3 \end{pmatrix}$</li>
-                            <li data-option="C">$\frac{1}{10}\begin{pmatrix} 3 & 2 \\ 1 & 4 \end{pmatrix}$</li>
-                            <li data-option="D">$\begin{pmatrix} 4 & -2 \\ -1 & 3 \end{pmatrix}$</li>
-                            <li data-option="E">$\frac{1}{14}\begin{pmatrix} 3 & -1 \\ -2 & 4 \end{pmatrix}$</li>
-                        </ol>
-                    </div>
-                </div>
+              </div>
             </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">7.</div>
+              <div class="soal-konten">
+                Nilai determinan dari matriks $M = \begin{pmatrix} 1 & 2 & 3 \\
+                2 & 1 & 4 \\ 3 & 1 & 2 \end{pmatrix}$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">-12</li>
+                  <li data-option="B">-5</li>
+                  <li data-option="C">5</li>
+                  <li data-option="D">11</li>
+                  <li data-option="E">15</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">8.</div>
+              <div class="soal-konten">
+                Bayangan garis $2x - y + 5 = 0$ yang dicerminkan terhadap garis
+                $y=x$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$x - 2y + 5 = 0$</li>
+                  <li data-option="B">$x + 2y - 5 = 0$</li>
+                  <li data-option="C">$2x + y - 5 = 0$</li>
+                  <li data-option="D">$x - 2y - 5 = 0$</li>
+                  <li data-option="E">$-x + 2y + 5 = 0$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">9.</div>
+              <div class="soal-konten">
+                (Soal Tipe Kategori)<br />
+                Diberikan vektor $\vec{p} = \hat{i}-2\hat{j}+3\hat{k}$ dan
+                $\vec{q} = -2\hat{i}+4\hat{j}-6\hat{k}$. Tentukan kebenaran
+                pernyataan berikut.
+                <table class="soal-kategori">
+                  <thead>
+                    <tr>
+                      <th>Pernyataan</th>
+                      <th>Benar</th>
+                      <th>Salah</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Vektor $\vec{p}$ dan $\vec{q}$ saling sejajar (paralel).
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>$\vec{p} \cdot \vec{q} = -8$.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>$|\vec{q}|= 2 \times |\vec{p}|$</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Vektor satuan dari
+                        $\vec{p}=\frac{1}{\sqrt{14}}(\hat{i}-2\hat{j}+3\hat{k})$.
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">10.</div>
+              <div class="soal-konten">
+                Harga 3 buku tulis dan 2 pulpen adalah Rp17.000. Harga 1 buku
+                tulis dan 4 pulpen adalah Rp19.000. Jika permasalahan ini
+                diselesaikan dengan invers matriks, invers dari matriks
+                koefisiennya adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">
+                    $\frac{1}{10}\begin{pmatrix} 4 & -2 \\ -1 & 3 \end{pmatrix}$
+                  </li>
+                  <li data-option="B">
+                    $\frac{1}{14}\begin{pmatrix} 4 & -2 \\ -1 & 3 \end{pmatrix}$
+                  </li>
+                  <li data-option="C">
+                    $\frac{1}{10}\begin{pmatrix} 3 & 2 \\ 1 & 4 \end{pmatrix}$
+                  </li>
+                  <li data-option="D">
+                    $\begin{pmatrix} 4 & -2 \\ -1 & 3 \end{pmatrix}$
+                  </li>
+                  <li data-option="E">
+                    $\frac{1}{14}\begin{pmatrix} 3 & -1 \\ -2 & 4 \end{pmatrix}$
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
         </div>
 
         <footer class="page-footer">
-            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
         </footer>
-    </section>
+      </section>
 
-    <!-- HALAMAN 3 -->
-    <section class="page">
+      <!-- HALAMAN 3 -->
+      <section class="page">
         <header class="page-header">
-            <div class="header-top-box">
-                <div>
-                    <div class="header-title-main">Bank Aktivitas</div>
-                    <div class="header-title-sub"><strong>Matematika Lanjut</strong></div>
-                </div>
-                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo" class="header-logo">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika Lanjut</strong>
+              </div>
             </div>
-            <div class="header-bottom-box">
-                <div class="header-bottom-text">
-                    XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill Soal TKA Matematika (Lanjut) - Paket 2 | Pertemuan 6
-                </div>
-            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
         </header>
+          <!-- </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              XI SMA | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill
+              Soal TKA Matematika (Lanjut) - Paket 2 | Pertemuan 6
+            </div>
+          </div>
+        </header> -->
 
         <div class="content-wrapper">
-             <div class="layout-2-kolom">
-                <div class="soal-latihan">
-                    <div class="soal-nomor">11.</div>
-                    <div class="soal-konten">
-                        (Soal Tipe Kecukupan Data)<br>
-                        Titik A ditransformasikan oleh matriks $\begin{pmatrix} a & 1 \\ 0 & 2 \end{pmatrix}$ menghasilkan bayangan $A'(4, 6)$. Berapakah koordinat titik A?
-                        <div style="text-align: left; margin-top: 5px;">
-                           (1) Nilai $a=1$.<br>
-                           (2) Transformasi tersebut adalah dilatasi yang diikuti oleh geseran.
-                        </div>
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (2) SAJA tidak cukup.</li>
-                            <li data-option="B">Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi pernyataan (1) SAJA tidak cukup.</li>
-                            <li data-option="C">DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan, tetapi SATU pernyataan SAJA tidak cukup.</li>
-                            <li data-option="D">Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan pernyataan (2) SAJA cukup.</li>
-                            <li data-option="E">Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab pertanyaan.</li>
-                        </ol>
-                    </div>
+          <div class="layout-2-kolom">
+            <div class="soal-latihan">
+              <div class="soal-nomor">11.</div>
+              <div class="soal-konten">
+                (Soal Tipe Kecukupan Data)<br />
+                Titik A ditransformasikan oleh matriks $\begin{pmatrix} a & 1 \\
+                0 & 2 \end{pmatrix}$ menghasilkan bayangan $A'(4, 6)$. Berapakah
+                koordinat titik A?
+                <div style="text-align: left; margin-top: 5px">
+                  (1) Nilai $a=1$.<br />
+                  (2) Transformasi tersebut adalah dilatasi yang diikuti oleh
+                  geseran.
                 </div>
-                
-                 <div class="soal-latihan">
-                    <div class="soal-nomor">12.</div>
-                    <div class="soal-konten">
-                        (Soal Tipe Kategori)<br>
-                        Diberikan matriks $P=\begin{pmatrix} 2 & 1 \\ 4 & 3 \end{pmatrix}$ dan $Q=\begin{pmatrix} -1 & 0 \\ 2 & 1 \end{pmatrix}$. Tentukan kebenaran dari pernyataan-pernyataan berikut.
-                        <table class="soal-kategori">
-                            <thead><tr><th>Pernyataan</th><th>Benar</th><th>Salah</th></tr></thead>
-                            <tbody>
-                                <tr><td>$PQ \neq QP$.</td><td></td><td></td></tr>
-                                <tr><td>$(PQ)^{-1} = Q^{-1}P^{-1}$.</td><td></td><td></td></tr>
-                                <tr><td>Determinan dari $P+Q$ adalah 3.</td><td></td><td></td></tr>
-                                <tr><td>$(P^T)^{-1} = (P^{-1})^T$.</td><td></td><td></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <div class="soal-latihan">
-                    <div class="soal-nomor">13.</div>
-                    <div class="soal-konten">
-                        Jika salah satu akar dari persamaan $x^3 - 7x - 6 = 0$ adalah $-1$, maka hasil kali dua akar lainnya adalah...
-                        <ol class="pilihan-ganda">
-                            <li data-option="A">-6</li>
-                            <li data-option="B">-3</li>
-                            <li data-option="C">1</li>
-                            <li data-option="D">3</li>
-                            <li data-option="E">6</li>
-                        </ol>
-                    </div>
-                </div>
+                <ol class="pilihan-ganda">
+                  <li data-option="A">
+                    Pernyataan (1) SAJA cukup untuk menjawab pertanyaan, tetapi
+                    pernyataan (2) SAJA tidak cukup.
+                  </li>
+                  <li data-option="B">
+                    Pernyataan (2) SAJA cukup untuk menjawab pertanyaan, tetapi
+                    pernyataan (1) SAJA tidak cukup.
+                  </li>
+                  <li data-option="C">
+                    DUA pernyataan BERSAMA-SAMA cukup untuk menjawab pertanyaan,
+                    tetapi SATU pernyataan SAJA tidak cukup.
+                  </li>
+                  <li data-option="D">
+                    Pernyataan (1) SAJA cukup untuk menjawab pertanyaan dan
+                    pernyataan (2) SAJA cukup.
+                  </li>
+                  <li data-option="E">
+                    Pernyataan (1) dan pernyataan (2) tidak cukup untuk menjawab
+                    pertanyaan.
+                  </li>
+                </ol>
+              </div>
+            </div>
 
-                <div class="soal-latihan">
-                    <div class="soal-nomor">14.</div>
-                    <div class="soal-konten">
-                        (Soal Pilihan Ganda Kompleks)<br>
-                        Sebuah segitiga ABC ditransformasikan. Manakah di antara transformasi berikut yang TIDAK mengubah luas segitiga? <b>(bisa pilih lebih dari satu jawaban)</b>
-                        <div class="pilihan-ganda-mcma">
-                            <div><input type="checkbox"><span>Translasi sejauh $\begin{pmatrix} 3 \\ -5 \end{pmatrix}$</span></div>
-                            <div><input type="checkbox"><span>Rotasi sebesar $45^\circ$ terhadap titik pusat $(0,0)$</span></div>
-                            <div><input type="checkbox"><span>Dilatasi dengan faktor skala 2 terhadap titik pusat $(1,1)$</span></div>
-                            <div><input type="checkbox"><span>Refleksi terhadap sumbu Y</span></div>
-                            <div><input type="checkbox"><span>Transformasi oleh matriks $\begin{pmatrix} 2 & 0 \\ 0 & 1/2 \end{pmatrix}$</span></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="soal-latihan">
+              <div class="soal-nomor">12.</div>
+              <div class="soal-konten">
+                (Soal Tipe Kategori)<br />
+                Diberikan matriks $P=\begin{pmatrix} 2 & 1 \\ 4 & 3
+                \end{pmatrix}$ dan $Q=\begin{pmatrix} -1 & 0 \\ 2 & 1
+                \end{pmatrix}$. Tentukan kebenaran dari pernyataan-pernyataan
+                berikut.
+                <table class="soal-kategori">
+                  <thead>
+                    <tr>
+                      <th>Pernyataan</th>
+                      <th>Benar</th>
+                      <th>Salah</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>$PQ \neq QP$.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>$(PQ)^{-1} = Q^{-1}P^{-1}$.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Determinan dari $P+Q$ adalah 3.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>$(P^T)^{-1} = (P^{-1})^T$.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-                <div class="soal-latihan">
-                    <div class="soal-nomor">15.</div>
-                    <div class="soal-konten">
-                        (Soal Pilihan Ganda Kompleks)<br>
-                        Diketahui titik $A(1,0,-2)$, $B(2,1,-1)$, dan $C(2,0,-3)$. Sudut antara vektor $\vec{AB}$ dengan $\vec{AC}$ adalah $\alpha$. Manakah pernyataan berikut yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
-                        <div class="pilihan-ganda-mcma">
-                            <div><input type="checkbox"><span>Vektor $\vec{AB} = \hat{i} + \hat{j} + \hat{k}$.</span></div>
-                            <div><input type="checkbox"><span>Vektor $\vec{AC}$ memiliki panjang $\sqrt{2}$.</span></div>
-                            <div><input type="checkbox"><span>$\vec{AB} \cdot \vec{AC} = 0$.</span></div>
-                            <div><input type="checkbox"><span>Nilai $\alpha = 90^\circ$.</span></div>
-                            <div><input type="checkbox"><span>Vektor proyeksi $\vec{AB}$ pada $\vec{AC}$ adalah vektor nol.</span></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="soal-latihan">
+              <div class="soal-nomor">13.</div>
+              <div class="soal-konten">
+                Jika salah satu akar dari persamaan $x^3 - 7x - 6 = 0$ adalah
+                $-1$, maka hasil kali dua akar lainnya adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">-6</li>
+                  <li data-option="B">-3</li>
+                  <li data-option="C">1</li>
+                  <li data-option="D">3</li>
+                  <li data-option="E">6</li>
+                </ol>
+              </div>
+            </div>
 
-             </div>
+            <div class="soal-latihan">
+              <div class="soal-nomor">14.</div>
+              <div class="soal-konten">
+                (Soal Pilihan Ganda Kompleks)<br />
+                Sebuah segitiga ABC ditransformasikan. Manakah di antara
+                transformasi berikut yang TIDAK mengubah luas segitiga?
+                <b>(bisa pilih lebih dari satu jawaban)</b>
+                <div class="pilihan-ganda-mcma">
+                  <div>
+                    <input type="checkbox" /><span
+                      >Translasi sejauh $\begin{pmatrix} 3 \\ -5
+                      \end{pmatrix}$</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Rotasi sebesar $45^\circ$ terhadap titik pusat
+                      $(0,0)$</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Dilatasi dengan faktor skala 2 terhadap titik pusat
+                      $(1,1)$</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Refleksi terhadap sumbu Y</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Transformasi oleh matriks $\begin{pmatrix} 2 & 0 \\ 0 &
+                      1/2 \end{pmatrix}$</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">15.</div>
+              <div class="soal-konten">
+                (Soal Pilihan Ganda Kompleks)<br />
+                Diketahui titik $A(1,0,-2)$, $B(2,1,-1)$, dan $C(2,0,-3)$. Sudut
+                antara vektor $\vec{AB}$ dengan $\vec{AC}$ adalah $\alpha$.
+                Manakah pernyataan berikut yang benar?
+                <b>(bisa pilih lebih dari satu jawaban)</b>
+                <div class="pilihan-ganda-mcma">
+                  <div>
+                    <input type="checkbox" /><span
+                      >Vektor $\vec{AB} = \hat{i} + \hat{j} + \hat{k}$</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Vektor $\vec{AC}$ memiliki panjang $2$</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >$\vec{AB} \cdot \vec{AC} = 1$</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Nilai $\alpha = 90^\circ$</span
+                    >
+                  </div>
+                  <div>
+                    <input type="checkbox" /><span
+                      >Vektor proyeksi $\vec{AB}$ pada $\vec{AC}$ adalah vektor
+                      nol</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <footer class="page-footer">
-            <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
         </footer>
-    </section>
-
-</div>
-
-</body>
+      </section>
+    </div>
+  </body>
 </html>
-
