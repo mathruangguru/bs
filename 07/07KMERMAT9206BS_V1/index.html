@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Aktivitas - Persamaan dan Pertidaksamaan Linear</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            packages: {'[+]': ['ams']}
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --header-bg: #E0F7FA;
+            --sub-header-bg: #f0f0f0;
+            --header-title-color: #00838F;
+            --table-header-bg: #F2F2F2;
+            --dark-grey: #6F6F6F;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.5pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 2cm 0;
+        }
+        
+        .page {
+            background: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 1.8cm 2.5cm 2.5cm 2.5cm; /* Padding bawah untuk footer */
+            margin: 0 auto 2cm auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page:last-child {
+            margin-bottom: 0;
+        }
+
+        .page-header {
+            margin: -1.8cm -2.5cm 10px -2.5cm;
+            width: 21cm;
+        }
+        
+        .header-top-box {
+            background-color: var(--header-bg);
+            padding: 10px 2.5cm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 12pt;
+            color: var(--header-title-color);
+        }
+        
+        .header-title .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 8.5pt;
+            color: var(--dark-grey);
+            margin-top: 4px;
+        }
+
+        .header-logo img {
+            height: 55px;
+        }
+
+        .header-bottom-box {
+            padding: 8px 2.5cm;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .header-bottom-text {
+            background-color: var(--sub-header-bg);
+            padding: 8px 15px;
+            font-weight: 700;
+            font-size: 8.5pt;
+            color: var(--primary-text);
+            display: inline-block;
+            border-radius: 4px;
+            white-space: normal; 
+            text-align: left;
+        }
+        
+        .kuis-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12pt;
+            color: black;
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            flex-grow: 1;
+        }
+        
+        .layout-2-kolom {
+            columns: 2;
+            column-gap: 25px;
+        }
+        
+        .soal-latihan {
+            margin-bottom: 20px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            text-align: justify;
+            padding-left: 20px;
+            text-indent: -20px;
+        }
+        
+        .soal-latihan b {
+            font-weight: 700;
+            margin-right: 4px;
+        }
+        
+        ol { padding-left: 0; }
+        ol.pilihan-ganda {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 8px;
+            text-indent: 0;
+        }
+        ol.pilihan-ganda li { margin-bottom: 8px; font-weight: normal;}
+        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: normal; margin-right: 5px; }
+        
+        .page-footer {
+            position: absolute;
+            bottom: 1.5cm;
+            left: 2.5cm;
+            right: 2.5cm;
+            text-align: left;
+        }
+        .footer-content {
+            font-size: 6pt;
+            color: var(--dark-grey);
+        }
+        .copyright-main {
+            font-weight: bold;
+        }
+        .copyright-secondary {
+            font-style: italic;
+            font-weight: normal;
+        }
+        .footer-line {
+            border: 0;
+            border-top: 2.5px solid var(--dark-grey);
+            width: 100%;
+            margin: 0 auto 5px auto;
+        }
+
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #00838F;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.2s ease-in-out;
+            z-index: 1000;
+        }
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body {
+                background: #FFFFFF;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .page {
+                width: 21cm;
+                height: 29.7cm; 
+                margin: 0;
+                padding: 1.8cm 2.5cm 2.5cm 2.5cm;
+                box-shadow: none;
+                page-break-after: always;
+            }
+
+            .page:last-of-type {
+                page-break-after: avoid;
+            }
+            
+            .kuis-title {
+                margin-top: 0;
+            }
+
+            .page-header, .kuis-title, .header-top-box, .header-bottom-text {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="print-button" onclick="window.print()">
+    Cetak ke PDF
+</button>
+
+<!-- PAGE 1 -->
+<div class="page">
+    <header class="page-header">
+        <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VII SMP | Kurikulum Merdeka | Persamaan dan Pertidaksamaan Linear | Pertemuan 06
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="kuis-title">Kuis</div>
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>1.</b>Sebuah toko buku menjual pensil seharga Rp2.500,00 per buah dan buku tulis seharga Rp4.000,00 per buah. Andi membeli $x$ pensil dan $y$ buku tulis. Kalimat matematika yang tepat untuk menyatakan "Total harga pembelian tidak lebih dari Rp50.000,00" adalah ....<ol class="pilihan-ganda"><li data-option="A">$2500x + 4000y < 50000$</li><li data-option="B">$2500x + 4000y > 50000$</li><li data-option="C">$2500x + 4000y = 50000$</li><li data-option="D">$2500x + 4000y \ge 50000$</li><li data-option="E">$2500x + 4000y \le 50000$</li></ol></div>
+            <div class="soal-latihan"><b>2.</b>Manakah di antara nilai $x$ berikut yang membuat persamaan $5x - 8 = 2x + 7$ menjadi kalimat yang benar ....<ol class="pilihan-ganda"><li data-option="A">$x = 3$</li><li data-option="B">$x = 4$</li><li data-option="C">$x = 5$</li><li data-option="D">$x = 6$</li><li data-option="E">$x = 7$</li></ol></div>
+            <div class="soal-latihan"><b>3.</b>Penyelesaian dari persamaan $15 - 2y = 3$ adalah ....<ol class="pilihan-ganda"><li data-option="A">$y = -9$</li><li data-option="B">$y = -6$</li><li data-option="C">$y = 6$</li><li data-option="D">$y = 9$</li><li data-option="E">$y = 12$</li></ol></div>
+            <div class="soal-latihan"><b>4.</b>Nilai $k$ yang memenuhi persamaan $4(k - 3) = 3(k + 2) - 10$ adalah ....<ol class="pilihan-ganda"><li data-option="A">$k = -8$</li><li data-option="B">$k = -4$</li><li data-option="C">$k = 4$</li><li data-option="D">$k = 8$</li><li data-option="E">$k = 10$</li></ol></div>
+            <div class="soal-latihan"><b>5.</b>Penyelesaian dari persamaan $\frac{2x - 1}{3} = \frac{x + 3}{2}$ adalah ....<ol class="pilihan-ganda"><li data-option="A">$x=9$</li><li data-option="B">$x=11$</li><li data-option="C">$x=13$</li><li data-option="D">$x=15$</li><li data-option="E">$x=17$</li></ol></div>
+            <div class="soal-latihan"><b>6.</b>Nilai $a$ dari persamaan $0,5(a - 4) = 0,3a + 1$ adalah ....<ol class="pilihan-ganda"><li data-option="A">$a=5$</li><li data-option="B">$a=10$</li><li data-option="C">$a=15$</li><li data-option="D">$a=20$</li><li data-option="E">$a=25$</li></ol></div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+            <span class="copyright-secondary"><i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </div>
+    </footer>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+    <header class="page-header">
+        <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VII SMP | Kurikulum Merdeka | Persamaan dan Pertidaksamaan Linear | Pertemuan 06
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper" style="padding-top: 20px;">
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>7.</b>Himpunan penyelesaian dari pertidaksamaan $3x + 7 < 19$ untuk $x$ anggota bilangan cacah adalah ....<ol class="pilihan-ganda"><li data-option="A">$\{0, 1, 2, 3\}$</li><li data-option="B">$\{1, 2, 3\}$</li><li data-option="C">$\{0, 1, 2, 3, 4\}$</li><li data-option="D">$\{1, 2, 3, 4\}$</li><li data-option="E">$\{x \mid x < 4, x \in \mathbb{R}\}$</li></ol></div>
+            <div class="soal-latihan"><b>8.</b>Penyelesaian dari pertidaksamaan $10 - 4x \ge 2x - 2$ adalah ....<ol class="pilihan-ganda"><li data-option="A">$x \ge 2$</li><li data-option="B">$x \le 2$</li><li data-option="C">$x \ge -2$</li><li data-option="D">$x \le -2$</li><li data-option="E">$x \ge 6$</li></ol></div>
+            <div class="soal-latihan"><b>9.</b>Sebuah persegi panjang memiliki keliling 48 cm. Panjangnya 4 cm lebih dari lebarnya. Luas persegi panjang tersebut adalah ....<ol class="pilihan-ganda"><li data-option="A">$120 \text{ cm}^2$</li><li data-option="B">$128 \text{ cm}^2$</li><li data-option="C">$135 \text{ cm}^2$</li><li data-option="D">$140 \text{ cm}^2$</li><li data-option="E">$144 \text{ cm}^2$</li></ol></div>
+            <div class="soal-latihan"><b>10.</b>Lima tahun yang akan datang, jumlah umur seorang kakak dan adiknya adalah 38 tahun. Jika saat ini, umur kakak 4 tahun lebih tua dari adiknya, maka umur adik sekarang adalah ....<ol class="pilihan-ganda"><li data-option="A">10 tahun</li><li data-option="B">12 tahun</li><li data-option="C">14 tahun</li><li data-option="D">16 tahun</li><li data-option="E">18 tahun</li></ol></div>
+            <div class="soal-latihan"><b>11.</b>Perbandingan jumlah siswa laki-laki dan perempuan di kelas 7A adalah $4:5$. Jika selisih jumlah siswa perempuan dan laki-laki adalah 4 orang, maka jumlah seluruh siswa di kelas 7A adalah ....<ol class="pilihan-ganda"><li data-option="A">28 orang</li><li data-option="B">32 orang</li><li data-option="C">36 orang</li><li data-option="D">40 orang</li><li data-option="E">45 orang</li></ol></div>
+            <div class="soal-latihan"><b>12.</b>Harga 3 kg apel dan 2 kg jeruk adalah Rp110.000,00. Jika harga 1 kg apel Rp5.000,00 lebih mahal dari harga 1 kg jeruk, maka harga 1 kg jeruk adalah ....<ol class="pilihan-ganda"><li data-option="A">Rp15.000,00</li><li data-option="B">Rp17.000,00</li><li data-option="C">Rp19.000,00</li><li data-option="D">Rp20.000,00</li><li data-option="E">Rp24.000,00</li></ol></div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+            <span class="copyright-secondary"><i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </div>
+    </footer>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+    <header class="page-header">
+        <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VII SMP | Kurikulum Merdeka | Persamaan dan Pertidaksamaan Linear | Pertemuan 06
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper" style="padding-top: 20px;">
+         <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>13.</b>Sebuah bus dapat mengangkut tidak lebih dari 50 penumpang. Jika sudah ada 15 penumpang di dalam bus, dan setiap kelompok siswa yang akan naik terdiri dari 4 orang, berapa paling banyak kelompok siswa yang bisa naik ke dalam bus ....<ol class="pilihan-ganda"><li data-option="A">7 kelompok</li><li data-option="B">8 kelompok</li><li data-option="C">9 kelompok</li><li data-option="D">10 kelompok</li><li data-option="E">11 kelompok</li></ol></div>
+            <div class="soal-latihan"><b>14.</b>Persamaan $3(x+c) = 2x + 9$ memiliki penyelesaian $x=6$. Nilai $c$ yang benar adalah ....<ol class="pilihan-ganda"><li data-option="A">$-3$</li><li data-option="B">$-1$</li><li data-option="C">$1$</li><li data-option="D">$3$</li><li data-option="E">$5$</li></ol></div>
+            <div class="soal-latihan"><b>15.</b>Sebuah peta memiliki skala $1 : 250.000$. Jika jarak dua kota pada peta adalah 12 cm, jarak sebenarnya kedua kota tersebut adalah ....<ol class="pilihan-ganda"><li data-option="A">3 km</li><li data-option="B">30 km</li><li data-option="C">300 km</li><li data-option="D">3.000 km</li><li data-option="E">30.000 km</li></ol></div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+            <span class="copyright-secondary"><i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
+
