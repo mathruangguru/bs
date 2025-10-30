@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Aktivitas - PLSV & SPLDV</title>
+    <script>
+        window.MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            packages: {'[+]': ['ams']}
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #333333;
+            --secondary-text: #555555;
+            --header-bg: #E0F7FA; /* Warna dari Panduan Mengajar */
+            --sub-header-bg: #f0f0f0; /* Warna dari Panduan Mengajar */
+            --header-title-color: #00838F; /* Warna dari Panduan Mengajar */
+            --table-header-bg: #F2F2F2;
+            --dark-grey: #6F6F6F;
+        }
+       
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.5pt;
+            line-height: 1.6;
+            color: var(--primary-text);
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 2cm 0; /* Padding atas bawah body */
+        }
+       
+        .page {
+            background: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 1.8cm 2.5cm 2.5cm 2.5cm; /* Padding bawah untuk footer */
+            margin: 0 auto 2cm auto; /* Margin bawah antar halaman */
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page:last-child {
+            margin-bottom: 0;
+        }
+
+        .page-header {
+            margin: -1.8cm -2.5cm 10px -2.5cm; /* Tarik header ke tepi halaman */
+            width: 21cm; /* Pastikan lebar header sesuai page */
+            flex-shrink: 0; /* Cegah header menyusut */
+        }
+       
+        .header-top-box {
+            background-color: var(--header-bg);
+            padding: 10px 2.5cm; /* Padding horizontal sesuai page */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 12pt; /* Sesuai template Bank Aktivitas */
+            color: var(--header-title-color);
+        }
+       
+        .header-title .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; /* Sesuai template Bank Aktivitas */
+            font-size: 8.5pt; /* Sesuai template Bank Aktivitas */
+            color: var(--dark-grey); /* Sesuai template Bank Aktivitas */
+            margin-top: 4px;
+        }
+
+        .header-logo img {
+            height: 55px; /* Sesuai template Bank Aktivitas */
+        }
+
+        .header-bottom-box {
+            padding: 8px 2.5cm; /* Padding horizontal sesuai page */
+            display: flex;
+            justify-content: flex-start; /* Perataan Kiri */
+            align-items: center;
+        }
+
+        .header-bottom-text {
+            background-color: var(--sub-header-bg);
+            /* === PERUBAHAN DI SINI === */
+            padding: 8px 40px; /* Padding horizontal DITAMBAH agar lebih lebar */
+            /* ========================= */
+            font-weight: 700;
+            font-size: 8.5pt; /* Sesuai Panduan Mengajar */
+            color: var(--primary-text);
+            display: inline-block; /* Agar lebar menyesuaikan padding + content */
+            border-radius: 4px;
+            white-space: normal; /* Mengizinkan text wrap */
+            text-align: left; /* Teks rata kiri */
+        }
+       
+        .kuis-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12pt;
+            color: black;
+            font-weight: 700;
+            margin-top: 10px; /* Jarak dari header */
+            margin-bottom: 20px;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            flex-grow: 1; /* Pastikan konten mengisi sisa ruang */
+        }
+       
+        .layout-2-kolom {
+            columns: 2;
+            column-gap: 25px;
+        }
+       
+        .soal-latihan {
+            margin-bottom: 20px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            text-align: justify;
+            padding-left: 20px;
+            text-indent: -20px;
+        }
+       
+        .soal-latihan b {
+            font-weight: 700;
+            margin-right: 4px;
+        }
+       
+        ol { padding-left: 0; }
+        ol.pilihan-ganda {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 8px;
+            text-indent: 0;
+        }
+        ol.pilihan-ganda li { margin-bottom: 8px; font-weight: normal;}
+        ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: normal; margin-right: 5px; }
+       
+        .pilihan-ganda-mcma {
+            text-indent: 0;
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+        .pilihan-ganda-mcma div {
+            display: flex;
+            align-items: flex-start; /* Align start untuk text panjang */
+            margin-bottom: 8px;
+            font-weight: normal;
+        }
+        .pilihan-ganda-mcma input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            margin-top: 3px; /* Penyesuaian posisi vertikal */
+        }
+
+        table.soal-kategori {
+            width:100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin-top: 10px;
+            font-size: 8.5pt;
+            text-indent: 0;
+        }
+        table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; font-weight: normal;}
+        table.soal-kategori th {
+            background-color: var(--table-header-bg);
+            font-weight: bold;
+        }
+        table.soal-kategori th:not(:first-child) { text-align: center; width: 60px;}
+        table.soal-kategori td:not(:first-child) { text-align: center; }
+
+        .page-footer {
+            position: absolute;
+            bottom: 1.5cm; /* Jarak footer dari bawah */
+            left: 2.5cm;
+            right: 2.5cm;
+            text-align: left; /* Sesuai Panduan Mengajar */
+            flex-shrink: 0; /* Pastikan footer tidak menyusut */
+            margin-top: auto; /* Dorong ke bawah jika konten pendek */
+        }
+        .footer-content {
+            font-size: 6pt; /* Disesuaikan dengan Panduan Mengajar */
+            color: var(--dark-grey);
+        }
+        .copyright-main {
+            font-weight: bold;
+        }
+        .copyright-secondary {
+            font-style: italic;
+            font-weight: normal;
+        }
+        .footer-line {
+            border: 0;
+            border-top: 2.5px solid var(--dark-grey); /* Sesuai Panduan Mengajar */
+            width: 100%;
+            margin: 0 auto 5px auto; /* Margin bawah garis */
+        }
+
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #00838F;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10pt;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.2s ease-in-out;
+            z-index: 1000;
+        }
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body {
+                background: #FFFFFF;
+                padding: 0;
+                margin: 0;
+                 font-size: 8.5pt; /* Ukuran font print */
+            }
+           
+            .page {
+                width: 21cm;
+                height: 29.7cm; 
+                margin: 0;
+                padding: 1.8cm 2.5cm 2.5cm 2.5cm; /* Set padding print */
+                box-shadow: none;
+                page-break-after: always;
+                display: flex; /* Ensure flex layout for footer positioning */
+                flex-direction: column;
+            }
+
+            .page:last-of-type {
+                page-break-after: avoid;
+            }
+           
+             .page-header {
+                 margin: -1.8cm -2.5cm 10px -2.5cm; /* Match screen */
+             }
+             .header-top-box, .header-bottom-box {
+                 padding-left: 2.5cm; /* Match screen */
+                 padding-right: 2.5cm; /* Match screen */
+             }
+             /* Pastikan padding box abu2 juga pas saat print */
+             .header-bottom-text {
+                 padding: 8px 40px; 
+             }
+
+
+            .kuis-title {
+                margin-top: 0; /* Adjust if needed */
+            }
+            
+            .content-wrapper {
+                 flex-grow: 1; /* Allow content to push footer down */
+                 overflow: visible; /* Prevent content clipping */
+            }
+
+            .page-footer {
+                 position: relative; /* Keep footer in flow */
+                 bottom: auto;
+                 left: auto;
+                 right: auto;
+                 width: 100%;
+                 margin-top: auto; /* Push to bottom */
+                 padding-top: 10px; /* Space above footer line */
+                 flex-shrink: 0;
+            }
+
+            .page-header, .kuis-title, table.soal-kategori th, .header-top-box, .header-bottom-text {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .print-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<button class="print-button" onclick="window.print()">
+    Cetak ke PDF
+</button>
+
+<!-- PAGE 1 -->
+<div class="page">
+    <header class="page-header">
+        <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VIII SMP | Kurikulum Merdeka | Drill Soal | Review SPLDV | Pertemuan 11
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="kuis-title">Kuis</div>
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>1.</b>Seorang pedagang mencampur dua jenis kopi. Campuran pertama dibuat dengan mengambil setengah dari berat kopi jenis A, menambahkan 3 kg kopi jenis B, lalu menjual 1 kg dari campuran tersebut. Campuran kedua dibuat dengan mengambil dua perlima berat kopi jenis A dan menambahkan 5 kg kopi jenis B. Jika berat akhir kedua campuran sama, dan berat awal kopi jenis A adalah $x$ kg, maka persamaan yang berlaku adalah $\frac{1}{2}x + 3 - 1 = 0,4x + 5$. Berat awal kopi jenis A adalah ....<ol class="pilihan-ganda"><li data-option="A">10 kg</li><li data-option="B">20 kg</li><li data-option="C">30 kg</li><li data-option="D">40 kg</li></ol></div>
+            <div class="soal-latihan"><b>2.</b>Lima kali selisih suatu bilangan dengan satu tidak kurang dari dua kali jumlah bilangan tersebut dengan lima. Himpunan penyelesaian untuk bilangan tersebut adalah ....<ol class="pilihan-ganda"><li data-option="A">$x \le 5$</li><li data-option="B">$x \ge 5$</li><li data-option="C">$x \le 1$</li><li data-option="D">$x \ge 1$</li></ol></div>
+            <div class="soal-latihan"><b>3.</b>Awalnya, kelereng Adi dan Budi berbanding 3:5, dan totalnya ada 80 butir. Kemudian, terjadi pertukaran: Budi memberikan sejumlah kelereng kepada Adi sehingga perbandingan kelereng mereka menjadi sama kuat, yaitu 1:1. Berapa banyak kelereng yang Budi berikan kepada Adi?<ol class="pilihan-ganda"><li data-option="A">10 butir</li><li data-option="B">15 butir</li><li data-option="C">20 butir</li><li data-option="D">5 butir</li></ol></div>
+            <div class="soal-latihan"><b>4.</b>Sebuah sistem persamaan linear dua variabel digambarkan sebagai berikut:
+            $$ \begin{cases} x+y=7 \\ 2x+2y=k \end{cases} $$
+            Agar sistem ini menghasilkan garis yang sama persis (berimpit) sehingga solusinya tak terhingga, nilai konstanta $k$ yang tepat adalah ....<ol class="pilihan-ganda"><li data-option="A">7</li><li data-option="B">10</li><li data-option="C">14</li><li data-option="D">Semua bilangan kecuali 14</li></ol></div>
+            <div class="soal-latihan"><b>5.</b>Dua bilangan, $x$ dan $y$, memiliki hubungan sebagai berikut: dua kali bilangan pertama ditambah tiga kali bilangan kedua menghasilkan 1, sementara empat kali bilangan pertama dikurangi bilangan kedua menghasilkan 23. Selisih antara bilangan pertama dan kedua ($x-y$) adalah ....<ol class="pilihan-ganda"><li data-option="A">2</li><li data-option="B">-2</li><li data-option="C">-8</li><li data-option="D">8</li></ol></div>
+            <div class="soal-latihan"><b>6.</b>Dua buah pecahan, $\frac{1}{x}$ dan $\frac{1}{y}$, memiliki hubungan sebagai berikut:
+            $$ \begin{cases} \frac{1}{x} + \frac{2}{y} = 2 \\ \frac{3}{x} - \frac{1}{y} = \frac{5}{2} \end{cases} $$
+            Nilai dari $x$ yang memenuhi sistem tersebut adalah ....<ol class="pilihan-ganda"><li data-option="A">-1</li><li data-option="B">$1/2$</li><li data-option="C">2</li><li data-option="D">1</li></ol></div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+            <span class="copyright-secondary"><i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </div>
+    </footer>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+    <header class="page-header">
+         <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VIII SMP | Kurikulum Merdeka | Drill Soal | Review SPLDV | Pertemuan 11
+            </div>
+        </div>
+    </header>
+     <div class="content-wrapper" style="padding-top: 20px;">
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>7.</b>Kilas balik ke dua tahun yang lalu, usia seorang Ayah tepat enam kali lipat usia anaknya. Jika kita melompat ke delapan belas tahun dari sekarang, usia Ayah hanya akan menjadi dua kali lipat usia anaknya. Berapakah jumlah usia mereka berdua pada saat ini?<ol class="pilihan-ganda"><li data-option="A">34 tahun</li><li data-option="B">39 tahun</li><li data-option="C">42 tahun</li><li data-option="D">50 tahun</li></ol></div>
+            <div class="soal-latihan"><b>8.</b>Sepertiga dari hasil pengurangan dua kali sebuah bilangan misterius dengan satu, ternyata nilainya masih lebih kecil dari setengah kali hasil penjumlahan bilangan misterius itu dengan empat. Bilangan misterius ($x$) tersebut haruslah ....<ol class="pilihan-ganda"><li data-option="A">$x < 14$</li><li data-option="B">$x > 14$</li><li data-option="C">$x < 10$</li><li data-option="D">$x > 10$</li></ol></div>
+            <div class="soal-latihan"><b>9.</b>Di sebuah toko buah, total harga untuk 5 kg Apel dan 3 kg Jeruk adalah Rp79.000,00. Jika Anda membeli 3 kg Apel dan 2 kg Jeruk di toko yang sama, total harganya menjadi Rp49.000,00. Berapakah harga yang harus dibayar untuk 1 kg Apel?<ol class="pilihan-ganda"><li data-option="A">Rp10.000,00</li><li data-option="B">Rp11.000,00</li><li data-option="C">Rp12.000,00</li><li data-option="D">Rp8.000,00</li></ol></div>
+            <div class="soal-latihan"><b>10.</b>Seorang penyihir merapal mantra: "Tiga kali selisih sebuah angka rahasia ($k$) dengan dua, setara dengan jumlah angka rahasia itu dengan sepuluh." Agar mantra ini benar, angka rahasia tersebut haruslah ....<ol class="pilihan-ganda"><li data-option="A">4</li><li data-option="B">6</li><li data-option="C">8</li><li data-option="D">10</li></ol></div>
+            <div class="soal-latihan"><b>11.</b>Seorang petugas parkir menghitung ada 30 kendaraan, campuran antara motor dan mobil, di area parkirnya. Setelah menghitung semua roda kendaraan (tanpa menghitung ban serep), ia mendapatkan total 96 roda. Jika tarif parkir motor Rp2.000,00 dan mobil Rp5.000,00, berapa total pendapatan yang ia peroleh dari semua kendaraan tersebut?<ol class="pilihan-ganda"><li data-option="A">Rp108.000,00</li><li data-option="B">Rp110.000,00</li><li data-option="C">Rp112.000,00</li><li data-option="D">Rp114.000,00</li></ol></div>
+            <div class="soal-latihan"><b>12.</b>Seorang siswa ingin membeli buku tulis. Harga satu buku tulis adalah Rp3.500,00. Jika ia membawa uang Rp50.000,00 dan harus menyisakan minimal Rp5.000,00 untuk ongkos pulang, berapa jumlah maksimal buku tulis yang bisa ia beli? Misalkan $x$ adalah jumlah buku.<ol class="pilihan-ganda"><li data-option="A">11 buku</li><li data-option="B">12 buku</li><li data-option="C">13 buku</li><li data-option="D">14 buku</li></ol></div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+            <span class="copyright-secondary"><i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </div>
+    </footer>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+    <header class="page-header">
+        <div class="header-top-box">
+            <div class="header-title">
+                <div class="main-title">Bank Aktivitas</div>
+                <div class="subtitle">Matematika</div>
+            </div>
+            <div class="header-logo">
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png" alt="Brain Academy Logo">
+            </div>
+        </div>
+        <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VIII SMP | Kurikulum Merdeka | Drill Soal | Review SPLDV | Pertemuan 11
+            </div>
+        </div>
+    </header>
+     <div class="content-wrapper" style="padding-top: 20px;">
+        <div class="layout-2-kolom">
+            <div class="soal-latihan"><b>13.</b>Seorang arsitek merancang sebuah taman berbentuk persegi panjang. Panjangnya ditentukan sebagai $(2x+3)$ meter dan lebarnya $(x-1)$ meter. Untuk memagari taman tersebut, dibutuhkan pagar sepanjang 34 meter. Berapa luas area taman yang akan dibuat?<ol class="pilihan-ganda"><li data-option="A">52 m$^2$</li><li data-option="B">58 m$^2$</li><li data-option="C">60 m$^2$</li><li data-option="D">70 m$^2$</li></ol></div>
+            <div class="soal-latihan"><b>14.</b>Dua buah bilangan $x$ dan $y$ dihubungkan oleh sistem persamaan berikut:
+            $$ \begin{cases} \frac{x-1}{2} + \frac{y+2}{3} = 4 \\ x - 2y = 1 \end{cases} $$
+            Hasil kali kedua bilangan tersebut ($x \cdot y$) adalah ....<ol class="pilihan-ganda"><li data-option="A">12</li><li data-option="B">15</li><li data-option="C">16,5</li><li data-option="D">18</li></ol></div>
+            <div class="soal-latihan"><b>15.</b>Sebuah nilai $y$ misterius harus mematuhi dua aturan ketat: (1) Dua kali nilai tersebut dikurangi tiga harus kurang dari tujuh, dan (2) Lima dikurangi nilai tersebut tidak boleh lebih dari tiga. Rentang nilai $y$ yang memenuhi kedua aturan ini adalah ....
+            $$ \begin{cases} 2y-3 < 7 \\ 5-y \le 3 \end{cases} $$<ol class="pilihan-ganda"><li data-option="A">$y < 5$</li><li data-option="B">$y \ge 2$</li><li data-option="C">$2 < y \le 5$</li><li data-option="D">$2 \le y < 5$</li></ol></div>
+        </div>
+    </div>
+    <footer class="page-footer">
+        <hr class="footer-line">
+        <div class="footer-content">
+            <span class="copyright-main">Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+            <span class="copyright-secondary"><i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i></span>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
+
