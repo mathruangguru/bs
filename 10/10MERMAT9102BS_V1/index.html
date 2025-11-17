@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Soal Matematika SMA - Latihan SAS Ganjil</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Memastikan ukuran dokumen adalah A4 untuk cetak */
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f7fa;
+        --header-bottom-bg: #f0f0f0;
+        --header-title-color: #00838f;
+        --grey-text: #8d8e8d;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 8.5pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+      .page-container {
+        counter-reset: page;
+      }
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-header {
+        margin: -1.8cm -2.5cm 20px -2.5cm;
+        width: 21cm;
+      }
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2.5cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+      .header-bottom-box {
+        padding: 8px 2.5cm;
+      }
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg);
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block;
+        border-radius: 4px;
+        white-space: normal;
+        text-align: left;
+      }
+      .header-logo {
+        max-height: 60px;
+      }
+      /* Sembunyikan header abu-abu di halaman selain halaman pertama */
+      .page-subsequent .header-bottom-box {
+        display: none;
+      }
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1;
+      }
+      .manual-flex-layout {
+        display: flex;
+        gap: 15mm;
+        align-items: flex-start;
+      }
+      .manual-flex-layout .kolom {
+        flex: 1;
+        width: 50%;
+      }
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 20px;
+        break-inside: avoid; /* Perbaikan untuk mencegah pemotongan di tengah soal */
+        text-align: justify;
+      }
+      .soal-nomor {
+        font-weight: bold;
+        flex-shrink: 0;
+        min-width: 18px;
+      }
+      .soal-konten {
+        flex-grow: 1;
+      }
+      ol {
+        padding-left: 0;
+      }
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 8px;
+        padding-left: 20px;
+        text-indent: -20px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        padding-right: 5px;
+      }
+      /* Style untuk deskripsi gambar */
+      .image-description {
+        background-color: #f0f0f0;
+        border: 1px dashed #ccc;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        font-style: italic;
+        text-align: left;
+        color: #555;
+      }
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+      }
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+        .page-header {
+          display: block;
+          margin: -1.8cm -2.5cm 20px -2.5cm;
+          position: relative;
+        }
+        .header-top-box,
+        .header-bottom-text {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .image-description {
+          background-color: #f0f0f0 !important; /* Pastikan background tercetak */
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- HALAMAN 1 (Soal 1 - 5 | MUDAH) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SMA</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              X SMA | Kurikulum Merdeka | Latihan SAS&nbsp; | Subtopik: Latihan
+              SAS Ganjil | Pertemuan 09
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 1 (Mudah - Eksponen) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">1.</div>
+                <div class="soal-konten">
+                  Bentuk sederhana dari $\frac{3\sqrt{2}}{\sqrt{5}-\sqrt{2}}$
+                  adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$\sqrt{10}+2$</li>
+                    <li data-option="B">$\sqrt{10}-2$</li>
+                    <li data-option="C">$2\sqrt{10}+2$</li>
+                    <li data-option="D">$\sqrt{5}+2$</li>
+                    <li data-option="E">$\sqrt{10}+1$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 2 (Mudah - Eksponen) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">2.</div>
+                <div class="soal-konten">
+                  Nilai dari $^2\log 48 + ^2\log 3 - ^2\log 9$ adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$2$</li>
+                    <li data-option="B">$3$</li>
+                    <li data-option="C">$4$</li>
+                    <li data-option="D">$5$</li>
+                    <li data-option="E">$6$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 3 (Mudah - Barisan) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">3.</div>
+                <div class="soal-konten">
+                  Suku ke-4 dan suku ke-7 sebuah barisan aritmetika berturut-turut
+                  adalah 17 dan 29. Suku ke-20 barisan tersebut adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$77$</li>
+                    <li data-option="B">$81$</li>
+                    <li data-option="C">$85$</li>
+                    <li data-option="D">$89$</li>
+                    <li data-option="E">$93$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 4 (Mudah - Trigonometri) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                  Nilai dari $\frac{\sin(60^\circ) \tan(30^\circ)}{\cos(45^\circ)}$
+                  adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$\frac{1}{2}$</li>
+                    <li data-option="B">$1$</li>
+                    <li data-option="C">$\frac{1}{2}\sqrt{3}$</li>
+                    <li data-option="D">$\frac{1}{2}\sqrt{2}$</li>
+                    <li data-option="E">$\sqrt{2}$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 5 (Mudah - Trigonometri) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">5.</div>
+                <div class="soal-konten">
+                  Sebuah tangga yang panjangnya 8 meter bersandar pada dinding.
+                  Sudut yang dibentuk tangga dengan tanah adalah $60^\circ$.
+                  Tinggi dinding yang dicapai oleh tangga adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$4$ m</li>
+                    <li data-option="B">$4\sqrt{2}$ m</li>
+                    <li data-option="C">$8$ m</li>
+                    <li data-option="D">$8\sqrt{3}$ m</li>
+                    <li data-option="E">$4\sqrt{3}$ m</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
+        </footer>
+      </section>
+
+      <!-- HALAMAN 2 (Soal 6 - 12 | SEDANG) -->
+      <section class="page page-subsequent">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SMA</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              X SMA | Kurikulum Merdeka | Latihan SAS&nbsp; | Subtopik: Latihan
+              SAS Ganjil | Pertemuan 09
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 6 (Sedang - Eksponen) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">6.</div>
+                <div class="soal-konten">
+                  Bentuk sederhana dari $\frac{(a^3 b^{-2})^2}{a^5 b^{-5}}$
+                  adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$ab$</li>
+                    <li data-option="B">$a^2b$</li>
+                    <li data-option="C">$\frac{a}{b}$</li>
+                    <li data-option="D">$a b^2$</li>
+                    <li data-option="E">$\frac{a^2}{b}$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 7 (Sedang - Logaritma) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                  Diketahui suku ke-2 barisan geometri adalah 6 dan suku ke-5
+                  adalah 48. Suku ke-7 barisan tersebut adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$64$</li>
+                    <li data-option="B">$96$</li>
+                    <li data-option="C">$128$</li>
+                    <li data-option="D">$192$</li>
+                    <li data-option="E">$384$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 8 (Sedang - Barisan) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                  Nilai $x$ yang memenuhi $^2\log(x-2) + ^2\log(x-3) = 1$
+                  adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$\{1, 4\}$</li>
+                    <li data-option="B">$\{1\}$</li>
+                    <li data-option="C">$\{4\}$</li>
+                    <li data-option="D">$\{-1, -4\}$</li>
+                    <li data-option="E">$\{-4\}$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 9 (Sedang - Deret) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                  Jumlah deret geometri tak hingga $18 + 6 + 2 + ...$ adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$24$</li>
+                    <li data-option="B">$26$</li>
+                    <li data-option="C">$36$</li>
+                    <li data-option="D">$54$</li>
+                    <li data-option="E">$27$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 10 (Sedang - Trigonometri) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                  Jika $\sin(\alpha) = \frac{3}{5}$ dan $\alpha$ adalah sudut
+                  lancip, maka nilai $\tan(\alpha)$ adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$\frac{3}{4}$</li>
+                    <li data-option="B">$\frac{4}{5}$</li>
+                    <li data-option="C">$\frac{4}{3}$</li>
+                    <li data-option="D">$\frac{5}{4}$</li>
+                    <li data-option="E">$\frac{5}{3}$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 11 (Sedang - Trigonometri) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                  Sebuah tangga yang panjangnya 6 meter bersandar pada dinding.
+                  Sudut yang dibentuk tangga dengan tanah adalah $60^\circ$.
+                  Tinggi dinding yang dicapai oleh tangga adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$3$ m</li>
+                    <li data-option="B">$3\sqrt{2}$ m</li>
+                    <li data-option="C">$3\sqrt{3}$ m</li>
+                    <li data-option="D">$6$ m</li>
+                    <li data-option="E">$6\sqrt{3}$ m</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 12 (Sedang - Logaritma) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                  Himpunan penyelesaian dari $2^{2x-1} < 8$ adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$x > 2$</li>
+                    <li data-option="B">$x < 2$</li>
+                    <li data-option="C">$x > 1$</li>
+                    <li data-option="D">$x < 1$</li>
+                    <li data-option="E">$x < 0$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
+        </footer>
+      </section>
+
+      <!-- HALAMAN 3 (Soal 13 - 17 | SULIT) -->
+      <section class="page page-subsequent">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SMA</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              X SMA | Kurikulum Merdeka | Latihan SAS&nbsp; | Subtopik: Latihan
+              SAS Ganjil | Pertemuan 09
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 13 (Sulit - Eksponen) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">13.</div>
+                <div class="soal-konten">
+                  Himpunan penyelesaian dari $2^{2x} - 3 \cdot 2^x + 2 = 0$
+                  adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$\{1, 2\}$</li>
+                    <li data-option="B">$\{0, 2\}$</li>
+                    <li data-option="C">$\{-1, 0\}$</li>
+                    <li data-option="D">$\{0, 1\}$</li>
+                    <li data-option="E">$\{-1, -2\}$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 14 (Sulit - Logaritma) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">14.</div>
+                <div class="soal-konten">
+                  Jika $^2\log 3 = a$ dan $^3\log 5 = b$, maka $^2\log 5$
+                  adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$a+b$</li>
+                    <li data-option="B">$ab$</li>
+                    <li data-option="C">$a-b$</li>
+                    <li data-option="D">$\frac{a}{b}$</li>
+                    <li data-option="E">$\frac{b}{a}$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 15 (Sulit - Logaritma) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                  Nilai dari $\frac{^3\log 25 \cdot ^5\log 81}{^2\log 16}$
+                  adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$1$</li>
+                    <li data-option="B">$4$</li>
+                    <li data-option="C">$8$</li>
+                    <li data-option="D">$16$</li>
+                    <li data-option="E">$2$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 16 (Sulit - Barisan/Deret) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">16.</div>
+                <div class="soal-konten">
+                  Seutas tali dipotong menjadi 5 bagian sehingga panjangnya
+                  membentuk barisan geometri. Jika potongan terpendek 2 cm dan
+                  potongan terpanjang 162 cm, maka panjang tali semula adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$121$ cm</li>
+                    <li data-option="B">$242$ cm</li>
+                    <li data-option="C">$324$ cm</li>
+                    <li data-option="D">$484$ cm</li>
+                    <li data-option="E">$606$ cm</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 17 (Sulit - Barisan/Deret) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">17.</div>
+                <div class="soal-konten">
+                  Seseorang di permukaan tanah melihat puncak menara dengan sudut
+                  elevasi $45^\circ$. Ia berjalan mundur sejauh 20 m dan
+                  melihat puncak yang sama dengan sudut elevasi $30^\circ$.
+                  Tinggi menara tersebut adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$10(\sqrt{3}-1)$ m</li>
+                    <li data-option="B">$20(\sqrt{3}+1)$ m</li>
+                    <li data-option="C">$20(\sqrt{3}-1)$ m</li>
+                    <li data-option="D">$10(\sqrt{3}+1)$ m</li>
+                    <li data-option="E">$10\sqrt{3}$ m</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
+        </footer>
+      </section>
+
+      <!-- HALAMAN 4 (Soal 18 - 20 | SULIT) -->
+      <section class="page page-subsequent">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SMA</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              X SMA | Kurikulum Merdeka | Latihan SAS&nbsp; | Subtopik: Latihan
+              SAS Ganjil | Pertemuan 09
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            <div class="kolom">
+              <!-- Soal 18 (Sulit - Trigonometri) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">18.</div>
+                <div class="soal-konten">
+                  Jika $\cos(x) = \frac{20}{29}$ dan $x$ adalah sudut lancip,
+                  maka nilai $\tan(x)$ adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$\frac{20}{21}$</li>
+                    <li data-option="B">$\frac{21}{29}$</li>
+                    <li data-option="C">$\frac{29}{21}$</li>
+                    <li data-option="D">$\frac{21}{20}$</li>
+                    <li data-option="E">$\frac{29}{20}$</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 19 (Sulit - Trigonometri) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">19.</div>
+                <div class="soal-konten">
+                  Seseorang di atas mercusuar setinggi 60 m mengamati dua
+                  kapal, A dan B, di lautan yang segaris. Sudut depresi ke
+                  kapal A (yang lebih dekat) adalah $60^\circ$ dan ke kapal B
+                  (yang lebih jauh) adalah $45^\circ$. Jarak antara kapal A
+                  dan B adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$60(\sqrt{3}-1)$ m</li>
+                    <li data-option="B">$60\sqrt{3}$ m</li>
+                    <li data-option="C">$60(\sqrt{3}+1)$ m</li>
+                    <li data-option="D">$20\sqrt{3}$ m</li>
+                    <li data-option="E">$60(1-\frac{1}{\sqrt{3}})$ m</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="kolom">
+              <!-- Soal 20 (Sulit - Eksponen) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">20.</div>
+                <div class="soal-konten">
+                  Diketahui $5^{x+y} = 25\sqrt{5}$ dan $3^{x-y}=\frac{1}{9}$.
+                  Nilai $x \cdot y$ adalah...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">$\frac{3}{4}$</li>
+                    <li data-option="B">$1$</li>
+                    <li data-option="C">$\frac{16}{9}$</li>
+                    <li data-option="D">$2$</li>
+                    <li data-option="E">$\frac{9}{16}$</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
+        </footer>
+      </section>
+    </div>
+  </body>
+</html>
