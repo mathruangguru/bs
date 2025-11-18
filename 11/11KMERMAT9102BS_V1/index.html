@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Aktivitas - Matematika Lanjut - Latihan SAS</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f7fa;
+        --header-bottom-bg: #f0f0f0;
+        --header-title-color: #00838f;
+        --grey-text: #8d8e8d;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 8.5pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page-container {
+        counter-reset: page;
+      }
+
+      .page {
+        background: white;
+        width: 21cm;
+        height: 29.7cm;
+        padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .page-header {
+        margin: -1.8cm -2.5cm 20px -2.5cm;
+        width: 21cm;
+      }
+
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2.5cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+
+      .header-bottom-box {
+        padding: 8px 2.5cm;
+      }
+
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg);
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block;
+        border-radius: 4px;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .header-logo {
+        max-height: 60px;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1;
+        overflow: hidden;
+      }
+
+      h2.kuis-title {
+        font-size: 11pt;
+        color: var(--secondary-text);
+        background-color: #f0f0f0;
+        padding: 2px 10px;
+        border-radius: 4px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: left;
+        font-weight: 700;
+        display: inline-block;
+      }
+
+      .layout-2-kolom {
+        columns: 2;
+        column-gap: 15mm;
+      }
+
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px; /* Jarak antara nomor dan teks soal */
+        margin-bottom: 20px;
+        break-inside: avoid;
+        text-align: justify;
+      }
+
+      .soal-nomor {
+        font-weight: bold;
+        flex-shrink: 0;
+        min-width: 18px; /* Ruang untuk nomor hingga 2 digit */
+      }
+
+      .soal-konten {
+        flex-grow: 1; /* Konten soal mengisi sisa ruang */
+      }
+
+      ol {
+        padding-left: 0;
+      }
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        text-align: left; /* Pilihan ganda selalu rata kiri */
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 8px;
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      table.soal-kategori {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        margin-top: 10px;
+        font-size: 8pt;
+      }
+      table.soal-kategori th,
+      table.soal-kategori td {
+        padding: 8px;
+        border: 1px solid #ccc;
+        vertical-align: middle;
+      }
+      table.soal-kategori th {
+        background-color: #f2f2f2;
+      }
+      table.soal-kategori th:not(:first-child) {
+        text-align: center;
+        width: 50px;
+      }
+      table.soal-kategori td:not(:first-child) {
+        text-align: center;
+      }
+
+      .pilihan-ganda-mcma div {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 8px;
+        padding-left: 5px;
+      }
+      .pilihan-ganda-mcma input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+        margin-right: 10px;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+
+        body {
+          background-color: white;
+          margin: 0;
+        }
+
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+
+        .page-header {
+          display: block;
+          margin: -1.8cm -2.5cm 20px -2.5cm;
+          position: relative;
+        }
+
+        .header-top-box,
+        .header-bottom-text,
+        .kuis-title {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- HALAMAN 1 -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika Lanjut</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              XI SMA | Kurikulum Merdeka | Latihan SAS | Subtopik: Latihan SAS
+              Ganjil (Vektor & Polinomial)
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <h2 class="kuis-title">Kuis</h2>
+          <div class="layout-2-kolom">
+            <div class="soal-latihan">
+              <div class="soal-nomor">1.</div>
+              <div class="soal-konten">
+                Diketahui vektor $\vec{a} = 6\hat{i} - 8\hat{j}$. Vektor satuan
+                dari $\vec{a}$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\frac{1}{10}(6\hat{i} - 8\hat{j})$</li>
+                  <li data-option="B">$\frac{1}{14}(6\hat{i} - 8\hat{j})$</li>
+                  <li data-option="C">$10(6\hat{i} - 8\hat{j})$</li>
+                  <li data-option="D">$\frac{1}{100}(6\hat{i} - 8\hat{j})$</li>
+                  <li data-option="E">$6\hat{i} - 8\hat{j}$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">2.</div>
+              <div class="soal-konten">
+                Diberikan $\vec{u} = 2\hat{i} - \hat{j} + 3\hat{k}$ dan $\vec{v}
+                = -\hat{i} + 4\hat{j} - \hat{k}$. Hasil dari $3\vec{u} -
+                2\vec{v}$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$5\hat{i} - 6\hat{j} + 8\hat{k}$</li>
+                  <li data-option="B">$8\hat{i} - 11\hat{j} + 11\hat{k}$</li>
+                  <li data-option="C">$4\hat{i} + 5\hat{j} + 5\hat{k}$</li>
+                  <li data-option="D">$8\hat{i} - 5\hat{j} + 7\hat{k}$</li>
+                  <li data-option="E">$7\hat{i} - 11\hat{j} + 11\hat{k}$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">3.</div>
+              <div class="soal-konten">
+                Diketahui titik $A(1, 2, 3)$, $B(3, 3, 1)$, dan $C(p+3, 4, q)$.
+                Jika ketiga titik tersebut segaris (kolinear), maka nilai $p
+                \cdot q$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">-3</li>
+                  <li data-option="B">-2</li>
+                  <li data-option="C">-1</li>
+                  <li data-option="D">1</li>
+                  <li data-option="E">2</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">4.</div>
+              <div class="soal-konten">
+                Jika diketahui $|\vec{a}| = 4$, $|\vec{b}| = 5$, dan sudut
+                antara $\vec{a}$ dan $\vec{b}$ adalah $60^\circ$, maka panjang
+                dari vektor $\vec{a} - \vec{b}$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">5</li>
+                  <li data-option="B">10</li>
+                  <li data-option="C">$\sqrt{61}$</li>
+                  <li data-option="D">$\sqrt{21}$</li>
+                  <li data-option="E">9</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">5.</div>
+              <div class="soal-konten">
+                Diketahui $\vec{p} = \begin{pmatrix} 3 \\ -2 \\ 1 \end{pmatrix}$
+                dan $\vec{q} = \begin{pmatrix} 2 \\ 1 \\ -4 \end{pmatrix}$.
+                Hasil dari $\vec{p} \cdot \vec{q}$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">4</li>
+                  <li data-option="B">2</li>
+                  <li data-option="C">0</li>
+                  <li data-option="D">-2</li>
+                  <li data-option="E">-4</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">6.</div>
+              <div class="soal-konten">
+                Diketahui titik $A(1, 4, -1)$ dan $B(9, -4, 7)$. Titik $P$
+                terletak pada ruas garis $AB$ sedemikian sehingga $AP : PB = 3 :
+                1$. Jika $Q$ adalah titik tengah dari $AP$, maka panjang vektor
+                $\vec{BQ}$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$3\sqrt{5}$</li>
+                  <li data-option="B">$5\sqrt{3}$</li>
+                  <li data-option="C">$5\sqrt{5}$</li>
+                  <li data-option="D">9</li>
+                  <li data-option="E">$3\sqrt{3}$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">7.</div>
+              <div class="soal-konten">
+                Proyeksi skalar ortogonal dari vektor $\vec{u} = (8, 4)$ pada
+                vektor $\vec{v} = (6, 3)$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$\frac{20}{\sqrt{5}}$</li>
+                  <li data-option="B">10</li>
+                  <li data-option="C">12</li>
+                  <li data-option="D">$4\sqrt{5}$</li>
+                  <li data-option="E">60</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
+        </footer>
+      </section>
+
+      <!-- HALAMAN 2 -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika Lanjut</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <!-- No header-bottom-box on subsequent pages -->
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            <div class="soal-latihan">
+              <div class="soal-nomor">8.</div>
+              <div class="soal-konten">
+                Diketahui $\vec{a} = \hat{i} + 2\hat{j} - \hat{k}$ dan $\vec{b}
+                = 3\hat{i} - \hat{j} + 2\hat{k}$. Proyeksi vektor ortogonal dari
+                $\vec{a}$ pada $\vec{b}$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">
+                    $-\frac{1}{14}(3\hat{i} - \hat{j} + 2\hat{k})$
+                  </li>
+                  <li data-option="B">
+                    $-\frac{1}{\sqrt{14}}(3\hat{i} - \hat{j} + 2\hat{k})$
+                  </li>
+                  <li data-option="C">
+                    $\frac{1}{14}(3\hat{i} - \hat{j} + 2\hat{k})$
+                  </li>
+                  <li data-option="D">
+                    $-\frac{1}{6}(\hat{i} + 2\hat{j} - \hat{k})$
+                  </li>
+                  <li data-option="E">
+                    $\frac{1}{6}(\hat{i} + 2\hat{j} - \hat{k})$
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">9.</div>
+              <div class="soal-konten">
+                Diketahui $\vec{p} = (x, 2, 4)$ dan $\vec{q} = (3, 4, 0)$. Jika
+                $\vec{p}$ dan $\vec{q}$ saling tegak lurus, maka nilai $x$
+                adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$8/3$</li>
+                  <li data-option="B">$-8/3$</li>
+                  <li data-option="C">$3/8$</li>
+                  <li data-option="D">$-3/8$</li>
+                  <li data-option="E">0</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">10.</div>
+              <div class="soal-konten">
+                Bentuk $x^3 - 5x + \sqrt{x} + 2$ merupakan...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">Polinomial berderajat 3</li>
+                  <li data-option="B">Polinomial berderajat 1/2</li>
+                  <li data-option="C">Polinomial berderajat 1</li>
+                  <li data-option="D">Bukan polinomial</li>
+                  <li data-option="E">Polinomial berderajat 5</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">11.</div>
+              <div class="soal-konten">
+                Sisa pembagian polinomial $P(x) = x^3 - 2x^2 + 5x - 4$ oleh $(x
+                - 2)$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">-2</li>
+                  <li data-option="B">0</li>
+                  <li data-option="C">4</li>
+                  <li data-option="D">6</li>
+                  <li data-option="E">8</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">12.</div>
+              <div class="soal-konten">
+                Diketahui polinomial $P(x) = x^2 - 3x + 2$ dan $Q(x) = x + 1$.
+                Hasil dari komposisi $(P \circ Q)(x)$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$-3x + 1$</li>
+                  <li data-option="B">$x^2 - x$</li>
+                  <li data-option="C">$x^2 + x$</li>
+                  <li data-option="D">$x^2 - 3x + 3$</li>
+                  <li data-option="E">$x^2 - x - 1$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">13.</div>
+              <div class="soal-konten">
+                Jika $(x + 1)$ merupakan salah satu faktor dari polinomial $f(x)
+                = 2x^3 - x^2 - px + 6$, maka nilai $p$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">-3</li>
+                  <li data-option="B">-1</li>
+                  <li data-option="C">1</li>
+                  <li data-option="D">3</li>
+                  <li data-option="E">5</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">14.</div>
+              <div class="soal-konten">
+                Hasil bagi dari $2x^3 - 3x^2 + x + 6$ jika dibagi oleh $(x+1)$
+                adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$2x^2 - 5x + 6$</li>
+                  <li data-option="B">$2x^2 - x + 2$</li>
+                  <li data-option="C">$2x^2 - 3x + 1$</li>
+                  <li data-option="D">$x^2 - 5x + 6$</li>
+                  <li data-option="E">$2x^2 + 5x - 6$</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
+        </footer>
+      </section>
+
+      <!-- HALAMAN 3 -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika Lanjut</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <!-- No header-bottom-box on subsequent pages -->
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            <div class="soal-latihan">
+              <div class="soal-nomor">15.</div>
+              <div class="soal-konten">
+                Polinomial $P(x) = x^3 - 2x^2 + ax - 4$ jika dibagi oleh $(x -
+                2)$ bersisa $6$. Sisa pembagian $P(x)$ oleh $(x+1)$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">6</li>
+                  <li data-option="B">-4</li>
+                  <li data-option="C">-10</li>
+                  <li data-option="D">0</li>
+                  <li data-option="E">-12</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">16.</div>
+              <div class="soal-konten">
+                Jika $(x + 1)$ merupakan salah satu faktor dari polinomial $f(x)
+                = x^3 + 2x^2 - x - 2$, maka salah satu faktor linear lainnya
+                adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$(x + 2)$</li>
+                  <li data-option="B">$(x - 3)$</li>
+                  <li data-option="C">$(x + 3)$</li>
+                  <li data-option="D">$(x - 5)$</li>
+                  <li data-option="E">$(x - 4)$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">17.</div>
+              <div class="soal-konten">
+                Diketahui $\vec{u}$ dan $\vec{v}$ adalah vektor satuan yang
+                membentuk sudut $120^\circ$. Nilai dari $|\vec{u} + \vec{v}|$
+                adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">0</li>
+                  <li data-option="B">1</li>
+                  <li data-option="C">$\sqrt{2}$</li>
+                  <li data-option="D">$\sqrt{3}$</li>
+                  <li data-option="E">2</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">18.</div>
+              <div class="soal-konten">
+                Suatu polinomial $P(x)$ jika dibagi $(x-1)$ bersisa $3$ dan jika
+                dibagi $(x+2)$ bersisa $-3$. Sisa pembagian $P(x)$ oleh $(x^2 +
+                x - 2)$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$x - 2$</li>
+                  <li data-option="B">$x + 2$</li>
+                  <li data-option="C">$2x - 1$</li>
+                  <li data-option="D">$2x + 1$</li>
+                  <li data-option="E">$-2x + 1$</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">19.</div>
+              <div class="soal-konten">
+                Diberikan fungsi polinomial $f(x) = -2x^4 + 3x^3 - x + 5$.
+                Perilaku ujung (end behavior) dari grafik fungsi tersebut
+                adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">
+                    $x \to \infty, f(x) \to \infty$ dan $x \to -\infty, f(x) \to
+                    \infty$
+                  </li>
+                  <li data-option="B">
+                    $x \to \infty, f(x) \to \infty$ dan $x \to -\infty, f(x) \to
+                    -\infty$
+                  </li>
+                  <li data-option="C">
+                    $x \to \infty, f(x) \to -\infty$ dan $x \to -\infty, f(x)
+                    \to \infty$
+                  </li>
+                  <li data-option="D">
+                    $x \to \infty, f(x) \to -\infty$ dan $x \to -\infty, f(x)
+                    \to -\infty$
+                  </li>
+                  <li data-option="E">
+                    $x \to \infty, f(x) \to 0$ dan $x \to -\infty, f(x) \to 0$
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="soal-latihan">
+              <div class="soal-nomor">20.</div>
+              <div class="soal-konten">
+                Diketahui $x_1, x_2, x_3$ adalah akar-akar dari persamaan $x^3 -
+                2x^2 - 5x + 6 = 0$. Nilai dari $\frac{1}{x_1} + \frac{1}{x_2} +
+                \frac{1}{x_3}$ adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">$6/5$</li>
+                  <li data-option="B">$-5/6$</li>
+                  <li data-option="C">$5/6$</li>
+                  <li data-option="D">$-2/5$</li>
+                  <li data-option="E">$2/3$</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b
+            >Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights
+            Reserved.</b
+          >
+          <i
+            >Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya
+            Indonesia.</i
+          >
+        </footer>
+      </section>
+    </div>
+  </body>
+</html>
