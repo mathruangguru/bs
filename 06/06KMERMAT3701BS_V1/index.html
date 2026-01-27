@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Aktivitas - Matematika SD - Pengukuran</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f7fa;
+        --header-bottom-bg: #f0f0f0;
+        --header-title-color: #00838f;
+        --grey-text: #8d8e8d;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 8.5pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page-container {
+        counter-reset: page;
+      }
+
+      .page {
+        background: white;
+        width: 21cm;
+        height: 29.7cm;
+        padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .page-header {
+        margin: -1.8cm -2.5cm 20px -2.5cm;
+        width: 21cm;
+      }
+
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2.5cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+
+      .header-bottom-box {
+        padding: 8px 2.5cm;
+      }
+
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg);
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block;
+        border-radius: 4px;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .header-logo {
+        max-height: 60px;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1;
+        overflow: hidden;
+      }
+
+      h2.kuis-title {
+        font-size: 11pt;
+        color: var(--secondary-text);
+        background-color: #f0f0f0;
+        padding: 2px 10px;
+        border-radius: 4px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-align: left;
+        font-weight: 700;
+        display: inline-block;
+      }
+
+      .layout-2-kolom {
+        columns: 2;
+        column-gap: 15mm;
+      }
+
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 20px;
+        break-inside: avoid;
+        text-align: justify;
+      }
+
+      .soal-nomor {
+        font-weight: bold;
+        flex-shrink: 0;
+        min-width: 18px;
+      }
+
+      .soal-konten {
+        flex-grow: 1;
+      }
+
+      ol {
+        padding-left: 0;
+      }
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 8px;
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      /* Image Utilities */
+      .svg-container {
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+      }
+      .question-image, svg {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 10px auto;
+      }
+
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+        body {
+          background-color: white;
+          margin: 0;
+        }
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+        .page-header {
+          display: block;
+          margin: -1.8cm -2.5cm 20px -2.5cm;
+          position: relative;
+        }
+        .header-top-box,
+        .header-bottom-text,
+        .kuis-title {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      
+      <!-- HALAMAN 1 (Soal 1-4) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              VI SD | Kurikulum Merdeka | [TKA] Pengukuran Panjang, Luas, dan Berat Benda | Subtopik: Pengukuran Panjang, Luas, dan Berat Benda | Pertemuan 3
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <h2 class="kuis-title">Soal Latihan</h2>
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 1 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">1.</div>
+              <div class="soal-konten">
+                Seorang tukang kayu menyambung tiga papan kayu. Papan pertama memiliki panjang 2,4 meter, papan kedua 18 dm, dan papan ketiga 150 cm. Karena terlalu panjang, sambungan papan tersebut dipotong sebesar 0,05 hm. Berapa cm panjang papan yang tersisa?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">70 cm</li>
+                  <li data-option="B">120 cm</li>
+                  <li data-option="C">420 cm</li>
+                  <li data-option="D">520 cm</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 2 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">2.</div>
+              <div class="soal-konten">
+                Perhatikan gambar persegi panjang di bawah ini.
+                <div class="svg-container">
+                    <!-- Expanded viewBox to prevent text cut-off on the left -->
+                    <svg width="150" height="94" viewBox="-50 0 450 250">
+                        <rect x="50" y="30" width="300" height="180" fill="#e8f5e9" stroke="black" stroke-width="4"/> 
+                        <text x="200" y="120" text-anchor="middle" font-weight="bold" font-size="28">Kebun Pak Budi</text>
+                        <circle cx="50" cy="30" r="10" fill="red"/><circle cx="125" cy="30" r="10" fill="red"/><circle cx="200" cy="30" r="10" fill="red"/><circle cx="275" cy="30" r="10" fill="red"/><circle cx="350" cy="30" r="10" fill="red"/>
+                        <circle cx="50" cy="210" r="10" fill="red"/><circle cx="125" cy="210" r="10" fill="red"/><circle cx="200" cy="210" r="10" fill="red"/><circle cx="275" cy="210" r="10" fill="red"/><circle cx="350" cy="210" r="10" fill="red"/>
+                        <circle cx="50" cy="75" r="10" fill="red"/><circle cx="50" cy="120" r="10" fill="red"/><circle cx="50" cy="165" r="10" fill="red"/>
+                        <circle cx="350" cy="75" r="10" fill="red"/><circle cx="350" cy="120" r="10" fill="red"/><circle cx="350" cy="165" r="10" fill="red"/>
+                        <text x="200" y="245" text-anchor="middle" font-size="24">Panjang = 45 m</text>
+                        <text x="15" y="120" text-anchor="middle" transform="rotate(-90 15,120)" font-size="24">Lebar = 30 m</text>
+                    </svg>
+                </div>
+                Pak Budi ingin memasang tiang lampu di sekeliling kebunnya yang berbentuk persegi panjang. Jarak antar tiang lampu dibuat sama, yaitu 5 meter. Jika di setiap pojok kebun harus ada tiang, berapa banyak tiang lampu yang dibutuhkan?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">30 tiang</li>
+                  <li data-option="B">32 tiang</li>
+                  <li data-option="C">34 tiang</li>
+                  <li data-option="D">150 tiang</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 3 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">3.</div>
+              <div class="soal-konten">
+                Sebuah kertas karton berbentuk persegi dengan panjang sisi 40 cm. Di keempat pojok karton tersebut, Andi memotong bentuk persegi kecil dengan sisi 10 cm.
+                <div class="svg-container">
+                    <!-- Expanded viewBox for text visibility -->
+                    <svg width="120" height="150" viewBox="-40 0 300 280">
+                        <defs>
+                            <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="8" height="8">
+                                <path d="M-2,2 l4,-4 M0,8 l8,-8 M6,10 l4,-4" stroke="#ccc" stroke-width="2"/>
+                            </pattern>
+                        </defs>
+                        <rect x="25" y="25" width="200" height="200" fill="none" stroke="gray" stroke-dasharray="8,8" stroke-width="2"/>
+                        <path d="M75 25 H175 V75 H225 V175 H175 V225 H75 V175 H25 V75 H75 V25 Z" fill="url(#diagonalHatch)" stroke="black" stroke-width="3"/>
+                        <text x="125" y="130" text-anchor="middle" font-size="24">Sisa Karton</text>
+                        <text x="10" y="125" text-anchor="middle" transform="rotate(-90 10,125)" font-size="20">40 cm</text>
+                        <text x="125" y="15" text-anchor="middle" font-size="20">40 cm</text>
+                        <line x1="25" y1="235" x2="75" y2="235" stroke="black" stroke-width="2"/>
+                        <text x="50" y="250" text-anchor="middle" font-size="18">10 cm</text>
+                    </svg>
+                </div>
+                Berapakah luas karton yang tersisa (daerah yang diarsir)?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">1.200 cm<sup>2</sup></li>
+                  <li data-option="B">1.400 cm<sup>2</sup></li>
+                  <li data-option="C">1.500 cm<sup>2</sup></li>
+                  <li data-option="D">1.600 cm<sup>2</sup></li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 4 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">4.</div>
+              <div class="soal-konten">
+                Sebuah truk memiliki daya angkut maksimum 2,5 ton. Truk tersebut sudah memuat:
+                <ul style="margin: 5px 0; padding-left: 20px;">
+                    <li>15 karung beras, masing-masing 50 kg.</li>
+                    <li>20 peti telur, masing-masing 250 hg.</li>
+                </ul>
+                Berapa kuintal lagi muatan yang dapat ditambahkan agar truk mencapai muatan maksimum?
+                <ol class="pilihan-ganda">
+                  <li data-option="A">12,5 kuintal</li>
+                  <li data-option="B">17,0 kuintal</li>
+                  <li data-option="C">125 kuintal</li>
+                  <li data-option="D">170 kuintal</li>
+                </ol>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 2 (Soal 5-9) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 5 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">5.</div>
+              <div class="soal-konten">
+                Ayah ingin menanam rumput di taman berbentuk segitiga siku-siku. Panjang sisi alas taman adalah 12 m dan sisi tingginya 16 m. Jika biaya penanaman rumput adalah Rp25.000,00 per meter persegi, total biaya yang harus dikeluarkan Ayah adalah...
+                <ol class="pilihan-ganda">
+                  <li data-option="A">Rp2.400.000,00</li>
+                  <li data-option="B">Rp3.600.000,00</li>
+                  <li data-option="C">Rp4.800.000,00</li>
+                  <li data-option="D">Rp9.600.000,00</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 6 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">6.</div>
+              <div class="soal-konten">
+                Perhatikan gambar tumpukan kubus satuan berikut.
+                <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_kw1ks0_3735.png" class="question-image" style="max-width: 150px;" alt="Soal 6">
+                Gambar di atas adalah tumpukan balok mainan. Jika volume satu kubus satuan adalah 8 cm<sup>3</sup>, berapakah volume total bangun tersebut? (Asumsikan tumpukan padat di bawahnya).
+                <ul style="margin: 5px 0; padding-left: 20px;">
+                    <li>Lapisan bawah: 3 x 3 kubus</li>
+                    <li>Lapisan tengah: 2 x 2 kubus</li>
+                    <li>Lapisan atas: 1 kubus</li>
+                </ul>
+                <ol class="pilihan-ganda">
+                  <li data-option="A">108 cm<sup>3</sup></li>
+                  <li data-option="B">112 cm<sup>3</sup></li>
+                  <li data-option="C">144 cm<sup>3</sup></li>
+                  <li data-option="D">216 cm<sup>3</sup></li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 7 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                    Jarak kota A ke kota B pada peta adalah 5 cm. Jarak kota B ke kota C pada peta adalah 3 cm. Jika skala peta tersebut adalah 1 : 200.000, selisih jarak sebenarnya antara (Kota A ke B) dengan (Kota B ke C) adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">4 km</li>
+                        <li data-option="B">6 km</li>
+                        <li data-option="C">10 km</li>
+                        <li data-option="D">16 km</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 8 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                    Pak Deni memiliki tanah berbentuk gabungan dua persegi panjang seperti huruf "L".
+                    <div class="svg-container">
+                        <!-- Corrected ViewBox and Padding for Q8 -->
+                        <svg width="150" height="100" viewBox="-30 -20 350 220">
+                            <path d="M50 150 L250 150 L250 100 L100 100 L100 20 L50 20 Z" fill="#fff9c4" stroke="black" stroke-width="4"/>
+                            <text x="150" y="180" text-anchor="middle" font-size="24">12 m</text>
+                            <text x="20" y="85" text-anchor="middle" transform="rotate(-90 25,85)" font-size="24">10 m</text>
+                            <text x="280" y="130" text-anchor="middle" font-size="24">4 m</text>
+                            <line x1="50" y1="20" x2="100" y2="20" stroke="red" stroke-dasharray="8" stroke-width="2"/>
+                            <text x="75" y="15" text-anchor="middle" fill="red" font-size="24">?</text>
+                        </svg>
+                    </div>
+                    Berapakah keliling tanah Pak Deni tersebut?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">32 m</li>
+                        <li data-option="B">44 m</li>
+                        <li data-option="C">48 m</li>
+                        <li data-option="D">52 m</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 9 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                    Seorang apoteker sedang meracik obat. Satu kapsul obat harus mengandung: 0,3 gram Zat A, 150 miligram Zat B, dan 5 centigram Zat C. Berapa miligram berat total campuran ketiga zat tersebut untuk membuat <b>satu</b> kapsul?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">455 mg</li>
+                        <li data-option="B">500 mg</li>
+                        <li data-option="C">4.550 mg</li>
+                        <li data-option="D">5.000 mg</li>
+                    </ol>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 3 (Soal 10-14) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 10 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                    Sebuah akuarium berbentuk balok dengan ukuran panjang 80 cm, lebar 40 cm, dan tinggi 50 cm. Akuarium tersebut baru diisi air setengah bagian. Berapa liter air lagi yang harus ditambahkan agar akuarium tersebut terisi penuh?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">80 liter</li>
+                        <li data-option="B">160 liter</li>
+                        <li data-option="C">80.000 liter</li>
+                        <li data-option="D">160.000 liter</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 11 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                    Perhatikan ilustrasi penyambungan tiga utas tali berikut.
+                    <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_jy26b7_9106.png" class="question-image" style="max-width: 290px;" alt="Soal 11">
+                    Tiga utas tali tersebut disambung menjadi satu rangkaian panjang. Karena hanya ada 2 sambungan, berapakah panjang total tali setelah disambung?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">985 cm</li>
+                        <li data-option="B">995 cm</li>
+                        <li data-option="C">1.005 cm</li>
+                        <li data-option="D">1.025 cm</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 12 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                    Lantai sebuah ruangan berbentuk persegi panjang berukuran 8 m x 6 m akan dipasangi ubin keramik berbentuk persegi dengan sisi 40 cm. Berapa banyak dus keramik yang harus dibeli jika 1 dus berisi 5 keping keramik?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">60 dus</li>
+                        <li data-option="B">75 dus</li>
+                        <li data-option="C">120 dus</li>
+                        <li data-option="D">300 dus</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 13 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">13.</div>
+                <div class="soal-konten">
+                    Budi memiliki kotak mainan berbentuk kubus dengan rusuk 20 cm. Doni memiliki kotak mainan berbentuk balok dengan ukuran 25 cm x 15 cm x 20 cm. Selisih volume kotak mainan Budi dan Doni adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">500 cm<sup>3</sup></li>
+                        <li data-option="B">1.000 cm<sup>3</sup></li>
+                        <li data-option="C">2.500 cm<sup>3</sup></li>
+                        <li data-option="D">7.500 cm<sup>3</sup></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 14 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">14.</div>
+                <div class="soal-konten">
+                    Ibu pergi ke pasar membeli 2 kantong gula pasir yang masing-masing beratnya 1,5 kg, 3 bungkus tepung terigu yang masing-masing 500 gram, dan 4 ons mentega (catatan: 1 ons = 100 gram). Total berat belanjaan Ibu dalam satuan kilogram adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">4,5 kg</li>
+                        <li data-option="B">4,9 kg</li>
+                        <li data-option="C">5,4 kg</li>
+                        <li data-option="D">6,5 kg</li>
+                    </ol>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 4 (Soal 15-20) -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 15 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                    Sebuah segitiga sama kaki memiliki keliling 50 cm. Jika panjang sisi alasnya adalah 16 cm, berapakah panjang salah satu sisi kakinya?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">17 cm</li>
+                        <li data-option="B">24 cm</li>
+                        <li data-option="C">34 cm</li>
+                        <li data-option="D">68 cm</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 16 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">16.</div>
+                <div class="soal-konten">
+                    Pak RT berencana memasang paving block di jalan setapak. Jalan setapak tersebut berbentuk persegi panjang dengan panjang 50 m dan lebar 4 m. Di tengah jalan tersebut terdapat taman kecil berbentuk lingkaran dengan diameter 14 m yang tidak boleh dipasangi paving. Berapa luas area yang akan dipasangi paving? (Gunakan &pi; = 22/7)
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">46 m<sup>2</sup></li> <!-- Corrected from MathJax -->
+                        <li data-option="B">84 m<sup>2</sup></li>
+                        <li data-option="C">100 m<sup>2</sup></li>
+                        <li data-option="D">154 m<sup>2</sup></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 17 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">17.</div>
+                <div class="soal-konten">
+                    Sebuah wadah berbentuk balok dengan alas persegi (sisi alas = 10 cm) berisi air setinggi 15 cm. Kemudian, sebuah batu dimasukkan ke dalam wadah tersebut sehingga tenggelam sepenuhnya. Ketinggian air naik menjadi 17 cm. Berapakah volume batu tersebut?
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">20 cm<sup>3</sup></li>
+                        <li data-option="B">100 cm<sup>3</sup></li>
+                        <li data-option="C">200 cm<sup>3</sup></li>
+                        <li data-option="D">1.700 cm<sup>3</sup></li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 18 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">18.</div>
+                <div class="soal-konten">
+                    Petani A memiliki lahan seluas 1,5 hektare. Petani B memiliki lahan seluas 12.500 m<sup>2</sup>. Petani C memiliki lahan seluas 250 are. Urutan petani dari yang memiliki lahan terluas adalah...
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Petani C, Petani A, Petani B</li>
+                        <li data-option="B">Petani A, Petani C, Petani B</li>
+                        <li data-option="C">Petani C, Petani B, Petani A</li>
+                        <li data-option="D">Petani B, Petani A, Petani C</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 19 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">19.</div>
+                <div class="soal-konten">
+                    Sebuah tiang bendera terdiri dari 3 pipa besi yang disambung. Pipa bawah panjangnya 2,5 m tertanam di tanah sedalam 50 cm. Pipa tengah panjangnya 20 dm. Pipa atas panjangnya 150 cm. Berapa meter tinggi tiang bendera yang <b>terlihat</b> di atas permukaan tanah? (Abaikan panjang sambungan).
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">5,5 m</li>
+                        <li data-option="B">6,0 m</li>
+                        <li data-option="C">6,5 m</li>
+                        <li data-option="D">11,0 m</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Soal 20 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">20.</div>
+                <div class="soal-konten">
+                    Perhatikan gambar bangun gabungan berikut (Balok di bawah dan Kubus di atasnya).
+                    <img src="https://imgix3.ruangguru.com/assets/miscellaneous/png_ire4qj_6094.png" class="question-image" style="max-width: 150px;" alt="Soal 20">
+                    Hitunglah volume gabungan bangun ruang di atas!
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">1.600 cm<sup>3</sup></li>
+                        <li data-option="B">1.725 cm<sup>3</sup></li>
+                        <li data-option="C">1.850 cm<sup>3</sup></li>
+                        <li data-option="D">2.100 cm<sup>3</sup></li>
+                    </ol>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          <b>Copyright Ⓒ 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</b> <i>Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</i>
+        </footer>
+      </section>
+
+    </div>
+  </body>
+</html>
