@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Aktivitas TKA Matematika - Transformasi Geometri</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Memastikan ukuran dokumen adalah A4 untuk cetak */
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f7fa;
+        --header-bottom-bg: #f0f0f0; /* Menggunakan warna abu-abu muda */
+        --header-title-color: #00838f;
+        --grey-text: #8d8e8d;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 8.5pt;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page-container {
+        counter-reset: page;
+      }
+
+      .page {
+        background: white;
+        width: 21cm;
+        min-height: 29.7cm;
+        height: auto;
+        padding: 1.8cm 2.5cm 1.5cm 2.5cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .page-header {
+        margin: -1.8cm -2.5cm 20px -2.5cm;
+        width: 21cm;
+      }
+
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2.5cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+
+      .header-bottom-box {
+        padding: 8px 2.5cm;
+      }
+
+      /* Perubahan warna abu-abu pada header */
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg); /* Menggunakan variabel warna abu-abu muda: #f0f0f0 */
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block;
+        border-radius: 4px;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .header-logo {
+        max-height: 60px;
+      }
+
+      /* Sembunyikan header abu-abu di halaman selain halaman pertama */
+      .page-subsequent .header-bottom-box {
+        display: none;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1;
+      }
+
+      .manual-flex-layout {
+        display: flex;
+        gap: 15mm;
+        align-items: flex-start;
+      }
+      .manual-flex-layout .kolom {
+        flex: 1;
+        width: 50%;
+        min-width: 0; /* Mencegah konten lebar memaksa kolom membesar */
+      }
+      
+      /* Agar SVG/Gambar responsif mengikuti lebar kolom */
+      .svg-container svg, svg {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 20px;
+        break-inside: avoid;
+        text-align: justify;
+      }
+
+      .soal-nomor {
+        font-weight: bold;
+        flex-shrink: 0;
+        min-width: 18px;
+      }
+
+      .soal-konten {
+        flex-grow: 1;
+      }
+
+      ol {
+        padding-left: 0;
+      }
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 8px;
+        padding-left: 20px;
+        text-indent: -20px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        padding-right: 5px;
+      }
+
+      table.soal-kategori {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        margin-top: 10px;
+        font-size: 8pt;
+      }
+      table.soal-kategori th,
+      table.soal-kategori td {
+        padding: 8px;
+        border: 1px solid #ccc;
+        vertical-align: middle;
+      }
+      table.soal-kategori th {
+        background-color: #f2f2f2;
+      }
+      table.soal-kategori th:not(:first-child) {
+        text-align: center;
+        width: 50px;
+      }
+      table.soal-kategori td:not(:first-child) {
+        text-align: center;
+      }
+
+      .pilihan-ganda-mcma div {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 8px;
+        padding-left: 5px;
+      }
+      .pilihan-ganda-mcma input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+        margin-right: 10px;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+      
+      .page-footer {
+        text-align: left;
+        font-size: 6pt;
+        color: var(--grey-text);
+        padding-top: 2px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+
+        body {
+          background-color: white;
+          margin: 0;
+        }
+
+        .page {
+          width: 100%;
+          min-height: 29.7cm;
+          height: 100%;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .page:last-child {
+          page-break-after: avoid;
+        }
+
+        .page-header {
+          display: block;
+          margin: -1.8cm -2.5cm 20px -2.5cm;
+          position: relative;
+        }
+
+        .header-top-box,
+        .header-bottom-text {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- HALAMAN 1 (Soal 1 - 5) - P&P -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              V SD | Kurikulum Merdeka | [TKA] Sudut, Segitiga, dan Segi Empat Kongruen | Subtopik: Sudut, Segitiga, dan Segi Empat Kongruen | Pertemuan 16
+        </div>
+          </div>
+        </header>
+        
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            
+            <!-- KOLOM KIRI HALAMAN 1 -->
+            <div class="kolom">
+              
+              <!-- Soal 1 (Konseptual - PG - L1 P&P: Definisi Kongruen) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">1.</div>
+                <div class="soal-konten">
+                  Dua buah bangun datar dikatakan kongruen apabila ....
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">memiliki bentuk yang sama tapi ukurannya berbeda</li>
+                    <li data-option="B">memiliki bentuk dan ukuran yang sama</li>
+                    <li data-option="C">memiliki luas yang sama walaupun bentuknya berbeda</li>
+                    <li data-option="D">memiliki keliling yang sama walaupun sudutnya berbeda</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 2 (Konseptual - PGK MCMA - L2 Aplikasi: Identifikasi Segitiga) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">2.</div>
+                <div class="soal-konten">
+                  Diketahui Segitiga ABC dan Segitiga PQR adalah kongruen.
+                  <div class="svg-container">
+                    <svg width="250" height="150" viewBox="0 0 350 150" xmlns="http://www.w3.org/2000/svg">
+                      <!-- Segitiga ABC (Standar) -->
+                      <polygon points="40,120 40,40 100,120" fill="none" stroke="black" stroke-width="2"/>
+                      <rect x="40" y="110" width="10" height="10" fill="none" stroke="black" stroke-width="1"/>
+                      <text x="35" y="35" font-family="Arial" font-size="14" font-weight="bold">A</text>
+                      <text x="30" y="135" font-family="Arial" font-size="14" font-weight="bold">B</text>
+                      <text x="105" y="135" font-family="Arial" font-size="14" font-weight="bold">C</text>
+                      <text x="10" y="80" font-family="Arial" font-size="12">8 cm</text>
+                      <text x="60" y="135" font-family="Arial" font-size="12">6 cm</text>
+                      <text x="70" y="75" font-family="Arial" font-size="12">10 cm</text>
+
+                      <!-- Segitiga PQR (Dirotasi dan diposisikan berbeda) -->
+                      <!-- Rotasi 135 derajat -->
+                      <g transform="translate(250, 80) rotate(135)">
+                        <polygon points="-30,40 -30,-40 30,40" fill="none" stroke="black" stroke-width="2"/>
+                        <!-- Siku di Q (-30, 40) -->
+                        <rect x="-30" y="30" width="10" height="10" fill="none" stroke="black" stroke-width="1"/>
+                        <text x="-45" y="-45" font-family="Arial" font-size="14" font-weight="bold" transform="rotate(-135 -40,-45)">P</text>
+                        <text x="-50" y="70" font-family="Arial" font-size="14" font-weight="bold" transform="rotate(-135 -45,55)">Q</text>
+                        <text x="42" y="55" font-family="Arial" font-size="14" font-weight="bold" transform="rotate(-135 40,55)">R</text>
+                        <!-- Side PQ label only to give hint -->
+                        <text x="-55" y="5" font-family="Arial" font-size="12" transform="rotate(-135 -45,0)">8 cm</text>
+                      </g>
+                    </svg>
+                  </div>
+                  Pernyataan manakah yang benar terkait kedua segitiga tersebut?
+                  <br />
+                  <span class="instruksi-khusus"><b>Jawaban benar lebih dari satu</b></span>
+                  <div class="pilihan-ganda-mcma">
+                    <div>
+                      <input type="checkbox" /><span>Panjang QR adalah 8 cm.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Sudut A dan sudut P sama besar.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Sisi AC bersesuaian dengan sisi QP.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Keliling Segitiga ABC sama dengan keliling Segitiga PQR.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Soal 3 (Konseptual - PG - L1 P&P: Sifat Kubus) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">3.</div>
+                <div class="soal-konten">
+                  Bangun ruang yang memiliki 6 sisi berbentuk persegi yang kongruen, 12 rusuk sama panjang, dan 8 titik sudut adalah ....
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">balok</li>
+                    <li data-option="B">kubus </li>
+                    <li data-option="C">prisma segitiga</li>
+                    <li data-option="D">limas segi empat</li>
+                  </ol>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- KOLOM KANAN HALAMAN 1 -->
+            <div class="kolom">
+              
+              <!-- Soal 4 (Kontekstual - PGK Kategori - L2 Aplikasi: Foto & Karton) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                  <div class="stimulus-box">
+                    <span class="stimulus-title"></span>
+                    Rogu ingin mencetak foto untuk dimasukkan ke dalam bingkai. File foto asli Rogu berukuran $4 \text{ cm} \times 6 \text{ cm}$. Ia ingin mencetak foto tersebut dalam berbagai ukuran yang sebangun dengan foto asli agar gambar tidak terpotong atau gepeng.
+                    </div>
+                  <b>Tentukan kebenaran dari masing-masing pernyataan!</b>
+                  <table class="soal-kategori">
+                    <thead>
+                      <tr>
+                        <th>Pernyataan</th>
+                        <th>Benar</th>
+                        <th>Salah</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Foto berukuran $2 \text{ cm} \times 3 \text{ cm}$ sebangun dengan foto asli.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Foto berukuran $8 \text{ cm} \times 10 \text{ cm}$ sebangun dengan foto asli.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Foto berukuran $12 \text{ cm} \times 18 \text{ cm}$ dapat dicetak tanpa terlihat gepeng.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Soal 5 (Sebelumnya Soal 6) - Kontekstual - PG - L2 Aplikasi: Desain Atap -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">5.</div>
+                <div class="soal-konten">
+                  <div class="stimulus-box">
+                    <span class="stimulus-title"></span>
+                    Seorang arsitek merancang atap rumah berbentuk trapesium sama kaki. Pada denah, panjang sisi atap 2 cm dan sisi miring 3 cm. Pada bangunan sebenarnya, sisi atap direncanakan sepanjang 4 meter.
+                    <div class="svg-container">
+                      <svg width="300" height="150" viewBox="0 0 350 150" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Trapesium Kecil (Denah) -->
+                        <polygon points="20,60 50,20 90,20 120,60" fill="#e0f7fa" stroke="#00838f" stroke-width="2"/>
+                        <text x="70" y="15" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">2 cm</text>
+                        <text x="25" y="40" font-family="Arial" font-size="12" text-anchor="end" fill="#333">3 cm</text>
+                        <text x="70" y="80" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">Denah</text>
+
+                        <!-- Trapesium Besar (Sebenarnya) -->
+                        <polygon points="170,110 215,50 275,50 320,110" fill="#ffecb3" stroke="#ff6f00" stroke-width="2"/>
+                        <text x="245" y="45" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">4 m</text>
+                        <text x="180" y="80" font-family="Arial" font-size="12" text-anchor="end" fill="#333">?</text>
+                        <text x="245" y="130" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">Bangunan Asli</text>
+                      </svg>
+                    </div>
+                  </div>
+                  Jika trapesium pada denah dan bangunan sebenarnya saling sebangun, panjang sisi miring atap pada bangunan sebenarnya adalah ....
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">3 meter</li>
+                    <li data-option="B">4 meter</li>
+                    <li data-option="C">5 meter</li>
+                    <li data-option="D">6 meter</li>
+                  </ol>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <span style="font-weight: bold; color: #555;">Copyright &#169; 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+          <span style="font-style: italic; color: #8d8e8d;">Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</span>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 2 -->
+      <section class="page page-subsequent">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            
+            <!-- KOLOM KIRI HALAMAN 2 -->
+            <div class="kolom">
+              
+              <!-- Soal 6 (Sebelumnya Soal 5) - Konseptual - PG - L1 P&P: Definisi Sebangun -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">6.</div>
+                <div class="soal-konten">
+                  Pernyataan yang tepat mengenai dua bangun yang sebangun adalah ...
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">Sudut yang bersesuaian sama besar dan sisi yang bersesuaian sebanding.</li>
+                    <li data-option="B">Sudut yang bersesuaian besarnya berbeda tetapi sisi-sisinya sama panjang.</li>
+                    <li data-option="C">Memiliki luas dan keliling yang sama.</li>
+                    <li data-option="D">Memiliki bentuk, ukuran, dan arah yang sama.</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 7 (Konseptual - PGK MCMA - L3 Penalaran: Jaring-jaring Kubus) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                  Diberikan jaring-jaring kubus dengan penomoran 1 sampai 6 pada tiap sisinya.
+                  <div class="svg-container">
+                    <!-- Ukuran diperkecil dari 200x150 menjadi 150x112 agar tidak mepet bawah -->
+                    <svg width="150" height="112" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                      <!-- Row 1: Box 1 -->
+                      <rect x="60" y="10" width="40" height="40" fill="white" stroke="black" stroke-width="2"/>
+                      <text x="80" y="35" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">1</text>
+                      
+                      <!-- Row 2: Box 2, 3, 4, 5 -->
+                      <rect x="20" y="50" width="40" height="40" fill="white" stroke="black" stroke-width="2"/>
+                      <text x="40" y="75" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">2</text>
+                      
+                      <rect x="60" y="50" width="40" height="40" fill="#f0f0f0" stroke="black" stroke-width="2"/>
+                      <text x="80" y="75" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+                      
+                      <rect x="100" y="50" width="40" height="40" fill="white" stroke="black" stroke-width="2"/>
+                      <text x="120" y="75" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">4</text>
+                      
+                      <rect x="140" y="50" width="40" height="40" fill="white" stroke="black" stroke-width="2"/>
+                      <text x="160" y="75" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">5</text>
+                      
+                      <!-- Row 3: Box 6 -->
+                      <rect x="60" y="90" width="40" height="40" fill="white" stroke="black" stroke-width="2"/>
+                      <text x="80" y="115" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">6</text>
+                    </svg>
+                  </div>
+                  Jika kotak nomor 3 adalah alas kubus, manakah pernyataan yang benar?
+                  <br />
+                  <span class="instruksi-khusus"><b>Jawaban benar lebih dari satu</b></span>
+                  <div class="pilihan-ganda-mcma">
+                    <div>
+                      <input type="checkbox" /><span>Nomor 1 adalah tutup kubus.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Nomor 6 adalah sisi depan.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Nomor 4 berhadapan dengan 2.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Nomor 5 bersebelahan dengan 3.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Soal 8 (Konseptual - PG - L3 Penalaran: Visualisasi Spasial) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                  Sebuah kertas berbentuk persegi dilipat 2 kali hingga membentuk persegi kecil. Kemudian bagian tengahnya dilubangi.
+                  <div class="svg-container">
+                    <svg width="300" height="100" viewBox="0 0 350 100" xmlns="http://www.w3.org/2000/svg">
+                      <!-- Step 1: Open Square -->
+                      <rect x="10" y="20" width="60" height="60" fill="white" stroke="black" stroke-width="2"/>
+                      <line x1="40" y1="20" x2="40" y2="80" stroke="gray" stroke-dasharray="4"/>
+                      <text x="40" y="95" font-family="Arial" font-size="10" text-anchor="middle">1. Lipat</text>
+                      
+                      <!-- Arrow 1 -->
+                      <line x1="80" y1="50" x2="100" y2="50" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+                      
+                      <!-- Step 2: Folded Rectangle -->
+                      <rect x="110" y="20" width="30" height="60" fill="#f0f0f0" stroke="black" stroke-width="2"/>
+                      <line x1="110" y1="50" x2="140" y2="50" stroke="gray" stroke-dasharray="4"/>
+                      <text x="125" y="95" font-family="Arial" font-size="10" text-anchor="middle">2. Lipat</text>
+
+                      <!-- Arrow 2 -->
+                      <line x1="150" y1="50" x2="170" y2="50" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                      <!-- Step 3: Folded Small Square with Hole -->
+                      <rect x="180" y="50" width="30" height="30" fill="#e0e0e0" stroke="black" stroke-width="2"/>
+                      <circle cx="195" cy="65" r="5" fill="black"/> <!-- The Hole -->
+                      <text x="195" y="95" font-family="Arial" font-size="10" text-anchor="middle">3. Lubangi</text>
+
+                      <!-- Arrow 3 -->
+                      <line x1="220" y1="50" x2="240" y2="50" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                      <!-- Question Mark Box representing Unfolded -->
+                      <rect x="250" y="20" width="60" height="60" fill="none" stroke="black" stroke-width="1" stroke-dasharray="2"/>
+                      <text x="280" y="55" font-family="Arial" font-size="24" text-anchor="middle" fill="#555">?</text>
+                      <text x="280" y="95" font-family="Arial" font-size="10" text-anchor="middle">Hasil?</text>
+
+                      <!-- Marker Definition -->
+                      <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                          <polygon points="0 0, 10 3.5, 0 7" fill="black" />
+                        </marker>
+                      </defs>
+                    </svg>
+                  </div>
+                  Jika kertas dibuka kembali, berapa banyak lubang yang terbentuk dan bagaimana posisinya?
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">Ada 1 lubang di tengah.</li>
+                    <li data-option="B">Ada 2 lubang di sisi kiri dan kanan.</li>
+                    <li data-option="C">Ada 4 lubang yang tersebar simetris.</li>
+                    <li data-option="D">Ada 4 lubang berkumpul di tengah.</li>
+                  </ol>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- KOLOM KANAN HALAMAN 2 -->
+            <div class="kolom">
+              
+              <!-- Soal 9 (Kontekstual - PGK Kategori - L3 Penalaran: Monumen Kota) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                  <div class="stimulus-box">
+                    <span class="stimulus-title"></span>
+                    Seorang arsitek membangun sebuah monumen berbentuk gabungan bangun ruang. Bagian bawah berbentuk kubus dengan panjang rusuk 2 meter. Bagian atap berbentuk limas segi empat dengan tinggi limas 1,5 meter.
+                    <div class="svg-container">
+                      <!-- Ukuran diperkecil dari 250x240 menjadi 180x172 -->
+                      <svg width="180" height="172" viewBox="0 0 250 240" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Definitions for arrowheads -->
+                        <defs>
+                          <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                          </marker>
+                          <marker id="arrow-start" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M9,0 L9,6 L0,3 z" fill="#000" />
+                          </marker>
+                        </defs>
+
+                        <!-- Hidden Lines (Dashed) -->
+                        <!-- Cube Hidden -->
+                        <path d="M90,170 L90,90 L50,120" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4"/> <!-- D-H, A-D -->
+                        <path d="M90,90 L170,90" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4"/> <!-- D-C -->
+                        <path d="M50,200 L90,170 L170,170" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4"/> <!-- E-H-G -->
+                        <!-- Pyramid Hidden -->
+                        <path d="M110,45 L90,90" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4"/> <!-- T-D -->
+                        <!-- Height Line Internal -->
+                        <path d="M110,45 L110,105" fill="none" stroke="red" stroke-width="1" stroke-dasharray="2"/>
+
+                        <!-- Visible Lines -->
+                        <!-- Cube Visible -->
+                        <path d="M50,120 L130,120 L170,90" fill="none" stroke="black" stroke-width="2"/> <!-- Top Rim A-B-C -->
+                        <path d="M50,120 L50,200 L130,200 L130,120" fill="none" stroke="black" stroke-width="2"/> <!-- Front Face -->
+                        <path d="M130,200 L170,170 L170,90" fill="none" stroke="black" stroke-width="2"/> <!-- Side Face Connection -->
+                        <path d="M130,120 L130,200" fill="none" stroke="black" stroke-width="2"/> <!-- B-F -->
+
+                        <!-- Pyramid Visible -->
+                        <path d="M110,45 L50,120" fill="none" stroke="black" stroke-width="2"/> <!-- T-A -->
+                        <path d="M110,45 L130,120" fill="none" stroke="black" stroke-width="2"/> <!-- T-B -->
+                        <path d="M110,45 L170,90" fill="none" stroke="black" stroke-width="2"/> <!-- T-C -->
+
+                        <!-- Dimensions -->
+                        <!-- Height Pyramid -->
+                        <line x1="180" y1="45" x2="200" y2="45" stroke="black" stroke-width="1"/>
+                        <line x1="180" y1="105" x2="200" y2="105" stroke="black" stroke-width="1"/>
+                        <line x1="190" y1="45" x2="190" y2="105" stroke="black" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+                        <text x="205" y="80" font-family="Arial" font-size="10">1,5 m</text>
+
+                        <!-- Cube Side -->
+                        <line x1="40" y1="120" x2="40" y2="200" stroke="black" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+                        <text x="15" y="165" font-family="Arial" font-size="10">2 m</text>
+                        
+                        <line x1="50" y1="210" x2="130" y2="210" stroke="black" stroke-width="1" marker-start="url(#arrow-start)" marker-end="url(#arrow)"/>
+                        <text x="85" y="222" font-family="Arial" font-size="10" text-anchor="middle">2 m</text>
+                      </svg>
+                    </div>
+                  </div>
+                  <b>Tentukan kebenaran dari masing-masing pernyataan!</b>
+                  <table class="soal-kategori">
+                    <thead>
+                      <tr>
+                        <th>Pernyataan</th>
+                        <th>Benar</th>
+                        <th>Salah</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Bangun gabungan tersebut memiliki total 16 titik sudut.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Jumlah seluruh sisi bangun ruang tersebut adalah 8.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Tinggi total monumen dari dasar sampai puncak adalah 3,5 meter.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Soal 10 (Kontekstual - PG - L2 Aplikasi: Tenda Pramuka) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                  <div class="stimulus-box">
+                    <span class="stimulus-title"></span>
+                    Diberikan sebuah prisma segitiga sebagai berikut.
+                    <div class="svg-container">
+                      <!-- Ukuran diperkecil lagi dari 220x132 menjadi 180x108 -->
+                      <svg width="180" height="108" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Definitions for arrowheads -->
+                        <defs>
+                          <marker id="arrow-start" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M9,0 L9,6 L0,3 z" fill="#000" />
+                          </marker>
+                          <marker id="arrow-end" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                          </marker>
+                        </defs>
+
+                        <!-- Hidden Lines (Dashed) -->
+                        <path d="M40,140 L160,100" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4"/> <!-- Left Side Base -->
+                        <path d="M160,100 L240,100" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4"/> <!-- Back Base -->
+                        <path d="M160,100 L200,20" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4"/> <!-- Back Left Slant -->
+                        <line x1="80" y1="60" x2="80" y2="140" stroke="red" stroke-width="1" stroke-dasharray="3"/> <!-- Height Line -->
+
+                        <!-- Visible Lines -->
+                        <!-- Front Face -->
+                        <polygon points="40,140 120,140 80,60" fill="#e0f2f1" stroke="black" stroke-width="2"/>
+                        <!-- Side Face (Right) -->
+                        <polygon points="120,140 240,100 200,20 80,60" fill="#b2dfdb" stroke="black" stroke-width="2"/>
+                        
+                                            
+                      </svg>
+                    </div>
+                  </div>
+                  Banyak rusuk pada bangun ruang tersebut adalah ....
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">6</li>
+                    <li data-option="B">7</li>
+                    <li data-option="C">8</li>
+                    <li data-option="D">9</li>
+                  </ol>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <span style="font-weight: bold; color: #555;">Copyright &#169; 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+          <span style="font-style: italic; color: #8d8e8d;">Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</span>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 3 -->
+      <section class="page page-subsequent">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            
+            <!-- KOLOM KIRI HALAMAN 3 -->
+            <div class="kolom">
+              
+              <!-- Soal 11 (Konseptual - PGK MCMA - L1 P&P: Jaring-jaring) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                  Diberikan sebuah limas segi-$n$ yang memiliki rusuk sebanyak 10 buah. Manakah di antara pilihan berikut yang benar?
+                  <br/>
+                  <span class="instruksi-khusus"><b>Jawaban benar lebih dari satu</b></span>
+                  <div class="pilihan-ganda-mcma">
+                    <div>
+                      <input type="checkbox" /><span>Nilai $n$ merupakan bilangan ganjil.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Limas yang dimaksud adalah limas segi lima.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Jumlah sisi limas tersebut adalah 5 buah.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Jumlah titik sudut limas tersebut adalah 6.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Soal 12 (Kontekstual - PG - L3 Penalaran: Bayangan Tiang) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                  <div class="stimulus-box">
+                    Andi ingin mengukur tinggi gedung sekolahnya tanpa memanjat. Ia menggunakan prinsip kesebangunan bayangan. Ia menancapkan tongkat setinggi 2 meter, dan tongkat tersebut menghasilkan bayangan sepanjang 1,5 meter. Pada saat yang sama, bayangan gedung sekolah terukur sepanjang 15 meter.
+                  </div>
+                  Tinggi gedung sekolah tersebut adalah ....
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">15 meter</li>
+                    <li data-option="B">20 meter</li>
+                    <li data-option="C">30 meter</li>
+                    <li data-option="D">45 meter</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 13 (Kontekstual - PG - L2 Aplikasi: Kado Ulang Tahun) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">13.</div>
+                <div class="soal-konten">
+                  Sinta ingin melapisi sebuah kardus berbentuk kubus. Selembar kertas kado dapat menutupi 2 bagian sisi kardus tersebut. Banyaknya kertas kado minimal yang Sinta butuhkan adalah ... lembar.
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">3</li>
+                    <li data-option="B">4</li>
+                    <li data-option="C">5</li>
+                    <li data-option="D">6</li>
+                  </ol>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- KOLOM KANAN HALAMAN 3 -->
+            <div class="kolom">
+              
+              <!-- Soal 14 (Konseptual - PG - L2 Aplikasi: Rotasi Objek) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">14.</div>
+                <div class="soal-konten">
+                  Sebuah bangun berbentuk huruf "L" diputar $90^{\circ}$ searah jarum jam. 
+                  <div class="svg-container">
+                    <!-- Ukuran diperkecil dari 200x150 menjadi 150x112 -->
+                    <svg width="150" height="112" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+                      <!-- L Shape -->
+                      <!-- Vertical part width 30, horizontal part height 30 -->
+                      <path d="M50,20 L80,20 L80,90 L140,90 L140,120 L50,120 Z" fill="#bbdefb" stroke="#0d47a1" stroke-width="2"/>
+                      
+                      <!-- Rotation Arrow (Clockwise) -->
+                      <path d="M120,30 A 50 50 0 0 1 160,80" fill="none" stroke="#ff6f00" stroke-width="3" marker-end="url(#arrow-rot)"/>
+                      <text x="180" y="70" font-family="Arial" font-size="12" font-weight="bold" fill="#ff6f00">90°</text>
+
+                      <!-- Definitions -->
+                      <defs>
+                        <marker id="arrow-rot" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                          <path d="M0,0 L10,5 L0,10 z" fill="#ff6f00" />
+                        </marker>
+                      </defs>
+                    </svg>
+                  </div>
+                  Jika posisi awal kaki huruf L menghadap ke kanan, maka setelah diputar posisinya akan menghadap ke ....
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">atas</li>
+                    <li data-option="B">bawah</li>
+                    <li data-option="C">kiri</li>
+                    <li data-option="D">kanan (tetap)</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 15 (Kontekstual - PGK Kategori - L3 Penalaran: Gudang Logistik) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                  <div class="stimulus-box">
+                    Pak Budi sedang menata kardus-kardus berbentuk kubus yang ukurannya identik. Ia menyusunnya secara bertingkat dengan susunan sebagai berikut.
+                    <ul>
+                      <li><b>Tingkat 1 (bawah):</b> Terdiri dari 9 kardus yang disusun membentuk persegi berukuran $3 \times 3$.</li>
+                      <li><b>Tingkat 2 (tengah):</b> Disusun 4 kardus membentuk persegi $2 \times 2$ yang diletakkan tepat di tengah-tengah.</li>
+                      <li><b>Tingkat 3 (puncak):</b> Diletakkan sebuah kardus di puncak tumpukan.</li>
+                    </ul>
+                  </div>
+                  <b>Tentukan kebenaran dari masing-masing pernyataan!</b>
+                  <table class="soal-kategori">
+                    <thead>
+                      <tr>
+                        <th>Pernyataan</th>
+                        <th>Benar</th>
+                        <th>Salah</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Total kardus yang disusun adalah 14 buah.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Tinggi tumpukan tersebut sama dengan 3 kali tinggi satu kardus.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Volume total tumpukan kardus sama dengan volume 10 kardus kecil.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <span style="font-weight: bold; color: #555;">Copyright &#169; 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+          <span style="font-style: italic; color: #8d8e8d;">Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</span>
+        </footer>
+      </section>
+
+      <!-- HALAMAN 4 -->
+      <section class="page page-subsequent">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_63qwb1_5293.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="manual-flex-layout">
+            
+            <!-- KOLOM KIRI HALAMAN 4 -->
+            <div class="kolom">
+              
+              <!-- Soal 16 (Konseptual - PGK MCMA - L3 Penalaran: Limas Segitiga) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">16.</div>
+                <div class="soal-konten">
+                  <div class="stimulus-box">
+                    <span class="stimulus-title"></span>
+                    Diberikan sebuah limas segitiga beraturan di mana semua sisinya kongruen.
+                    <div class="svg-container">
+                      <!-- Ukuran diperkecil dari 200x160 menjadi 100x80 -->
+                      <svg width="100" height="80" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Definitions -->
+                        <defs>
+                          <linearGradient id="gradPyramid" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ffe0b2;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ffcc80;stop-opacity:1" />
+                          </linearGradient>
+                        </defs>
+
+                        <!-- Hidden Lines (Back Edges) -->
+                        <path d="M100,20 L100,90" stroke="#999" stroke-width="1" stroke-dasharray="4"/> 
+                        <path d="M50,130 L150,130" stroke="#999" stroke-width="1" stroke-dasharray="4"/> 
+                        
+                        <!-- Visible Pyramid Faces -->
+                        <!-- Left Face -->
+                        <path d="M100,20 L40,130 L100,145 Z" fill="#ffcc80" stroke="#e65100" stroke-width="2" opacity="0.9"/>
+                        <!-- Right Face -->
+                        <path d="M100,20 L160,130 L100,145 Z" fill="#ffe0b2" stroke="#e65100" stroke-width="2" opacity="0.9"/>
+                        
+                        <!-- Edges outlines for clarity -->
+                        <line x1="100" y1="20" x2="40" y2="130" stroke="#e65100" stroke-width="2"/>
+                        <line x1="100" y1="20" x2="160" y2="130" stroke="#e65100" stroke-width="2"/>
+                        <line x1="100" y1="20" x2="100" y2="145" stroke="#e65100" stroke-width="2"/>
+                        <line x1="40" y1="130" x2="100" y2="145" stroke="#e65100" stroke-width="2"/>
+                        <line x1="160" y1="130" x2="100" y2="145" stroke="#e65100" stroke-width="2"/>
+
+                        <!-- Hidden Base Lines (Dashed) -->
+                        <line x1="40" y1="130" x2="160" y2="130" stroke="#e65100" stroke-width="1.5" stroke-dasharray="4"/>
+                      </svg>
+                    </div>
+                  </div>
+                  Manakah pernyataan yang benar mengenai bangun tersebut?
+                  <br />
+                  <span class="instruksi-khusus"><b>Jawaban benar lebih dari satu</b></span>
+                  <div class="pilihan-ganda-mcma">
+                    <div>
+                      <input type="checkbox" /><span>Memiliki 3 buah sisi.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Memiliki 6 buah rusuk.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Memiliki 4 buah titik sudut.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Alasnya berbentuk persegi.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Soal 17 (Konseptual - PG - L3 Penalaran: Identifikasi Jaring-jaring) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">17.</div>
+                <div class="soal-konten">
+                  Sebuah jaring-jaring terdiri dari dua buah segi enam yang kongruen dan enam buah persegi panjang yang menghubungkan sisi-sisi segi enam tersebut. 
+                  <div class="svg-container">
+                    <!-- Ukuran diperkecil dari 250x200 menjadi 180x144 -->
+                    <svg width="180" height="144" viewBox="0 0 250 200" xmlns="http://www.w3.org/2000/svg">
+                      <!-- Rectangles Strip -->
+                      <g stroke="black" stroke-width="2" fill="#fff9c4">
+                        <!-- Rect 1 -->
+                        <rect x="20" y="70" width="30" height="50" />
+                        <!-- Rect 2 -->
+                        <rect x="50" y="70" width="30" height="50" />
+                        <!-- Rect 3 -->
+                        <rect x="80" y="70" width="30" height="50" />
+                        <!-- Rect 4 -->
+                        <rect x="110" y="70" width="30" height="50" />
+                        <!-- Rect 5 -->
+                        <rect x="140" y="70" width="30" height="50" />
+                        <!-- Rect 6 -->
+                        <rect x="170" y="70" width="30" height="50" />
+                      </g>
+
+                      <!-- Top Hexagon (Attached to Rect 2) -->
+                      <polygon points="50,70 80,70 95,44 80,18 50,18 35,44" fill="#b3e5fc" stroke="black" stroke-width="2" />
+
+                      <!-- Bottom Hexagon (Attached to Rect 4) -->
+                      <polygon points="110,120 140,120 155,146 140,172 110,172 95,146" fill="#b3e5fc" stroke="black" stroke-width="2" />
+                    </svg>
+                  </div>
+                  Jika jaring-jaring tersebut dirakit, bangun ruang yang terbentuk adalah ....
+                  <ol class="pilihan-ganda">
+                    <li data-option="A">tabung</li>
+                    <li data-option="B">kerucut</li>
+                    <li data-option="C">limas segi enam</li>
+                    <li data-option="D">prisma segi enam</li>
+                  </ol>
+                </div>
+              </div>
+
+              <!-- Soal 18 (Konseptual - PGK MCMA - L2 Aplikasi: Limas Segiempat) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">18.</div>
+                <div class="soal-konten">
+                  Manakah pernyataan yang benar mengenai jaring-jaring limas segi empat?
+                  <br />
+                  <span class="instruksi-khusus"><b>Jawaban benar lebih dari satu</b></span>
+                  <div class="pilihan-ganda-mcma">
+                    <div>
+                      <input type="checkbox" /><span>Memiliki alas berbentuk segi empat.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Memiliki sisi tegak berbentuk segitiga.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Memiliki sisi dan titik sudut masing-masing sebanyak 4 buah.</span>
+                    </div>
+                    <div>
+                      <input type="checkbox" /><span>Jaring-jaringnya berbentuk bintang dengan 4 sudut di sekeliling alas.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- KOLOM KANAN HALAMAN 4 -->
+            <div class="kolom">
+              
+              <!-- Soal 19 (Kontekstual - PGK Kategori - L1 P&P: Sifat Tabung) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">19.</div>
+                <div class="soal-konten">
+                  <div class="stimulus-box">
+                    Pak Budi merancang bak mandi berbentuk balok dengan ukuran panjang ($p$), lebar ($l$), dan tinggi ($t$). Ia ingin mengubah ukuran bak mandi tersebut untuk membuat model dengan ukuran berbeda.
+                    </div>
+                  <b>Tentukan kebenaran dari masing-masing pernyataan!</b>
+                  <table class="soal-kategori">
+                    <thead>
+                      <tr>
+                        <th>Pernyataan</th>
+                        <th>Benar</th>
+                        <th>Salah</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Jika panjang, lebar, dan tinggi diperbesar 2 kali, balok baru sebangun dengan balok semula.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Jika panjang diperbesar 2 kali, lebar diperkecil setengahnya, balok baru akan kongruen dengan balok semula.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Balok dengan ukuran $2p \times 2l \times 2t$ kongruen dengan balok semula.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Soal 20 (PGK Kategori - L3 Penalaran: Irisan Kubus) -->
+              <div class="soal-latihan">
+                <div class="soal-nomor">20.</div>
+                <div class="soal-konten">
+                  <div class="stimulus-box">
+                    Ibu ingin memotong kue secara vertikal tegak lurus dari atas ke bawah, sejajar dengan sisi depan kue.
+                    <div class="svg-container">
+                      <!-- Ukuran diperkecil dari 250x200 menjadi 130x110 agar tidak mepet bawah -->
+                      <svg width="130" height="110" viewBox="0 0 250 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Cake (Cube) -->
+                        <g fill="#ffe0b2" stroke="#e65100" stroke-width="2">
+                          <!-- Top Face -->
+                          <path d="M50,60 L130,60 L170,20 L90,20 Z" fill="#ffcc80" />
+                          <!-- Front Face -->
+                          <rect x="50" y="60" width="80" height="80" />
+                          <!-- Right Face -->
+                          <path d="M130,60 L170,20 L170,100 L130,140 Z" />
+                        </g>
+
+                        <!-- Cutting Plane (Knife Slice) -->
+                        <path d="M70,50 L150,50 L150,150 L70,150 Z" fill="rgba(255, 255, 255, 0.6)" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
+                        
+                        <!-- Knife Icon -->
+                        <path d="M110,10 L110,70" stroke="silver" stroke-width="4" stroke-linecap="round"/>
+                        <rect x="108" y="0" width="4" height="20" fill="brown"/>
+
+                        <!-- Cross Section Highlight (Inside the cake) -->
+                        <rect x="70" y="60" width="80" height="80" fill="none" stroke="red" stroke-width="2" stroke-dasharray="2,2"/>
+                        
+                        <!-- Label -->
+                        <text x="125" y="170" font-family="Arial" font-size="12" fill="#d84315">Arah Potongan</text>
+                        <line x1="110" y1="150" x2="110" y2="160" stroke="#d84315" stroke-width="1" marker-end="url(#arrow-red)"/>
+
+                        <defs>
+                          <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#d84315" />
+                          </marker>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+                  <b>Tentukan kebenaran dari masing-masing pernyataan!</b>
+                  <table class="soal-kategori">
+                    <thead>
+                      <tr>
+                        <th>Pernyataan</th>
+                        <th>Benar</th>
+                        <th>Salah</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Potongan kue berbentuk prisma segi empat.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Setelah dipotong, sisa kue tersebut berbentuk balok.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>Potongan kue dan sisa kue setelah dipotong saling sebangun.</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <footer class="page-footer">
+          <span style="font-weight: bold; color: #555;">Copyright &#169; 2025 - PT Ruang Raya Indonesia - All Rights Reserved.</span>
+          <span style="font-style: italic; color: #8d8e8d;">Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.</span>
+        </footer>
+      </section>
+
+    </div>
+  </body>
+</html>
