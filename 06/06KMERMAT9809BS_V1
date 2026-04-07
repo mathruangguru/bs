@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Aktivitas - TKA Matematika SD</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f7fa;
+        --header-bottom-bg: #f0f0f0;
+        --header-title-color: #00838f;
+        --grey-text: #8d8e8d;
+        --ba-teal: #00838f;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 8.5pt;
+        line-height: 1.45;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page-container {
+        counter-reset: page;
+      }
+
+      .page {
+        background: white;
+        width: 21cm;
+        height: 29.7cm;
+        padding: 1.5cm 2cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .page-header {
+        margin: -1.5cm -2cm 15px -2cm;
+        width: 21cm;
+      }
+
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+
+      .header-bottom-box {
+        padding: 6px 2cm;
+      }
+
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg);
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block;
+        border-radius: 4px;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .header-logo {
+        max-height: 50px;
+      }
+
+      .page:not(:first-child) .header-bottom-box { display: none; }
+      .page:not(:first-child) .header-top-box { margin-bottom: 20px; }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .summary-table { width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 15px; }
+      .summary-table td { border: 1px solid var(--border-color); padding: 10px; vertical-align: top; }
+      .summary-table-header td { background-color: var(--header-bottom-bg); color: var(--secondary-text); font-weight: 700; letter-spacing: 0.5px; }
+      .summary-table-content ul { margin: 5px 0 5px 20px; padding: 0; }
+      .summary-table-content li { margin-bottom: 5px; }
+
+      .layout-2-kolom {
+        columns: 2;
+        column-gap: 15mm;
+        column-fill: balance;
+      }
+
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 15px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        text-align: justify;
+      }
+
+      .soal-nomor {
+        font-weight: 900;
+        flex-shrink: 0;
+        min-width: 18px;
+        color: var(--ba-teal);
+      }
+
+      .soal-konten {
+        flex-grow: 1;
+      }
+
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 5px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 3px;
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      /* Pilihan Ganda Kompleks (Kotak) */
+      ul.pilihan-ganda-kompleks {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 5px;
+        text-align: left;
+      }
+      ul.pilihan-ganda-kompleks li {
+        margin-bottom: 5px;
+        position: relative;
+        padding-left: 18px;
+      }
+      ul.pilihan-ganda-kompleks li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 3.5px;
+        width: 10px;
+        height: 10px;
+        border: 1.5px solid var(--primary-text);
+        border-radius: 1px;
+      }
+
+      /* Table Styles for Complex Options and Data */
+      table.tf-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        font-size: 8pt;
+      }
+      table.tf-table th, table.tf-table td {
+        border: 1px solid var(--border-color);
+        padding: 4px;
+        text-align: center;
+        vertical-align: middle;
+      }
+      table.tf-table td:first-child {
+        text-align: left;
+      }
+      table.tf-table th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+      }
+
+      .visual-illustration {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 10px auto;
+      }
+      
+      .visual-illustration.large {
+        max-width: 90%;
+      }
+
+      /* Footer Styles */
+      .page-footer {
+        text-align: left;
+        font-size: 6.5pt;
+        color: var(--grey-text);
+        padding-top: 8px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        display: block; 
+      }
+
+      /* Print Optimizations */
+      @media print {
+        @page {
+          size: A4;
+          margin: 0; 
+        }
+        body {
+          background-color: white;
+          margin: 0;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .page {
+          width: 21cm;
+          height: 29.7cm;
+          margin: 0;
+          padding: 1.5cm 2cm;
+          box-shadow: none;
+          page-break-after: always;
+          page-break-inside: avoid;
+        }
+        .page:last-child {
+          page-break-after: auto;
+        }
+        .page-header {
+          margin: -1.5cm -2cm 15px -2cm;
+          width: 21cm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      
+      <!-- ========================================== -->
+      <!-- HALAMAN 1 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+              VI SD | Kurikulum Merdeka | [TKA] Drill Soal | Subtopik: Drill Soal Paket Lengkap 4 | Pertemuan 9
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <table class="summary-table">
+            <tr class="summary-table-header"><td colspan="2">Belajar Apa Hari Ini</td></tr>
+            <tr class="summary-table-content">
+                <td colspan="2">Sesi ini difokuskan pada penguasaan numerasi kontekstual (Drill Soal TKA) menggunakan pendekatan penyelidikan (*inquiry-based*). Siswa akan melatih kemampuan analitis melalui soal-soal berstandar HOTS lintas topik matematika dasar yang sering diujikan. Materi mencakup:
+                    <ul>
+                        <li><b>Bilangan Rasional:</b> Pecahan senilai, persentase, KPK, FPB, dan operasi hitung terapan.</li>
+                        <li><b>Objek Geometri:</b> Sifat bangun datar, jaring-jaring balok, dan visualisasi spasial bangun ruang.</li>
+                        <li><b>Pengukuran:</b> Konversi satuan panjang/berat, debit, kecepatan, serta pengukuran sudut.</li>
+                        <li><b>Penyajian Data:</b> Menganalisis piktogram, diagram batang, tabel frekuensi, dan nilai rata-rata.</li>
+                    </ul>
+                </td>
+            </tr>
+          </table>
+
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 1 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">1.</div>
+              <div class="soal-konten">
+                Toko Pintar mengadakan promo spesial seperti pada gambar.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj7B61fqHA_dNBuQAdibl_ioIeZvEIy4l3i7Dldl3-VpT1CCMv9dSeEr9Fw53hEIq6IKP5Y5F6V5K4GDYpZWJqkYLKCfLz9NCz5EVWqkm_3u0_DjRmmCle4z5ywCa4ry2GN095rUlOuV4TA-dcUMlUDO-55HZ6zuuRLYBVlcy4eZPZmuXy0QX5XpieHgDbs/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                Yudi berbelanja alat tulis di Toko Pintar. Ia memiliki uang Rp120.000,00. Uang tersebut digunakan untuk membeli sebanyak-banyaknya peralatan sekolah. Peralatan sekolah yang bisa dibeli Yudi adalah:<br><br>
+                <strong>(Jawaban benar lebih dari satu)</strong>
+                <ul class="pilihan-ganda-kompleks">
+                    <li>20 buku tulis, 4 pensil, dan 10 pulpen.</li>
+                    <li>21 buku tulis, 6 pensil, dan 6 pulpen.</li>
+                    <li>22 buku tulis, 6 pensil, dan 4 pulpen.</li>
+                    <li>24 buku tulis, 4 pensil, dan 4 pulpen.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Soal 2 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">2.</div>
+              <div class="soal-konten">
+                Eko dan Farhan bermain lompat katak. Mereka bertiga berdiri pada sebuah bilangan seperti gambar.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiosl6A0iwWw1Yh2PhFPhwyJZERjBSwOApiUlu4SeZe1kR6MRSf2Yp6AED9wK9oMf_mtHCYxsspFqMe3HpOBWc1kLYML2kYDBFHycvXkv0DwidArQAUKnbCnPH7-kJEctDVYECh20FSDQXnQStI608LSOhZpcLlrJ7J2caLHpukUmiUsd3BBh2lvzqSeimZ/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                Mereka melompat dengan jarak yang sama sampai bertemu di tengah. Eko dan Farhan bertemu di titik...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">-4</li>
+                    <li data-option="B">-1</li>
+                    <li data-option="C">0</li>
+                    <li data-option="D">4</li>
+                </ol>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 2 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+
+            <!-- Soal 3 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">3.</div>
+              <div class="soal-konten">
+                Fira, Gina, dan Heni berlatih menari di Sanggar Tari Luwes.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEid0jsDbbpPXc-5-FU56KtzmjeKqshC4DwVx0BclpLIB-x3KcrR55EJLnu9oyFm_hDUQHluuLPWS2kySDPc0Lred5Sw0o_rymOOcbxOOcg2NWWhna36qtyb7cmU0cxtcn3Jgmbv4dgZf6LRIPx9jeI4Y1wpQCSX6tgB07vqimbalTY7e_U3FA8Kh0_VHkCy/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                Fira mengikuti Tari Kreasi Baru. Gina Tari Tradisional, dan Heni Tari Komtemporer. Berdasarkan ilustrasi tersebut, perhatikanlah pernyataan berikut:<br><br>
+                <strong>(Jawaban benar lebih dari satu)</strong>
+                <ul class="pilihan-ganda-kompleks">
+                    <li>Fira dan Gina berlatih kedua bersama tanggal 27 April 2025</li>
+                    <li>Fira, Gina, dan Heni berlatih bersama kedua kali tanggal 14 Mei 2025</li>
+                    <li>Fira, Gina, dan Heni berlatih bersama kedua kali tanggal 14 April 2025</li>
+                    <li>Fira, Gina, dan Heni berlatih menari bersama pertama tanggal 15 Maret 2025</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Soal 4 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">4.</div>
+              <div class="soal-konten">
+                Bu Amara membuat kue untuk kegiatan rapat RT di rumahnya. Ia mempunyai persediaan bahan di antaranya: tepung terigu $2\frac{13}{20}\ \text{kg}$, gula pasir $\frac{49}{20}\ \text{kg}$, tepung beras $2\frac{1}{2}\ \text{kg}$, coklat bubuk $2,6\ \text{kg}$, dan susu bubuk $2\frac{2}{5}\ \text{kg}$.<br><br>
+                Tentukan <strong>Benar</strong> atau <strong>Salah</strong> untuk pernyataan urutan bahan berikut!
+                <table class="tf-table">
+                  <thead>
+                    <tr>
+                      <th>Pernyataan</th>
+                      <th width="40px">Benar</th>
+                      <th width="40px">Salah</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Urutan persediaan bahan dari yang terberat adalah tepung terigu, susu bubuk, tepung beras, gula pasir, dan coklat bubuk.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Urutan persediaan bahan dari yang terberat adalah susu bubuk, gula pasir, tepung beras, coklat bubuk, dan tepung terigu.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Urutan persediaan bahan dari yang terberat adalah tepung terigu, coklat bubuk, tepung beras, gula pasir, dan susu bubuk.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Urutan persediaan bahan dari yang terberat adalah coklat bubuk, tepung terigu, tepung beras, gula pasir, dan susu bubuk.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Soal 5 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">5.</div>
+              <div class="soal-konten">
+                Kinanti, Leo, dan Miranda adalah tiga bersaudara. Mereka mempunyai sejumlah uang tabungan. Perbandingan uang Kinanti, Leo, dan Miranda $2 : 7 : 6$. Jumlah uang mereka adalah Rp450.000,00. Uang tersebut, mereka gunakan untuk membeli 3 pasang sepatu dengan harga yang sama. Leo dan Miranda memberikan sebagian uangnya kepada Kinanti agar dapat membeli sepatu tersebut.<br>
+                Berdasarkan ilustrasi tersebut, perhatikan pernyataan berikut:<br><br>
+                <strong>(Jawaban benar lebih dari satu)</strong>
+                <ul class="pilihan-ganda-kompleks">
+                    <li>Banyak uang Kinanti setelah diberi Leo ada Rp120.000,00.</li>
+                    <li>Banyak uang diberikan Leo kepada Kinanti ada Rp60.000,00.</li>
+                    <li>Banyak uang yang diterima Kinanti dari Miranda ada Rp90.000,00.</li>
+                    <li>Banyak uang yang diberikan Miranda kepada Kinanti ada Rp20.000,00.</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 3 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+
+            <!-- Soal 6 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">6.</div>
+              <div class="soal-konten">
+                Nindi dan keluarganya berlibur ke Yogyakarta. Ia membeli oleh-oleh makanan khas Yogyakarta. Nindi membeli bakpia isi 15 biji dan 20 biji. Berat kemasan bakpia isi 15 biji adalah 600 gram dan isi 20 biji adalah 800 gram. Nindi membeli 6 kemasan isi 15 bakpia dan 5 kemasan isi 20 bakpia. Nindi membagi oleh-olehnya dalam dua tas kresek. Berat masing-masing tas kresek sama.<br><br>
+                Berdasarkan ilustrasi tersebut, tentukan <strong>Benar</strong> atau <strong>Salah</strong> untuk pernyataan berikut!
+                <table class="tf-table">
+                  <thead>
+                    <tr>
+                      <th>Pernyataan</th>
+                      <th width="40px">Benar</th>
+                      <th width="40px">Salah</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Tas kresek 1 berisi 4 kemasan isi 20 dan 1 kemasan isi 15. Tas kresek 2 berisi 1 kemasan isi 20 bakpia dan 5 kemasan isi 15 bakpia.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Tas kresek 1 berisi 5 kemasan isi 20 dan 1 kemasan isi 15. Tas kresek 2 berisi 1 kemasan isi 20 bakpia dan 4 kemasan isi 15 bakpia.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Tas kresek 1 berisi 1 kemasan isi 20 dan 5 kemasan isi 15. Tas kresek 2 berisi 4 kemasan isi 20 bakpia dan 1 kemasan isi 15 bakpia.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Tas kresek 1 berisi 4 kemasan isi 20 dan 1 kemasan isi 15. Tas kresek 2 berisi 1 kemasan isi 20 bakpia dan 5 kemasan isi 15 bakpia.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <!-- Soal 7 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">7.</div>
+              <div class="soal-konten">
+                Amanda dan Bagus berangkat ke sekolah dari rumah masing-masing dengan bersepeda. Amanda berangkat pukul 06.30 dengan kecepatan rata-rata 6 km/jam. Sedangkan Bagus berangkat dengan kecepatan 8 km/jam. Mereka tiba di sekolah dengan waktu yang bersamaan. Bagus berangkat ke sekolah pukul...
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3n1BZsViWrANREgZHKi_QoGvMUlrwKKea0qiOgkt6-A1ZcIYIq5tIvF6ujnBQkXTFIvWslmyaWDvPes1v-LZXhjCpPfAOyechnYhr47HeUpXtE9z9R7xO2XHME2-E7MamE86VpldShXudzXzH10NEAlyyn3uJTaYho886JeQzqlsUHu25SfAENBknDrTo/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                <ol class="pilihan-ganda">
+                    <li data-option="A">06.33</li>
+                    <li data-option="B">06.35</li>
+                    <li data-option="C">06.38</li>
+                    <li data-option="D">06.41</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 8 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">8.</div>
+              <div class="soal-konten">
+                Kampung Anggrek memiliki sebuah taman bermain sebagaimana gambar. Di sekeliling taman terdapat pagar yang dilengkapi lampu hias. Jarak pasang antarlampu 2 meter. Taman tersebut memiliki 2 pintu dengan lebar sama. Banyak lampu yang dipasang ada...
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhstrR3w4tj7U3vEgdcVbUBGxZuhr2seN5Uk6WafdGyrKDLUUHXujKOeJA-TEQgqOOvrYbIAHS31_fAgTJpJLD3Hblv0EgUyf2Umbjeo3wCtus378e7yKzUZ7ls75T6fD34vJoif4Xigmo0J6-l321gJqhZUX_inDJKO0EfdEeaHlNQ8IzjpKNyIEg8J9xj/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                <ol class="pilihan-ganda">
+                    <li data-option="A">34 buah</li>
+                    <li data-option="B">35 buah</li>
+                    <li data-option="C">36 buah</li>
+                    <li data-option="D">37 buah</li>
+                </ol>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 4 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+
+            <!-- Soal 9 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">9.</div>
+              <div class="soal-konten">
+                Di dekat rumah Rima terdapat danau. Untuk menambah keindahan dan daya tarik, danau tersebut dibuat taman sebagaimana gambar. Di sekeliling taman tersebut dipasang pagar dan tiang lampu dilengkapi dengan 2 pintu. Jarak pasang antar tiang lampu 3 meter.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-YmrlyD7t5UWjg5uAKB2ytyDqW_ZVxC6CqnYEpp3KTF3IituWYkRxd9LnTq5brjlsaurLHW-CMkwmCujp1083T9HQVbPV_57ibW3YeS_F73GscGm1jrzPL70W4ULzWlLrPbj_K5SkWMEsimS5t-Z7ZdCYF5UlPFRo9aRdKMX9nZImTjAzmrm6KdyHMnr8/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                Banyak tiang lampu yang dipasang di sekeliling taman tersebut ada...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">48</li>
+                    <li data-option="B">49</li>
+                    <li data-option="C">50</li>
+                    <li data-option="D">51</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 10 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">10.</div>
+              <div class="soal-konten">
+                Pak Budi memiliki kolam renang untuk anak-anak dengan bentuk permukaan dan ukuran sebagaimana gambar. Kolam renang tersebut memiliki kedalaman 0,8 meter. Bagian dalam dan tepi kolam renang dipasang keramik. Pak Budi membeli keramik dengan motif dan ukuran yang sama. Setiap dus berisi 25 keping keramik.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgNdDUnGpVuW-Jj4r4gxsUWNtRziK3tNJdLwk8v9ohn2HtEpSnIgxlbERqxPzy_ohtVocozK7zPgcx3yaxKqFtYAHnq65wpxTJ3xsaeiU-IaI2WTi9E9IbmwDKZaBUf6l7kxGCUklbD-rXZYUKi6Ekp3NzGU3h4JzunXbPVVR9YN6vLLRJ8eAtebyuepemW/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                Keramik minimal yang dibeli Pak Budi adalah....
+                <ol class="pilihan-ganda">
+                    <li data-option="A">43 dus</li>
+                    <li data-option="B">44 dus</li>
+                    <li data-option="C">49 dus</li>
+                    <li data-option="D">50 dus</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 11 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">11.</div>
+              <div class="soal-konten">
+                Genta membeli beberapa buku tulis dan bolpoin di Toko Alat Tulis Aneka Warna. Saat membayar, Genta mendapat nota pembelian yang terdapat gambar stempel sebagaimana gambar.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgJsC5NvEiJjXPOpYO6DA3AbEuq0-Lm4OuJ5EbZvqp3DcHiLiBvrYQMr2vhWWyU0cZqCn-QlIUy4cg4MZO-wq23gkS3xac47f4e0UYGNSItctYkAyp6bGbmfZHjOt1EJGquHbHqa2q-X7Q8ublP5ShC_zZTOy86McGlh4VOlAORt1DKqbcMf675Ed1lGVA1/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration" />
+                Permukaan stempel yang sesuai adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXKgu2LwUzSv7LBxeQhb6NaNO6gO4CFefXVZFDgaldihYTIyeZ81Uwp-f7x-ZIO-3ni2j1vydyuigdSxSb0qAWsh_Ks7bhZcso4Tut1Kq5w6hwexcAVwdcr0BBW0b6xUHVTcFVMnj52pil1mRs4vYX90Q4qj_lWSofZDiXVOL_mHXhiwZlAGxYbtHSRmug/s1600/soal-aspd-numerasi-matematika-sd.jpg" style="max-height:60px; vertical-align:middle; margin-left: 10px;"/></li>
+                    <li data-option="B"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhHyA4J3Gnhr2j07gDmKFxkMYr2qV7oARJgOkqtAKOjbUkTIS2-yJ225iWgXBDCeOWnwKuUaMhhGvYnzoX9InOaXRaS1wcBqEnrUzUJyduB2qT_WLemFQGcd3xm0OJPX_KlLQ322zaxeP8Ca8y00fkcXQmv4lL04glxk4seTabaxHw-1ChymumYschMyNiq/s1600/soal-aspd-numerasi-matematika-sd.jpg" style="max-height:60px; vertical-align:middle; margin-left: 10px;"/></li>
+                    <li data-option="C"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3_Tx0yRGldtVbaIEMA4IJ1OFqtiKUjDqVgoTMFsQRTc6O2kqo2Ax9B1iXy5gcZ5e1O8_g6aGiOkDuFo95UvLK2E5n4bNxHhjPluv3Rqux8TIlRL0uZShLbB0dcIy4Yp4o7DPvxESAzcX17Ff4GdYOivFverjgkRi_zX34Ky4169cA6_AMhHHOD7kUeU6V/s1600/soal-aspd-numerasi-matematika-sd.jpg" style="max-height:60px; vertical-align:middle; margin-left: 10px;"/></li>
+                    <li data-option="D"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjiglelHai7HRBp9ClFDKLtrmYJa25-JQyCtiz9rN9SY-ytxfiA6_cfFqpesPtS5YAWm0MalMSdI9dqZL_n3QRa2USiJski35qmNcBXql_WqaAgfpdTVS153RS0KD1VoKt5BfKytV-OKY74g_MsHZMxVrnROa4QHoc43ljGanh3ItIPAA89JDuzIk1tfLhZ/s1600/soal-aspd-numerasi-matematika-sd.jpg" style="max-height:60px; vertical-align:middle; margin-left: 10px;"/></li>
+                </ol>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 5 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+
+            <!-- Soal 12 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">12.</div>
+              <div class="soal-konten">
+                Evan memiliki 2 buah tabung, yaitu tabung A dan B. Tabung A berisi air setinggi 25 cm. Tabung B kosong dan memiliki tinggi sama dengan tabung A. Sebagian air dalam tabung A dituang ke tabung B hingga ketinggian air di kedua tabung sama.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEicuOp7BbeNYfaWUL3UJmt1ZhsdvhI6W70k7duQNm7ECSX-A4wvcSJ-gFFU93WsLe6cWblpJgBpZjjIEwH0uRP13MOzZ_35DtBNDb6tcRA140wwd95RT6-x9edJxgHN7WjDTsRugNM_6lMGlbmM_uCUngRNDWBFuoCzcxfxzoO9KfkJ282bCIDRLU5LEjDn/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                Ketinggian air pada masing-masing tabung adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">25 cm</li>
+                    <li data-option="B">20 cm</li>
+                    <li data-option="C">15 cm</li>
+                    <li data-option="D">5 cm</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 13 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">13.</div>
+              <div class="soal-konten">
+                Bu Nanik seorang petugas perpustakaan di SD Mekarsari. Bu Nanik bertugas menata berbagai koleksi buku serta mendata peminjaman dan pengembalian buku. Selain itu, Bu Nanik juga membuat data terkait kegiatan perpustakaan. Berikut adalah salah satu data yang dibuat Bu Nanik.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNSSGXajIEj7vgcnpc1R3SvCsmDiSjL0ZgILnO0xIpa9Ycy7jJ2iVmdyadZrzx2AyWuSKsXE_8YOQiFGROBP1VwNZ_0UR9SDFDGQGbPCZvQ8SSE6Bgsd1p-OAr_InTLnaCk7-AOnmB4XkiM0D1S9-cfF9JxyRpjWR252NXAbxkkIPHrcoWSWshj4B5Uh1a/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                Diagram lingkaran yang sesuai dengan tabel tersebut adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A"><br><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiMDhE4TYMEqFWuD-ipKL9Nj7ijUolVFdl71La4zMeW9kxkbGyIpJ82Z8QIkWHIGlmVu4d_IastrZj3grns44LoCTZ3pP9kJxxVbh9HCcDlzEh_3eN8XyA_IsR1LNTAA2YPK33sOeHnwy4ol0Q7_JB_3HOHvCMCpGFwGM8a6v1ZIqyuJhbllQwmWXCyg8u2/s1600/soal-aspd-numerasi-matematika-sd.jpg" style="max-height:100px;" /></li>
+                    <li data-option="B"><br><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjeC5TTTlLCpIS68S-DWyN5FHLVvIfoE6m4ao0aoyozhSfEdnvt275msSsAT5AoabQvf01cpAaQa6GUckzEQSxqyBskfrKZ6FwlvilvIimQs1xDmayKhHKMIErV0vsbG-8tTITyKtssq51nhaDzHrUyGshk20j8z0xoIR4uzZou5Vawt522kLoqNknyC-mJ/s1600/soal-aspd-numerasi-matematika-sd.jpg" style="max-height:100px;" /></li>
+                    <li data-option="C"><br><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtGcP2UM7IyC3NkpsunJl3KRQ_VFMj48hqmEIMcvMvyQPAuRmssWdaIfSWRLYUYuK5EzIGXwF5DJXTLrw8s0UJMgL4oN3ZugWNLwWv_WVLsznp1986htRhF0KmTEy4R_U36P5Sd_66BcJA4SqpJ_NSYCx-f_IqscRBYnL4FGUXLQsVcIrgzXM_rhgEQOcJ/s1600/soal-aspd-numerasi-matematika-sd.jpg" style="max-height:100px;" /></li>
+                    <li data-option="D"><br><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbMn9gdOgouumiI-zlyHmWJew0Gx1v_NGPpmlpu19xk7255FoS2QrfypOHmTCmV63be8imtKP5J6ccMZtn6cfi-TxCw9pJxJecu9wKNfAySZ6av2Eq6rfq_L2eVi1gy4OdfPHVXtizLOUK24ZWgVaYjFT72-OplBhttt-hPNtnCeOhSuDrHRzAHgHcF7z5/s1600/soal-aspd-numerasi-matematika-sd.jpg" style="max-height:100px;" /></li>
+                </ol>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 6 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+
+            <!-- Soal 14 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">14.</div>
+              <div class="soal-konten">
+                SD Mentari Pagi sedang melakukan penghijauan sekolah karena masih banyak lahan kosong. Pak Anton ditunjuk sebagai ketua kegiatan penghijauan. Pak Anton membuat surat permohonan bantuan tanaman kepada wali murid. Jenis tanaman yang disarankan adalah tanaman perindang, tanaman buah, dan tanaman obat. Setelah surat diedarkan ke wali murid, siswa-siswa mulai menyumbangkan berbagai tanaman yang sesuai. Pak Anton, memilah-milah tanaman sesuai jenisnya. Berikut adalah tanaman obat yang telah dikelompokkan Pak Anton.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpkY48urmzJNoXWfccIfX2HlkVphTieSI5Mn5nXrW4sKtKogjaw3fE4uv1oukB6Au6GLBZF3L5Pq_xTMQL0s_ROehOgTmNHjeZ9JJo9SwNptk17zrahv33UR7Ybmy-5GhB0V3XxsXCVSg2yjkcNPF4xFA_iSp_0FrSpRR4fe6OtSyQoEeR1wbyANsj1E37/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                Berdasarkan hasil pendataan tersebut, jenis tanaman obat yang paling banyak adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">kunyit</li>
+                    <li data-option="B">kencur</li>
+                    <li data-option="C">lengkuas</li>
+                    <li data-option="D">temulawak</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 15 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">15.</div>
+              <div class="soal-konten">
+                SD Cempaka merupakan sekolah favorit di daerahnya. Animo masyarakat sangat besar untuk bisa mendaftarkan anaknya sekolah di SD Cempaka. Kuota siswa baru di sekolah tersebut selalu terpenuhi. Bahkan banyak yang tidak diterima karena kuota sudah penuh. Untuk menyeleksi siswa baru, pendaftaran siswa baru di SD Cempaka menggunakan seleksi jarak. Terdapat 5 zona, yaitu zona 1 (0-1 km), zona 2 (> 1-2 km), zona 3 (> 2-3 km), zona 4 (> 3-4 km), dan zona 5 (> 4 km).<br>
+                Berikut adalah data hasil seleksi siswa baru di SD Cempaka tahun 2024.
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhMdHtIHTTlKG26t0S0t5DNj2iENpZv-HsCEc0-5udJrOuqxEcGOOVAKlcJ-Pw2skIlQTBtWA_126JI97R4IbtYIy22uovIFWV_XZnHNcAlhNS099t_zTu1nMIIUajvc2usiu187g1HSPECdRRbkA6ecaTppA0HQfQ_evlPE1ZLJAaHP3J3t5OD0WHZAG7u/s1600/soal-aspd-numerasi-matematika-sd.jpg" class="visual-illustration large" />
+                Berdasarkan ilustrasi tersebut, tentukan <strong>Benar</strong> atau <strong>Salah</strong> untuk pernyataan berikut!
+                <table class="tf-table">
+                  <thead>
+                    <tr>
+                      <th>Pernyataan</th>
+                      <th width="40px">Benar</th>
+                      <th width="40px">Salah</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Selisih siswa baru zona 4 dan zona 5 ada 9 anak.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Jumlah siswa baru di SD Cempaka ada 112 anak.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Jumlah siswa baru zona 1 dan zona 2 ada 54 anak.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Siswa baru terbanyak ada di jarak > 1-2 km yaitu 36 anak.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+    </div>
+  </body>
+</html>
