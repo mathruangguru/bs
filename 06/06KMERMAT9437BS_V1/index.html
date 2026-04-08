@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Aktivitas - TKA Matematika SD</title>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+          displayMath: [
+            ["$$", "$$"],
+            ["\\[", "\\]"],
+          ],
+          packages: { "[+]": ["ams"] },
+        },
+        svg: {
+          fontCache: "global",
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-text: #333333;
+        --secondary-text: #555555;
+        --border-color: #dddddd;
+        --header-top-bg: #e0f7fa;
+        --header-bottom-bg: #f0f0f0;
+        --header-title-color: #00838f;
+        --grey-text: #8d8e8d;
+        --ba-teal: #00838f;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-size: 8.5pt;
+        line-height: 1.45;
+        color: var(--primary-text);
+        background-color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page-container {
+        counter-reset: page;
+      }
+
+      .page {
+        background: white;
+        width: 21cm;
+        height: 29.7cm;
+        padding: 1.5cm 2cm;
+        margin: 1cm auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .page-header {
+        margin: -1.5cm -2cm 15px -2cm;
+        width: 21cm;
+      }
+
+      .header-top-box {
+        background-color: var(--header-top-bg);
+        padding: 10px 2cm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2px;
+      }
+
+      .header-title-main {
+        font-size: 18pt;
+        font-weight: 700;
+        color: var(--header-title-color);
+        line-height: 1.2;
+      }
+
+      .header-title-sub {
+        font-size: 9pt;
+        font-weight: 400;
+        color: var(--primary-text);
+      }
+
+      .header-bottom-box {
+        padding: 6px 2cm;
+      }
+
+      .header-bottom-text {
+        background-color: var(--header-bottom-bg);
+        padding: 8px 15px;
+        font-weight: 700;
+        font-size: 8.5pt;
+        color: var(--secondary-text);
+        display: block;
+        border-radius: 4px;
+        white-space: normal;
+        text-align: left;
+      }
+
+      .header-logo {
+        max-height: 50px;
+      }
+
+      .page:not(:first-child) .header-bottom-box { display: none; }
+      .page:not(:first-child) .header-top-box { margin-bottom: 20px; }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .summary-table { width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 15px; }
+      .summary-table td { border: 1px solid var(--border-color); padding: 10px; vertical-align: top; }
+      .summary-table-header td { background-color: var(--header-bottom-bg); color: var(--secondary-text); font-weight: 700; letter-spacing: 0.5px; }
+      .summary-table-content ul { margin: 5px 0 5px 20px; padding: 0; }
+      .summary-table-content li { margin-bottom: 5px; }
+
+      .layout-2-kolom {
+        columns: 2;
+        column-gap: 15mm;
+        column-fill: balance;
+      }
+
+      .soal-latihan {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 15px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        text-align: justify;
+      }
+
+      .soal-nomor {
+        font-weight: 900;
+        flex-shrink: 0;
+        min-width: 18px;
+        color: var(--ba-teal);
+      }
+
+      .soal-konten {
+        flex-grow: 1;
+      }
+
+      ol.pilihan-ganda {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 5px;
+        text-align: left;
+      }
+      ol.pilihan-ganda li {
+        margin-bottom: 3px;
+      }
+      ol.pilihan-ganda li::before {
+        content: attr(data-option) ". ";
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      /* Pilihan Ganda Kompleks (Kotak) */
+      ul.pilihan-ganda-kompleks {
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 5px;
+        text-align: left;
+      }
+      ul.pilihan-ganda-kompleks li {
+        margin-bottom: 5px;
+        position: relative;
+        padding-left: 18px;
+      }
+      ul.pilihan-ganda-kompleks li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 3.5px;
+        width: 10px;
+        height: 10px;
+        border: 1.5px solid var(--primary-text);
+        border-radius: 1px;
+      }
+
+      /* Table Styles for Complex Options and Data */
+      table.tf-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        font-size: 8pt;
+      }
+      table.tf-table th, table.tf-table td {
+        border: 1px solid var(--border-color);
+        padding: 4px;
+        text-align: center;
+        vertical-align: middle;
+      }
+      table.tf-table td:first-child {
+        text-align: left;
+      }
+      table.tf-table th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+      }
+
+      table.data-table {
+        width: 80%;
+        border-collapse: collapse;
+        margin: 8px auto;
+        font-size: 8pt;
+      }
+      table.data-table th, table.data-table td {
+        border: 1px solid #ccc;
+        padding: 4px 8px;
+        text-align: center;
+      }
+      table.data-table th {
+        background-color: var(--header-bottom-bg);
+        font-weight: 700;
+      }
+
+      .visual-illustration {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 10px auto;
+      }
+
+      .visual-illustration.large {
+        max-width: 100%;
+      }
+
+      ol.pilihan-ganda img {
+        max-height: 115px !important;
+        width: auto;
+        object-fit: contain;
+      }
+
+      /* Footer Styles */
+      .page-footer {
+        text-align: left;
+        font-size: 6.5pt;
+        color: var(--grey-text);
+        padding-top: 8px;
+        margin-top: auto;
+        border-top: 2.5px solid var(--grey-text);
+        display: block; 
+      }
+
+      /* Print Optimizations */
+      @media print {
+        @page {
+          size: A4;
+          margin: 0; 
+        }
+        body {
+          background-color: white;
+          margin: 0;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .page {
+          width: 21cm;
+          height: 29.7cm;
+          margin: 0;
+          padding: 1.5cm 2cm;
+          box-shadow: none;
+          page-break-after: always;
+          page-break-inside: avoid;
+        }
+        .page:last-child {
+          page-break-after: auto;
+        }
+        .page-header {
+          margin: -1.5cm -2cm 15px -2cm;
+          width: 21cm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      
+      <!-- ========================================== -->
+      <!-- HALAMAN 1 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+          <div class="header-bottom-box">
+            <div class="header-bottom-text">
+                VI SD | Kurikulum Merdeka | [TKA] Pendalaman Materi | Pendalaman Materi: Data | Pertemuan 37
+            </div>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <table class="summary-table">
+            <tr class="summary-table-header"><td colspan="2">Belajar Apa Hari Ini</td></tr>
+            <tr class="summary-table-content">
+                <td colspan="2">Sesi ini difokuskan pada pendalaman materi <b>Data dan Statistika</b>. Siswa akan melatih kemampuan analitis melalui soal-soal literasi data yang sering diujikan. Materi mencakup:
+                    <ul>
+                        <li><b>Penyajian Data:</b> Membaca dan menganalisis informasi dari tabel frekuensi, piktogram, diagram batang, diagram garis, dan diagram lingkaran.</li>
+                        <li><b>Statistika Dasar:</b> Menghitung nilai rata-rata (mean), nilai tengah (median), dan nilai yang paling sering muncul (modus).</li>
+                        <li><b>Pemecahan Masalah:</b> Menyelesaikan masalah kontekstual yang membutuhkan pengolahan dan interpretasi data yang disajikan dalam berbagai format.</li>
+                    </ul>
+                </td>
+            </tr>
+          </table>
+
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 1 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">1.</div>
+              <div class="soal-konten">
+                Data hasil panen di Desa Suka Makmur adalah kedelai $11$ kuintal, kacang tanah $10$ kuintal, jagung $13$ kuintal, singkong $14$ kuintal, pisang $12$ kuintal.<br><br>
+                Tentukan <b>Benar</b> atau <b>Salah</b> untuk pernyataan berikut berdasarkan data hasil panen tersebut!
+                <table class="tf-table">
+                  <thead>
+                    <tr>
+                      <th>Pernyataan</th>
+                      <th width="40px">Benar</th>
+                      <th width="40px">Salah</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Rata-rata hasil panen di Desa Suka Makmur adalah $12\ \text{kuintal}$.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Hasil panen yang berada di bawah rata-rata adalah kedelai dan kacang tanah.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Total keseluruhan hasil panen adalah $50\ \text{kuintal}$.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>Selisih panen singkong dan kacang tanah adalah $5\ \text{kuintal}$.</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Soal 2 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">2.</div>
+              <div class="soal-konten">
+                Data jumlah siswa SD Negeri Maju Jaya kelas I $26\ \text{anak}$, kelas II $24\ \text{anak}$, kelas III $21\ \text{anak}$, kelas IV $21\ \text{anak}$, kelas V $25\ \text{anak}$, dan kelas VI $18\ \text{anak}$.<br><br>
+                Berdasarkan data di atas, jumlah siswa SD Negeri Maju Jaya adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">$135\ \text{anak}$</li>
+                    <li data-option="B">$145\ \text{anak}$</li>
+                    <li data-option="C">$155\ \text{anak}$</li>
+                    <li data-option="D">$165\ \text{anak}$</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Soal 3 -->
+            <div class="soal-latihan">
+              <div class="soal-nomor">3.</div>
+              <div class="soal-konten">
+                Perhatikan tabel jenis pekerjaan orang tua siswa kelas VI SD Negeri Pelajar di bawah ini!
+                <table class="data-table">
+                    <thead><tr><th>NO</th><th>JENIS PEKERJAAN</th><th>JUMLAH</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>Petani</td><td>$16$</td></tr>
+                        <tr><td>2</td><td>Pedagang</td><td>$6$</td></tr>
+                        <tr><td>3</td><td>Buruh</td><td>$14$</td></tr>
+                        <tr><td>4</td><td>PNS</td><td>$4$</td></tr>
+                        <tr><td></td><td><b>Jumlah</b></td><td><b>$40$</b></td></tr>
+                    </tbody>
+                </table>
+                Modus jenis pekerjaan orang tua siswa kelas VI SD Negeri Pelajar adalah...
+                <ol class="pilihan-ganda">
+                    <li data-option="A">PNS</li>
+                    <li data-option="B">Pedagang</li>
+                    <li data-option="C">Buruh</li>
+                    <li data-option="D">Petani</li>
+                </ol>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 2 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 4 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">4.</div>
+                <div class="soal-konten">
+                  Data $5$ kali nilai ulangan matematika Rani adalah $80$, $75$, $90$, $70$, dan $85$. Median dari data nilai ulangan Rani adalah...
+                  <ol class="pilihan-ganda">
+                      <li data-option="A">$80$</li>
+                      <li data-option="B">$75$</li>
+                      <li data-option="C">$65$</li>
+                      <li data-option="D">$60$</li>
+                  </ol>
+                </div>
+            </div>
+
+            <!-- Soal 5 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">5.</div>
+                <div class="soal-konten">
+                  Perhatikan diagram lingkaran berikut yang menyajikan data kegemaran siswa!
+                  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj42hj7FvXI98GRe90l76682npgcFyt8Kn1R-aAEcP21j651hdEyHMfRAngsOdBPY7mFLPnYH2C0q1QGeRCRQ9nAE3iTmQwrePG-ShjSLVupL19Izn_lxj5641gnbTuem_nOnW82yGW0JcXu7CiVd7UeP3sHKp2X80DvJVWrxh6uIqWWV4DvSF8iNeQ0w/s1600/diagram%20lingkaran%20matematika%20sd.jpg" class="visual-illustration large" />
+                  Jika diketahui jumlah siswa seluruhnya adalah $100$ anak dan yang gemar renang $33$ anak, maka selisih jumlah siswa yang gemar bola voli dan bulu tangkis adalah...
+                  <ol class="pilihan-ganda">
+                      <li data-option="A">$9\ \text{anak}$</li>
+                      <li data-option="B">$6\ \text{anak}$</li>
+                      <li data-option="C">$4\ \text{anak}$</li>
+                      <li data-option="D">$3\ \text{anak}$</li>
+                  </ol>
+                </div>
+            </div>
+
+            <!-- Soal 6 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">6.</div>
+                <div class="soal-konten">
+                  Perhatikan diagram lingkaran berikut yang menyajikan data kegemaran siswa!
+                  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj42hj7FvXI98GRe90l76682npgcFyt8Kn1R-aAEcP21j651hdEyHMfRAngsOdBPY7mFLPnYH2C0q1QGeRCRQ9nAE3iTmQwrePG-ShjSLVupL19Izn_lxj5641gnbTuem_nOnW82yGW0JcXu7CiVd7UeP3sHKp2X80DvJVWrxh6uIqWWV4DvSF8iNeQ0w/s1600/diagram%20lingkaran%20matematika%20sd.jpg" class="visual-illustration large" />
+                  Pernyataan yang sesuai dengan diagram lingkaran di atas adalah...<br><br>
+                  <strong>(Jawaban benar lebih dari satu)</strong>
+                  <ul class="pilihan-ganda-kompleks">
+                      <li>Jumlah siswa yang gemar renang ada $33$ anak.</li>
+                      <li>Selisih siswa yang gemar renang dengan siswa yang gemar bola voli ada $8$ anak.</li>
+                      <li>Jumlah siswa yang gemar bulu tangkis lebih banyak dibanding yang gemar sepak bola.</li>
+                      <li>Jumlah siswa yang gemar sepak bola ada $21$ anak.</li>
+                  </ul>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 3 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 7 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">7.</div>
+                <div class="soal-konten">
+                  Ibu menjual cabai pada hari Senin $38\ \text{kg}$, Selasa $35\ \text{kg}$, Rabu $49\ \text{kg}$, Kamis $45\ \text{kg}$, Jumat $52\ \text{kg}$, dan Sabtu $50\ \text{kg}$. Jika diketahui rata-rata penjualan cabai ibu selama seminggu adalah $47\ \text{kg}$. Maka penjualan cabai Ibu pada hari Minggu adalah...
+                  <ol class="pilihan-ganda">
+                      <li data-option="A">$50\ \text{kg}$</li>
+                      <li data-option="B">$55\ \text{kg}$</li>
+                      <li data-option="C">$60\ \text{kg}$</li>
+                      <li data-option="D">$65\ \text{kg}$</li>
+                  </ol>
+                </div>
+            </div>
+
+            <!-- Soal 8 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">8.</div>
+                <div class="soal-konten">
+                  Data nilai ulangan beberapa siswa adalah sebagai berikut: $70$, $60$, $80$, $90$, $80$, $90$, $70$, $60$, $50$, $70$, $80$, $70$. Nilai rata-rata ulangan tersebut adalah...
+                  <ol class="pilihan-ganda">
+                      <li data-option="A">$70,2$</li>
+                      <li data-option="B">$72,5$</li>
+                      <li data-option="C">$75,2$</li>
+                      <li data-option="D">$77,5$</li>
+                  </ol>
+                </div>
+            </div>
+
+            <!-- Soal 9 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">9.</div>
+                <div class="soal-konten">
+                  Data tinggi badan  $10$  siswa kelas VI SD Taman Hati sebagai berikut:<br>
+                  $140,$ $130,$ $140,$ $140,$ $135,$ $135,$ $130,$ $135,$ $140,$ $125$<br><br>
+                  Tentukan <b>Benar</b> atau <b>Salah</b> untuk pernyataan berikut terkait ukuran pemusatan data tinggi badan tersebut!
+                  <table class="tf-table">
+                      <thead>
+                          <tr><th>Pernyataan</th><th width="40px">Benar</th><th width="40px">Salah</th></tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>Rata-rata tinggi badan siswa adalah $135$ cm.</td><td></td><td></td></tr>
+                          <tr><td>Median dari data tinggi badan tersebut adalah $135$ cm.</td><td></td><td></td></tr>
+                          <tr><td>Modus dari data tinggi badan tersebut adalah $140$ cm.</td><td></td><td></td></tr>
+                          <tr><td>Siswa tertinggi memiliki tinggi badan $145$ cm.</td><td></td><td></td></tr>
+                      </tbody>
+                  </table>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 4 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 10 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">10.</div>
+                <div class="soal-konten">
+                  Berikut ini diagram batang yang menunjukkan data siswa di SD Mawar.
+                  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjyXWoniBD_aXi7ALL3HixQygG1z7b4I3sJ5dsNYuIERVFZ3sksvlxx0_u8bCcc5Eeyj6YdDTXE_MKenHFIsVdpCKu-H_A-W9ylPxyeelExrpam_8RnpQWHagukhO4veKdwTPsQ6ZzHY06TAm197D7zZKG3j1c9O4zSlcq2g_qcNKQcuhyphenhyphen6F2SVVhrwONgW/s1600/soal-tka-sd-mi-matematika-dan-pembahasan-kunci-jawaban.jpg" class="visual-illustration large" />
+                  Jumlah siswa di SD Mawar ada $141$ siswa.<br><br>
+                  Berdasarkan informasi di atas, tentukan pernyataan yang tepat!<br><br>
+                  <strong>(Jawaban benar lebih dari satu)</strong>
+                  <ul class="pilihan-ganda-kompleks">
+                      <li>Jumlah siswa kelas IV SD Mawar ada $25$ siswa.</li>
+                      <li>Selisih siswa kelas III dengan kelas IV ada $4$ siswa.</li>
+                      <li>Jumlah siswa kelas IV lebih dari siswa kelas VI.</li>
+                      <li>Jumlah siswa kelas I dan II adalah $45$ siswa.</li>
+                  </ul>
+                </div>
+            </div>
+
+            <!-- Soal 11 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">11.</div>
+                <div class="soal-konten">
+                  Berikut data nilai hasil ulangan Bahasa Indonesia dari 30 siswa kelas VI SD Merdeka.<br>
+                  $60,$ $70,$ $70,$ $80,$ $80,$ $70,$ $80,$ $100,$ $70,$ $90,$<br>
+                  $90,$ $70,$ $60,$ $80,$ $90,$ $90,$ $80,$ $60,$ $70,$ $90,$ <br>
+                  $70,$ $80,$ $100,$ $80,$ $80,$ $90,$ $80,$ $90,$ $80,$ $90.$<br><br>
+                  Diagram batang yang mewakili data tersebut adalah....
+                  <ol class="pilihan-ganda">
+                      <li data-option="A"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjigS_Y8sE9ukly4jIPtGgDoaVVN2hLf7j5DQi8jbF3nxFxagT2rwzIHfXPskp4eZEN8g8YZJtLpx4RNPOM5T89mJkmFSbT27rImKsDrX43u67xSTlHBEDmIKAUfjvU9CQY1n6C_h6vH_U-7rMxFiSNt-tLONay0jgTO3-ls339Npwh5MGsBjnIpuoh2-ZO/s1600/diagram-a.jpg" style="max-height: 115px; vertical-align: middle; margin-left: 10px;"/></li>
+                      <li data-option="B"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj8B1Ii0rqt8l27sFnK7g4XXlUvvI6og5pVa8MlQd1EjSw4fkqfKXBPNRczhDkcMRRnGpm5Nz_5n-4WzCisfyxgtSw4ae_kI2moC7UsSG-WRTSgPlvG_kIlaBKsbpVo5hpXZBIT91H4oVMTCk6L3e8E21yr_hQ7DFH5nUh96So8MOF2q7van5GZUxBqvnmT/s1600/diagram-b.jpg" style="max-height: 115px; vertical-align: middle; margin-left: 10px;"/></li>
+                      <li data-option="C"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDvanuTAazDQQvcRFBqXNSroXkVac0pQJJ5vDGbPpECvrgceyJB2FeUwyVoCRFafvoLKYuvDbT0SmgmvCk92uxGisA2w5r0rRrgNpvAQVeJ1ch_s9ZJRP0gzfenZ15NzNi8r6T7Sn1YL0XZQv_odL_bd3JOsrdnpcmfcr_W-x2j_C45zf6vxzMPg6hAvjZ/s1600/diagram-c.jpg" style="max-height: 115px; vertical-align: middle; margin-left: 10px;"/></li>
+                      <li data-option="D"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiPL_T_FjhtVbreH1JLvzyD5-qL8CYw_cdHmUjFxXWpBShEqvpNsL719s5-DtHGitRqY5WC5oWPkyTE013TSyG4DYY-5WqByI_WTIUAsZonmBaxCvp7bPdbWj06oyMgXSss7Srl_k3pteUJyizAWr9WzuNSx6U9iymL3SR1A4VqQpbLg6AULOoX_2REOKNU/s1600/diagram-d.jpg" style="max-height: 115px; vertical-align: middle; margin-left: 10px;"/></li>
+                  </ol>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 5 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+            
+            <!-- Soal 12 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">12.</div>
+                <div class="soal-konten">
+                  Hasil panen kebun pak Budi seluruhnya $665\ \text{kg}$ dengan perincian sebagai berikut: buah mangga $150\ \text{kg}$, buah jeruk $165\ \text{kg}$, buah manggis $180\ \text{kg}$, dan sisanya buah alpukat. <br><br>Tentukan <b>Benar</b> atau <b>Salah</b> untuk pernyataan berikut berdasarkan rincian panen tersebut!
+                  <table class="tf-table">
+                      <thead>
+                          <tr><th>Pernyataan</th><th width="40px">Benar</th><th width="40px">Salah</th></tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>Berat panen buah alpukat adalah $170\ \text{kg}$.</td><td></td><td></td></tr>
+                          <tr><td>Modus dari hasil penjualan buah tersebut adalah buah manggis.</td><td></td><td></td></tr>
+                          <tr><td>Buah yang paling sedikit dipanen adalah buah jeruk.</td><td></td><td></td></tr>
+                          <tr><td>Selisih berat buah manggis dan alpukat adalah $15\ \text{kg}$.</td><td></td><td></td></tr>
+                      </tbody>
+                  </table>
+                </div>
+            </div>
+
+            <!-- Soal 13 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">13.</div>
+                <div class="soal-konten">
+                  Perhatikan tabel berikut! Tabel Jumlah Siswa Kelas VI Berdasarkan Hobi Olahraga.
+                  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_qK0oubFhQ2wh5e1kWs2YKtZsxdhwb3VFPLhlMrU9106URE0nJ0wZQ5UHag-S4HG7PmjGFEAGar8dhaP5StlNQbEoYSyf0AoI12oqEg13IWGwiLYOIUng-SAk2OhnMnKMHLGpNFiZuc3Woy7yqP0ai-dNml1RTTkc_euzXF7s3xW2BwLDBJjfnVDBYg/s1600/tabel%20jenis%20olahraga.jpg" class="visual-illustration large" />
+                  Diagram garis yang sesuai dengan data pada tabel tersebut adalah...
+                  <ol class="pilihan-ganda">
+                      <li data-option="A"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzFA79uU8Od4_giu5aPX7IyjEnpJ0ZnBsBpd0NWbtJpDj2CftYmtA0pipaWaTs-FnwPB9f689Hw-4qvjgbdgDQKZTVsBxBJopQ-FiPHkZerCNZNLxE8qiQaHJWulNOVl21mo1NosyvBMqMCiSgkaNSN7XdkeUlw9GEWW1hUrX3veL7mNA2fkgjignymA/s1600/tabel%20jenis%20olahraga-a.jpg" style="max-height: 115px; vertical-align: middle; margin-left: 10px;"/></li>
+                      <li data-option="B"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5_Ea2S-bX4kUHwe262xTPMc0amb8vyuMo1yCw4Mz8IPab7CORd2NkcVqcxrk6JgpH6WRYV5rM3w9ud1llQOtJhY7qUmAlFsLKoArzlXBRLdBbeK3ezSBx6ReBjDYP2uZklp232KzXxpDyAhXZIm82giqWBtBanv6kJ0hcJZVBhm4FebTkYN0_rxIufA/s1600/tabel%20jenis%20olahraga-b.jpg" style="max-height: 115px; vertical-align: middle; margin-left: 10px;"/></li>
+                      <li data-option="C"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVW7EG6mkheT-9Qg4g6zyxXIPRpXYLKxWpEZk_LlmyjTsE7Gy0g_KSN0B_ErWOEeM1MU5BM4-oDdScO1TG3LFPlRdy5rG9V3qLegxGf7iWPzkzLyfoqVZCZaioTSWV-BDOc0zC1TnCXdX1yeI-aH6lZiSzHC_EDffC5C-D3JeTxNSClR6K-S7tPq99WQ/s1600/tabel%20jenis%20olahraga-c.jpg" style="max-height: 115px; vertical-align: middle; margin-left: 10px;"/></li>
+                      <li data-option="D"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeUOyn-QYq0xUqVDfYCt-vm4QOQS6Rsoz8phaisebFobeipQZKmvLObHKSIc-Xw7iBr0WlMibeqPzhIvnQnyzChWIiOf83uak1rjohpEAngDjYHwA9KD0XiH4CRnyBXi7WzD4pv7poOWLI2GlWzO1RkJRcHHUChwszRCndkSvwHAZjNGDTo4VUzIZJZw/s1600/tabel%20jenis%20olahraga-d.jpg" style="max-height: 115px; vertical-align: middle; margin-left: 10px;"/></li>
+                  </ol>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- HALAMAN 6 -->
+      <!-- ========================================== -->
+      <section class="page">
+        <header class="page-header">
+          <div class="header-top-box">
+            <div>
+              <div class="header-title-main">Bank Aktivitas</div>
+              <div class="header-title-sub">
+                <strong>Matematika SD</strong>
+              </div>
+            </div>
+            <img
+              src="https://imgix3.ruangguru.com/assets/miscellaneous/png_imib4n_1531.png"
+              alt="Brain Academy Logo"
+              class="header-logo"
+            />
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <div class="layout-2-kolom">
+
+            <!-- Soal 14 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">14.</div>
+                <div class="soal-konten">
+                  Daftar Nilai Ulangan Matematika Kelas VI SD Juara adalah sebagai berikut:<br>
+                  $94$, $100$, $64$, $68$, $64$, $68$, $78$, $84$, $94$, $78$, $84$, $84$, $78$, $84$, $94$, $100$, $68$, $78$, $84$, $94$, $78$, $68$, $78$, $64$, $68$, $78$, dan $84$<br><br>
+                  Tentukan <b>Benar</b> atau <b>Salah</b> untuk pernyataan berikut berdasarkan data nilai ulangan tersebut!
+                  <table class="tf-table">
+                      <thead>
+                          <tr><th>Pernyataan</th><th width="40px">Benar</th><th width="40px">Salah</th></tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>Siswa yang mendapat nilai $84$ sebanyak $6$ orang.</td><td></td><td></td></tr>
+                          <tr><td>Nilai yang paling banyak diperoleh siswa adalah $78$.</td><td></td><td></td></tr>
+                          <tr><td>Ada $4$ siswa yang mendapatkan nilai $100$.</td><td></td><td></td></tr>
+                          <tr><td>Siswa yang mendapat nilai di bawah $70$ berjumlah $8$ orang.</td><td></td><td></td></tr>
+                      </tbody>
+                  </table>
+                </div>
+            </div>
+
+            <!-- Soal 15 -->
+            <div class="soal-latihan">
+                <div class="soal-nomor">15.</div>
+                <div class="soal-konten">
+                  Nilai ulangan matematika siswa kelas VI SD Taman Hati sebagai berikut:<br>
+                  $85,$ $70,$ $75,$ $80,$ $80,$<br>
+                  $90,$ $95,$ $65,$ $70,$ $70,$<br>
+                  $65,$ $75,$ $70,$ $80,$ $80,$<br>
+                  $80,$ $90,$ $85,$ $80,$ $85,$<br><br>
+                  Berdasarkan data nilai ulangan tersebut, tentukan pernyataan yang tepat!<br><br>
+                  <strong>(Jawaban benar lebih dari satu)</strong>
+                  <ul class="pilihan-ganda-kompleks">
+                      <li>Siswa yang mendapatkan nilai $80$ ada $6$ orang.</li>
+                      <li>Siswa yang mendapatkan nilai terendah ada $2$ orang.</li>
+                      <li>Sebagian besar siswa mendapatkan nilai $70$.</li>
+                      <li>Jumlah siswa yang mendapatkan nilai $85$ dan $90$ sama banyak.</li>
+                  </ul>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        <footer class="page-footer">
+          Copyright Ⓒ 2026 - PT Ruang Raya Indonesia - All Rights Reserved. Dilarang menyebarluaskan dokumen ini tanpa seizin PT Ruang Raya Indonesia.
+        </footer>
+      </section>
+
+    </div>
+  </body>
+</html>
