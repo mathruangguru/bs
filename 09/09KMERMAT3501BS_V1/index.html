@@ -50,28 +50,27 @@
         .page {
             background: white;
             width: 21cm;
-            min-height: 29.7cm;
-            /* Menggunakan margin dari permintaan: T:1.8, B:1.5, L/R:2.5 */
+            height: 29.7cm; /* Menggunakan height pasti agar sesuai A4 */
             padding: 1.8cm 2.5cm 1.5cm 2.5cm;
             margin: 1cm auto;
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
             position: relative;
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* Mencegah konten meluber keluar */
         }
         
         .page::after {
             counter-increment: page;
             content: counter(page);
             position: absolute;
-            bottom: 1cm;
+            bottom: 0.8cm;
             right: 2.5cm;
             font-size: 8.5pt;
             color: #888;
         }
 
         .page-header {
-            /* Disesuaikan agar pas dengan padding baru */
             margin: -1.8cm -2.5cm 20px -2.5cm;
             width: 21cm;
         }
@@ -123,6 +122,7 @@
             z-index: 1; 
             width: 100%; 
             flex-grow: 1;
+            overflow: hidden; /* Mencegah tumpah ke footer */
         }
         
         h2.kuis-title { 
@@ -132,20 +132,19 @@
             padding: 2px 10px;
             border-radius: 4px;
             margin-top: 0; 
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: left;
             font-weight: 700;
             display: inline-block;
         }
 
-        /* Mengembalikan layout 2 kolom */
         .layout-2-kolom { 
             columns: 2; 
             column-gap: 15mm; 
         }
 
         .soal-latihan { 
-            margin-bottom: 20px; 
+            margin-bottom: 15px; /* Disesuaikan agar lebih ringkas */
             break-inside: avoid; 
             overflow-wrap: break-word; 
             word-wrap: break-word; 
@@ -154,12 +153,12 @@
         }
         
         ol { padding-left: 0; }
-        ol.pilihan-ganda { list-style-type: none; padding-left: 20px; margin-top: 10px;}
-        ol.pilihan-ganda li { margin-bottom: 8px; }
+        ol.pilihan-ganda { list-style-type: none; padding-left: 20px; margin-top: 8px;}
+        ol.pilihan-ganda li { margin-bottom: 6px; }
         ol.pilihan-ganda li::before { content: attr(data-option) ". "; font-weight: bold; margin-right: 5px; }
         
-        table.soal-kategori { width:100%; border-collapse: collapse; text-align: left; margin-top: 10px; }
-        table.soal-kategori th, table.soal-kategori td { padding: 8px; border: 1px solid #ccc; vertical-align: middle; }
+        table.soal-kategori { width:100%; border-collapse: collapse; text-align: left; margin-top: 8px; }
+        table.soal-kategori th, table.soal-kategori td { padding: 6px; border: 1px solid #ccc; vertical-align: middle; }
         table.soal-kategori th:not(:first-child) { text-align: center; width: 60px;}
         table.soal-kategori td:not(:first-child) { text-align: center; }
 
@@ -168,54 +167,52 @@
             font-size: 8pt;
             color: var(--secondary-text);
             padding-top: 15px;
-            margin-top: auto;
+            margin-top: auto; /* Mengunci footer ke bawah wrapper (flexbox magic) */
             border-top: 1px solid var(--border-color);
         }
 
+        /* Penyesuaian khusus media cetak / print preview */
         @media print {
-            body { 
-                background: none; 
+            @page {
+                size: A4 portrait;
+                margin: 0; /* Menghilangkan margin browser bawaan */
+            }
+            html, body {
+                width: 21cm;
+                height: 100%;
+                background: white; 
+                margin: 0;
+                padding: 0;
             }
             .page { 
-                width: 100%; 
-                min-height: 29.7cm;
-                height: 100%;
+                width: 21cm; 
+                /* Menggunakan tinggi 29.6cm untuk menghindari bug halaman ekstra kosong di Chrome */
+                height: 29.6cm; 
+                max-height: 29.6cm;
                 margin: 0; 
-                /* Padding disesuaikan dengan margin + ruang ekstra untuk footer */
-                padding: 1.8cm 2.5cm 3cm 2.5cm; 
+                padding: 1.8cm 2.5cm 1.5cm 2.5cm; 
                 box-shadow: none; 
                 page-break-after: always;
+                page-break-inside: avoid;
+                border: none;
             }
             .page:last-child {
-                page-break-after: avoid;
+                page-break-after: auto; /* Mencegah halaman kosong di akhir dokumen */
             }
             
             .page-header {
                 display: block; 
-                margin: -1.8cm -2.5cm 20px -2.5cm;
+                margin: -1.8cm -2.5cm 15px -2.5cm;
                 position: relative;
             }
             
-            .header-top-box, .header-bottom-text, .kuis-title {
+            .header-top-box, .header-bottom-text, .kuis-title, table.soal-kategori th {
                 -webkit-print-color-adjust: exact; 
                 print-color-adjust: exact;
             }
-
-            .page-footer {
-                position: fixed;
-                bottom: 1.5cm; /* Sesuai permintaan margin bawah */
-                left: 2.5cm;  /* Sesuai permintaan margin kiri */
-                right: 2.5cm; /* Sesuai permintaan margin kanan */
-                width: auto;
-                margin-top: 0; 
-                padding-top: 5px;
-                font-size: 7.5pt;
-                border-top: 1px solid var(--border-color);
-                background: white;
-            }
             
              .page::after {
-                 bottom: 1cm; /* Posisikan nomor halaman di bawah footer */
+                 bottom: 0.8cm; 
              }
         }
 
@@ -225,7 +222,7 @@
 
 <div class="page-container">
 
-    <!-- HALAMAN 1 -->
+    <!-- HALAMAN 1 (Soal 1 - 5) -->
     <section class="page">
         <header class="page-header">
             <div class="header-top-box">
@@ -245,7 +242,7 @@
         <div class="content-wrapper">
             <h2 class="kuis-title">Kuis</h2>
             <div class="layout-2-kolom">
-                <!-- Soal Tipe 1: Pilihan Ganda Biasa -->
+                <!-- Soal 1 -->
                 <div class="soal-latihan"><b>1.</b> Diketahui himpunan pasangan berurutan $R = \{(1, a), (2, b), (3, a), (4, c)\}$. Range dari relasi tersebut adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{1, 2, 3, 4\}$</li>
@@ -255,6 +252,7 @@
                     </ol>
                 </div>
                 
+                <!-- Soal 2 -->
                 <div class="soal-latihan"><b>2.</b> Di antara himpunan pasangan berurutan berikut, manakah yang merupakan fungsi?
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{(a, 1), (b, 2), (c, 3), (a, 4)\}$</li>
@@ -264,6 +262,7 @@
                     </ol>
                 </div>
 
+                <!-- Soal 3 -->
                 <div class="soal-latihan"><b>3.</b> Sebuah fungsi didefinisikan dengan rumus $f(x) = 3x - 5$. Jika domain fungsi tersebut adalah $D = \{ -2, -1, 0, 1, 2 \}$, maka daerah hasilnya (range) adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$\{ -11, -8, -5, -2, 1 \}$</li>
@@ -273,7 +272,7 @@
                     </ol>
                 </div>
                 
-                <!-- SOAL BARU 1 (Menggantikan no. 4) - Aplikasi - PG Kompleks Kategori -->
+                <!-- Soal 4 -->
                 <div class="soal-latihan">
                     <b>4.</b> Sebuah jasa kurir menetapkan tarif pengiriman paket berdasarkan berat. Tarifnya adalah Rp10.000 untuk 1 kg pertama, dan ditambah Rp3.000 untuk setiap kg (atau bagiannya) berikutnya. Jika $w$ adalah berat paket dalam kg dan $B(w)$ adalah biaya pengiriman, tentukan kebenaran dari setiap pernyataan berikut.
                     <table class="soal-kategori">
@@ -287,22 +286,13 @@
                     </table>
                 </div>
 
+                <!-- Soal 5 -->
                  <div class="soal-latihan"><b>5.</b> Diketahui fungsi $f: A \rightarrow B$. Himpunan $A$ disebut sebagai...
                     <ol class="pilihan-ganda">
                         <li data-option="A">Domain (daerah asal)</li>
                         <li data-option="B">Kodomain (daerah kawan)</li>
                         <li data-option="C">Range (daerah hasil)</li>
                         <li data-option="D">Relasi</li>
-                    </ol>
-                </div>
-                
-                <!-- SOAL BARU 2 (Menggantikan no. 6) - Aplikasi - PG Kompleks Multiple Answers -->
-                 <div class="soal-latihan"><b>6.</b> Dua provider seluler menawarkan paket data bulanan. Provider X menawarkan paket Rp60.000 untuk kuota 15 GB, dengan biaya kelebihan pemakaian Rp4.000 per GB. Provider Y menawarkan paket Rp80.000 untuk kuota 25 GB, dengan biaya kelebihan pemakaian Rp3.000 per GB. Manakah pernyataan berikut yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
-                    <ol class="pilihan-ganda">
-                        <li data-option="A">Untuk pemakaian 20 GB dalam sebulan, Provider X lebih murah.</li>
-                        <li data-option="B">Untuk pemakaian 28 GB dalam sebulan, Provider Y lebih murah.</li>
-                        <li data-option="C">Biaya kedua provider akan sama persis pada pemakaian 22 GB.</li>
-                        <li data-option="D">Domain untuk fungsi biaya kedua provider adalah bilangan real non-negatif.</li>
                     </ol>
                 </div>
             </div>
@@ -313,7 +303,7 @@
         </footer>
     </section>
 
-    <!-- HALAMAN 2 -->
+    <!-- HALAMAN 2 (Soal 6 - 11) -->
     <section class="page">
         <header class="page-header">
             <div class="header-top-box">
@@ -332,7 +322,17 @@
 
         <div class="content-wrapper">
              <div class="layout-2-kolom">
-                <!-- SOAL BARU 3 (Menggantikan no. 7) - Penalaran - PG Kompleks Multiple Answers -->
+                <!-- Soal 6 -->
+                 <div class="soal-latihan"><b>6.</b> Dua provider seluler menawarkan paket data bulanan. Provider X menawarkan paket Rp60.000 untuk kuota 15 GB, dengan biaya kelebihan pemakaian Rp4.000 per GB. Provider Y menawarkan paket Rp80.000 untuk kuota 25 GB, dengan biaya kelebihan pemakaian Rp3.000 per GB. Manakah pernyataan berikut yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Untuk pemakaian 20 GB dalam sebulan, Provider X lebih murah.</li>
+                        <li data-option="B">Untuk pemakaian 28 GB dalam sebulan, Provider Y lebih murah.</li>
+                        <li data-option="C">Biaya kedua provider akan sama persis pada pemakaian 22 GB.</li>
+                        <li data-option="D">Domain untuk fungsi biaya kedua provider adalah bilangan real non-negatif.</li>
+                    </ol>
+                </div>
+                 
+                <!-- Soal 7 -->
                 <div class="soal-latihan"><b>7.</b> Diketahui fungsi kuadrat $f(x) = -(x-2)^2 + 9$. Manakah pernyataan berikut yang benar mengenai grafik fungsi tersebut? <b>(bisa pilih lebih dari satu jawaban)</b>
                     <ol class="pilihan-ganda">
                         <li data-option="A">Grafik fungsi terbuka ke bawah.</li>
@@ -342,6 +342,7 @@
                     </ol>
                 </div>
 
+               <!-- Soal 8 -->
                <div class="soal-latihan"><b>8.</b> Sebuah persegi panjang memiliki keliling 30 cm. Jika panjangnya adalah $p$ cm, maka fungsi yang menyatakan luasnya, $L(p)$, adalah $L(p) = p(15-p)$. Mengingat konteks fisiknya, domain yang paling mungkin untuk fungsi ini adalah...
                     <ol class="pilihan-ganda">
                         <li data-option="A">$p$ adalah bilangan real</li>
@@ -351,7 +352,7 @@
                     </ol>
                 </div>
                 
-                <!-- Soal Tipe 2: Pilihan Ganda Kompleks (Multiple Answers) -->
+                <!-- Soal 9 -->
                 <div class="soal-latihan"><b>9.</b> Diketahui fungsi $g(x) = x^2 - 4$ dengan domain $D_g = \{x | -3 \le x \le 3, x \in \text{bilangan bulat}\}$. Manakah pernyataan berikut yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
                     <ol class="pilihan-ganda">
                         <li data-option="A">Domain fungsi adalah $\{-3, -2, -1, 0, 1, 2, 3\}$.</li>
@@ -361,6 +362,7 @@
                     </ol>
                 </div>
 
+                <!-- Soal 10 -->
                 <div class="soal-latihan"><b>10.</b> Perhatikan relasi "makanan khas dari" dari himpunan P = {Soto, Bakso, Rawon} ke Q = {Surabaya, Lamongan, Malang} yang disajikan sebagai berikut: Soto $\rightarrow$ Lamongan, Bakso $\rightarrow$ Malang, Rawon $\rightarrow$ Surabaya, dan Rawon $\rightarrow$ Malang. Pernyataan mana saja yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
                     <ol class="pilihan-ganda">
                         <li data-option="A">Relasi tersebut adalah sebuah fungsi.</li>
@@ -370,21 +372,13 @@
                     </ol>
                 </div>
 
+                <!-- Soal 11 -->
                 <div class="soal-latihan"><b>11.</b> Suatu fungsi dapat disajikan dalam bentuk... <b>(bisa pilih lebih dari satu jawaban)</b>
                     <ol class="pilihan-ganda">
                         <li data-option="A">Diagram panah</li>
                         <li data-option="B">Tabel</li>
                         <li data-option="C">Himpunan pasangan berurutan</li>
                         <li data-option="D">Grafik Kartesius</li>
-                    </ol>
-                </div>
-                
-                <div class="soal-latihan"><b>12.</b> Sebuah toko online memberikan diskon sebesar 20% untuk semua produk. Jika $h$ adalah harga asli produk, maka fungsi harga setelah diskon adalah $D(h) = 0,8h$. Manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
-                    <ol class="pilihan-ganda">
-                        <li data-option="A">Domain fungsi adalah semua bilangan real lebih besar dari nol.</li>
-                        <li data-option="B">Jika harga asli Rp100.000, harga setelah diskon Rp80.000.</li>
-                        <li data-option="C">Range fungsi sama dengan domainnya.</li>
-                        <li data-option="D">Jika seseorang membayar Rp40.000, maka harga aslinya Rp50.000.</li>
                     </ol>
                 </div>
              </div>
@@ -395,7 +389,7 @@
         </footer>
     </section>
 
-    <!-- HALAMAN 3 -->
+    <!-- HALAMAN 3 (Soal 12 - 15) -->
     <section class="page">
         <header class="page-header">
             <div class="header-top-box">
@@ -414,7 +408,17 @@
         
         <div class="content-wrapper">
              <div class="layout-2-kolom">
-                <!-- Soal Tipe 3: Pilihan Ganda Kompleks (Kategori) -->
+                <!-- Soal 12 -->
+                <div class="soal-latihan"><b>12.</b> Sebuah toko online memberikan diskon sebesar 20% untuk semua produk. Jika $h$ adalah harga asli produk, maka fungsi harga setelah diskon adalah $D(h) = 0,8h$. Manakah pernyataan yang benar? <b>(bisa pilih lebih dari satu jawaban)</b>
+                    <ol class="pilihan-ganda">
+                        <li data-option="A">Domain fungsi adalah semua bilangan real lebih besar dari nol.</li>
+                        <li data-option="B">Jika harga asli Rp100.000, harga setelah diskon Rp80.000.</li>
+                        <li data-option="C">Range fungsi sama dengan domainnya.</li>
+                        <li data-option="D">Jika seseorang membayar Rp40.000, maka harga aslinya Rp50.000.</li>
+                    </ol>
+                </div>
+
+                <!-- Soal 13 -->
                 <div class="soal-latihan">
                     <b>13.</b>
                     Perhatikan relasi-relasi yang disajikan dalam himpunan pasangan berurutan berikut. Tentukan apakah setiap relasi merupakan fungsi atau bukan.
@@ -429,6 +433,7 @@
                     </table>
                 </div>
 
+                <!-- Soal 14 -->
                 <div class="soal-latihan">
                     <b>14.</b>
                     Sebuah fungsi $f$ didefinisikan sebagai $f(x) = 10 - x^2$ dengan domain bilangan asli kurang dari 4. Tentukan kebenaran dari setiap pernyataan berikut.
@@ -443,7 +448,7 @@
                     </table>
                 </div>
                 
-                <!-- SOAL BARU 4 (Menggantikan no. 15) - Penalaran - PG Kompleks Kategori -->
+                <!-- Soal 15 -->
                 <div class="soal-latihan">
                     <b>15.</b>
                     Diberikan sebuah fungsi $f(x)$. Tentukan kebenaran dari setiap pernyataan mengenai transformasi (pergeseran atau pencerminan) dari fungsi tersebut.
@@ -469,4 +474,3 @@
 
 </body>
 </html>
-
